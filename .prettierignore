@@ -1,0 +1,9 @@
+.next
+node_modules
+supabase/.temp
+supabase/migrations/meta
+playwright-report
+test-results
+package-lock.json
+.impeccable
+supabase/templates

@@ -1,0 +1,225 @@
+{
+  "common": {
+    "brand": "Ranna",
+    "actions": {
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "continue": "Continuer",
+      "back": "Retour",
+      "close": "Fermer",
+      "retry": "Réessayer",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "copy": "Copier",
+      "copied": "Copié"
+    },
+    "languages": {
+      "label": "Langue",
+      "ar": "العربية",
+      "fr": "Français",
+      "en": "English"
+    },
+    "theme": {
+      "label": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Comme l’appareil"
+    },
+    "a11y": {
+      "skipToContent": "Aller au contenu",
+      "openMenu": "Ouvrir le menu",
+      "closeMenu": "Fermer le menu",
+      "loading": "Chargement"
+    },
+    "errors": {
+      "generic": "Un problème est survenu de notre côté. Réessayez dans un instant.",
+      "network": "Vous semblez hors ligne. Vérifiez la connexion et réessayez.",
+      "rateLimited": "Trop de tentatives. Patientez {seconds, plural, one {# seconde} other {# secondes}} puis réessayez.",
+      "forbidden": "Vous n’avez pas accès à cette page.",
+      "invalid": "Certains champs sont à corriger.",
+      "notFoundTitle": "Cette page n’existe pas",
+      "notFoundBody": "Le lien est peut-être ancien, ou l’adresse contient une faute.",
+      "notFoundAction": "Retour à l’accueil",
+      "crashTitle": "Cet écran n’a pas pu se charger",
+      "crashBody": "Rien n’est perdu. Rechargez pour réessayer."
+    }
+  },
+  "site": {
+    "nav": {
+      "pricing": "Tarifs",
+      "login": "Connexion",
+      "start": "Commencer"
+    },
+    "hero": {
+      "title": "Le téléphone du client sonne quand la commande est prête.",
+      "body": "Vos clients scannent un QR code, commandent sur votre menu et attendent où ils veulent. Vous appuyez sur « Prête » et leur téléphone les appelle. Sans application, sans bipeurs, sans foule au comptoir.",
+      "cta": "Créer ma boutique",
+      "secondary": "J’ai déjà un compte"
+    },
+    "footer": {
+      "terms": "Conditions",
+      "privacy": "Confidentialité",
+      "rights": "© {year} {brand}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion à votre boutique",
+      "body": "Avec votre e-mail et mot de passe, ou un lien à usage unique.",
+      "submit": "Se connecter",
+      "noAccount": "Nouveau ?",
+      "createAccount": "Créer une boutique"
+    },
+    "signup": {
+      "title": "Créez votre boutique",
+      "body": "Votre page se configure dès que votre abonnement est actif.",
+      "submit": "Créer le compte",
+      "haveAccount": "Déjà un compte ?",
+      "logIn": "Se connecter",
+      "terms": "En créant un compte, vous acceptez les <terms>conditions</terms> et la <privacy>politique de confidentialité</privacy>."
+    },
+    "fields": {
+      "shopName": "Nom de la boutique",
+      "shopNameHint": "Tel que vos clients le connaissent, ex. Café El Bahdja",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "passwordHint": "8 caractères minimum"
+    },
+    "method": {
+      "label": "Comment voulez-vous vous connecter ?",
+      "password": "Mot de passe",
+      "magicLink": "Lien par e-mail"
+    },
+    "magic": {
+      "submit": "M’envoyer un lien",
+      "sentTitle": "Consultez votre boîte mail",
+      "sentBody": "Nous avons envoyé un lien de connexion à {email}. Il fonctionne une seule fois et expire dans une heure.",
+      "useAnother": "Utiliser un autre e-mail"
+    },
+    "confirm": {
+      "title": "Confirmez votre e-mail",
+      "body": "Nous avons envoyé un lien de confirmation à {email}. Ouvrez-le pour terminer la création de votre boutique."
+    },
+    "errors": {
+      "invalidCredentials": "Cet e-mail et ce mot de passe ne correspondent pas.",
+      "emailTaken": "Un compte existe déjà avec cet e-mail. Connectez-vous plutôt.",
+      "weakPassword": "Choisissez un mot de passe plus long : 8 caractères minimum.",
+      "linkExpired": "Ce lien a expiré ou a déjà servi. Demandez-en un nouveau.",
+      "emailRequired": "Saisissez votre e-mail.",
+      "emailInvalid": "Saisissez une adresse e-mail valide.",
+      "shopNameRequired": "Saisissez le nom de votre boutique.",
+      "shopNameTooLong": "Le nom doit faire moins de 80 caractères."
+    },
+    "signOut": "Se déconnecter"
+  },
+  "console": {
+    "nav": {
+      "label": "Principal",
+      "overview": "Vue d’ensemble",
+      "orders": "Commandes",
+      "menu": "Menu",
+      "shop": "Page boutique",
+      "qr": "QR codes",
+      "staff": "Équipe",
+      "billing": "Abonnement",
+      "settings": "Paramètres",
+      "admin": "Administration"
+    },
+    "shell": {
+      "open": "Ouvert",
+      "closed": "Fermé",
+      "accepting": "Prend les commandes",
+      "paused": "Commandes en pause",
+      "viewShop": "Voir la page boutique",
+      "account": "Compte",
+      "role": {
+        "owner": "Propriétaire",
+        "staff": "Équipe"
+      }
+    },
+    "account": {
+      "pending_payment": {
+        "title": "Activez votre abonnement pour ouvrir la boutique",
+        "body": "Tout est prêt. Choisissez une formule pour débloquer votre page, votre menu et vos QR codes.",
+        "action": "Choisir une formule"
+      },
+      "past_due": {
+        "title": "Paiement en retard : la boutique reste ouverte jusqu’au {date}",
+        "body": "Renouvelez avant cette date pour continuer à recevoir des commandes.",
+        "action": "Renouveler"
+      },
+      "suspended": {
+        "title": "Votre boutique est hors ligne",
+        "body": "Vos clients voient une page « temporairement indisponible ». Renouvelez pour rouvrir.",
+        "action": "Renouveler"
+      },
+      "canceled": {
+        "title": "Votre abonnement est terminé",
+        "body": "Votre menu et votre historique sont conservés. Réabonnez-vous pour rouvrir.",
+        "action": "S’abonner"
+      },
+      "readOnly": "Lecture seule jusqu’à l’activation de votre abonnement."
+    },
+    "overview": {
+      "title": "Vue d’ensemble",
+      "serviceNow": "Service en cours",
+      "lanes": {
+        "new": "Nouvelles",
+        "preparing": "En préparation",
+        "ready": "Prêtes"
+      },
+      "openBoard": "Ouvrir le tableau des commandes",
+      "today": "Aujourd’hui",
+      "ordersToday": "{count, plural, =0 {Aucune commande} one {# commande} other {# commandes}}",
+      "revenueToday": "Encaissé au comptoir",
+      "setupTitle": "Mettez votre boutique en ligne",
+      "setup": {
+        "plan": "Activer une formule",
+        "shop": "Configurer la page : nom, lien, logo, couleurs",
+        "menu": "Ajouter votre menu",
+        "qr": "Imprimer vos QR codes"
+      }
+    },
+    "start": {
+      "title": "Nommez votre boutique",
+      "body": "Ce compte n’est lié à aucune boutique. Créez-en une, ou ouvrez le lien d’invitation envoyé par votre responsable.",
+      "submit": "Créer la boutique"
+    },
+    "pending": {
+      "title": "Prévu dans la prochaine phase",
+      "body": "Cette section est planifiée et son modèle de données est déjà en place."
+    }
+  },
+  "admin": {
+    "nav": {
+      "merchants": "Commerçants",
+      "payments": "Paiements",
+      "plans": "Formules",
+      "metrics": "Indicateurs",
+      "backToShop": "Retour à ma boutique"
+    },
+    "title": "Administration",
+    "merchants": {
+      "title": "Commerçants",
+      "columns": {
+        "name": "Boutique",
+        "link": "Lien",
+        "status": "Statut",
+        "plan": "Formule",
+        "periodEnd": "Payé jusqu’au",
+        "created": "Inscrit le"
+      },
+      "empty": "Aucun commerçant pour l’instant.",
+      "noPlan": "Aucune",
+      "noSlug": "Non défini"
+    },
+    "status": {
+      "pending_payment": "En attente de paiement",
+      "active": "Actif",
+      "past_due": "En retard",
+      "suspended": "Suspendu",
+      "canceled": "Résilié"
+    }
+  }
+}

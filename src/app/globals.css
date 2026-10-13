@@ -1,0 +1,282 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Ranna design tokens: Kabyle painted pottery.
+ * Slip-white grounds, manganese ink, a fired-clay rail, red-ochre action, and enamel/resin
+ * colours that only ever mean order state. Contrast is checked in tests/unit/tokens.test.ts.
+ */
+:root {
+  --radius: 0.75rem;
+
+  /* grounds and ink */
+  --background: oklch(0.968 0.007 75); /* kaolin slip */
+  --foreground: oklch(0.235 0.018 40); /* manganese ink */
+  --card: oklch(0.992 0.003 75);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.992 0.003 75);
+  --popover-foreground: var(--foreground);
+  --muted: oklch(0.94 0.01 65);
+  --muted-foreground: oklch(0.47 0.022 45);
+  --secondary: oklch(0.93 0.014 60);
+  --secondary-foreground: var(--foreground);
+  --accent: oklch(0.925 0.02 52);
+  --accent-foreground: var(--foreground);
+  --border: oklch(0.885 0.012 60); /* hairline, decorative */
+  --input: oklch(0.66 0.02 50); /* control boundary, >= 3:1 */
+
+  /* action: red ochre */
+  --primary: oklch(0.53 0.15 38);
+  --primary-foreground: oklch(1 0 0);
+  --ring: oklch(0.53 0.15 38);
+  --destructive: oklch(0.45 0.15 22); /* oxblood */
+  --destructive-foreground: oklch(1 0 0);
+
+  /* the rail: fired clay */
+  --clay: oklch(0.38 0.105 30);
+  --clay-foreground: oklch(0.965 0.012 70);
+  --clay-muted: oklch(0.84 0.04 45);
+  --clay-line: oklch(0.47 0.1 30);
+  --clay-hover: oklch(0.43 0.11 30);
+
+  /* order states: enamel + resin */
+  --state-new: oklch(0.47 0.13 262); /* cobalt enamel */
+  --state-new-foreground: oklch(1 0 0);
+  --state-preparing: oklch(0.74 0.13 72); /* resin amber */
+  --state-preparing-foreground: oklch(0.235 0.018 40);
+  --state-ready: oklch(0.5 0.11 162); /* enamel green */
+  --state-ready-foreground: oklch(1 0 0);
+  --state-done: oklch(0.47 0.022 45);
+  --state-done-foreground: oklch(1 0 0);
+  --state-canceled: oklch(0.45 0.15 22);
+  --state-canceled-foreground: oklch(1 0 0);
+
+  --chart-1: var(--state-new);
+  --chart-2: var(--state-preparing);
+  --chart-3: var(--state-ready);
+  --chart-4: var(--primary);
+  --chart-5: var(--clay);
+
+  /* the band: lattice ink */
+  --band-ink: var(--foreground);
+  --band-empty: oklch(0.82 0.015 55);
+  --band-late: var(--primary);
+
+  --sidebar: var(--clay);
+  --sidebar-foreground: var(--clay-foreground);
+  --sidebar-primary: var(--clay-foreground);
+  --sidebar-primary-foreground: var(--clay);
+  --sidebar-accent: var(--clay-hover);
+  --sidebar-accent-foreground: var(--clay-foreground);
+  --sidebar-border: var(--clay-line);
+  --sidebar-ring: var(--clay-muted);
+}
+
+/* Fired clay at night: the console's dark theme. */
+.dark {
+  --background: oklch(0.175 0.012 40);
+  --foreground: oklch(0.94 0.01 75);
+  --card: oklch(0.215 0.014 40);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.235 0.015 40);
+  --popover-foreground: var(--foreground);
+  --muted: oklch(0.25 0.014 40);
+  --muted-foreground: oklch(0.72 0.02 55);
+  --secondary: oklch(0.27 0.016 40);
+  --secondary-foreground: var(--foreground);
+  --accent: oklch(0.29 0.02 40);
+  --accent-foreground: var(--foreground);
+  --border: oklch(0.32 0.016 40);
+  --input: oklch(0.53 0.02 45);
+
+  --primary: oklch(0.7 0.14 45);
+  --primary-foreground: oklch(0.175 0.012 40);
+  --ring: oklch(0.7 0.14 45);
+  --destructive: oklch(0.66 0.16 25);
+  --destructive-foreground: oklch(0.175 0.012 40);
+
+  --clay: oklch(0.27 0.07 30);
+  --clay-foreground: oklch(0.95 0.012 70);
+  --clay-muted: oklch(0.8 0.04 45);
+  --clay-line: oklch(0.36 0.07 30);
+  --clay-hover: oklch(0.32 0.075 30);
+
+  --state-new: oklch(0.7 0.11 262);
+  --state-new-foreground: oklch(0.175 0.012 40);
+  --state-preparing: oklch(0.78 0.12 75);
+  --state-preparing-foreground: oklch(0.175 0.012 40);
+  --state-ready: oklch(0.72 0.12 162);
+  --state-ready-foreground: oklch(0.175 0.012 40);
+  --state-done: oklch(0.72 0.02 55);
+  --state-done-foreground: oklch(0.175 0.012 40);
+  --state-canceled: oklch(0.66 0.16 25);
+  --state-canceled-foreground: oklch(0.175 0.012 40);
+
+  --band-empty: oklch(0.38 0.016 45);
+}
+
+@theme inline {
+  --font-sans: var(--font-ui);
+  --font-display: var(--font-alexandria), var(--font-ui);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-clay: var(--clay);
+  --color-clay-foreground: var(--clay-foreground);
+  --color-clay-muted: var(--clay-muted);
+  --color-clay-line: var(--clay-line);
+  --color-clay-hover: var(--clay-hover);
+
+  --color-state-new: var(--state-new);
+  --color-state-new-foreground: var(--state-new-foreground);
+  --color-state-preparing: var(--state-preparing);
+  --color-state-preparing-foreground: var(--state-preparing-foreground);
+  --color-state-ready: var(--state-ready);
+  --color-state-ready-foreground: var(--state-ready-foreground);
+  --color-state-done: var(--state-done);
+  --color-state-done-foreground: var(--state-done-foreground);
+  --color-state-canceled: var(--state-canceled);
+  --color-state-canceled-foreground: var(--state-canceled-foreground);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scrollbar-color: color-mix(in oklch, var(--foreground) 28%, transparent) transparent;
+    /* Latin UI in Inter, Arabic falls through to Cairo. */
+    --font-ui: var(--font-inter), var(--font-cairo), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  html:lang(ar) {
+    /* Arabic pages lead with Cairo so digits and Latin fragments share its metrics. */
+    --font-ui: var(--font-cairo), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    caret-color: var(--primary);
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 24%, transparent);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Numbers line up on boards, tables and totals. */
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* The order number: display-scale numerals, the only headline on any order surface. */
+@utility order-number {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+/* Hairline band: a row of 45° lozenges between two rules (decorative divider). */
+@utility band-rule {
+  height: 9px;
+  background-color: currentColor;
+  mask-image:
+    linear-gradient(#000, #000), linear-gradient(#000, #000),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 2 7 4.5 4.5 7 2 4.5Z'/%3E%3C/svg%3E");
+  mask-size:
+    100% 1px,
+    100% 1px,
+    9px 9px;
+  mask-position:
+    0 0,
+    0 100%,
+    0 0;
+  mask-repeat: no-repeat, no-repeat, repeat-x;
+  opacity: 0.55;
+}

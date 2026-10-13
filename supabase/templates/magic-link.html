@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="{{ if eq .Data.locale "fr" }}fr{{ else if eq .Data.locale "en" }}en{{ else }}ar{{ end }}" dir="{{ if or (eq .Data.locale "fr") (eq .Data.locale "en") }}ltr{{ else }}rtl{{ end }}">
+  <body style="margin:0;background:#f7f4ef;font-family:Tahoma,Arial,sans-serif;color:#261b18">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" style="max-width:480px;background:#fefcfa;border-radius:14px;overflow:hidden">
+            <tr><td style="background:#70271e;color:#f9f2eb;padding:20px 28px;font-size:20px;font-weight:bold">رنّة · Ranna</td></tr>
+            <tr>
+              <td style="padding:28px">
+                {{ if eq .Data.locale "fr" }}
+                <h1 style="font-size:20px;margin:0 0 12px">Votre lien de connexion</h1>
+                <p style="line-height:1.6;margin:0 0 24px">Appuyez sur le bouton pour ouvrir votre boutique. Le lien fonctionne une seule fois et expire dans une heure.</p>
+                <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/fr/dashboard" style="display:inline-block;background:#b14420;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:bold">Se connecter</a>
+                <p style="line-height:1.6;margin:24px 0 0;color:#665751;font-size:13px">Vous n’avez rien demandé ? Ignorez cet e-mail.</p>
+                {{ else if eq .Data.locale "en" }}
+                <h1 style="font-size:20px;margin:0 0 12px">Your sign-in link</h1>
+                <p style="line-height:1.6;margin:0 0 24px">Tap the button to open your shop. The link works once and expires in one hour.</p>
+                <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/en/dashboard" style="display:inline-block;background:#b14420;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:bold">Log in</a>
+                <p style="line-height:1.6;margin:24px 0 0;color:#665751;font-size:13px">Didn’t ask for this? Ignore this email.</p>
+                {{ else }}
+                <h1 style="font-size:20px;margin:0 0 12px">رابط الدخول إلى متجرك</h1>
+                <p style="line-height:1.8;margin:0 0 24px">اضغط على الزر لفتح متجرك. يعمل الرابط مرة واحدة وتنتهي صلاحيته بعد ساعة.</p>
+                <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/dashboard" style="display:inline-block;background:#b14420;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:bold">دخول</a>
+                <p style="line-height:1.8;margin:24px 0 0;color:#665751;font-size:13px">لم تطلب هذا؟ تجاهل هذه الرسالة.</p>
+                {{ end }}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
