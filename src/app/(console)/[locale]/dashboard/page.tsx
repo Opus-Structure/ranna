@@ -3,8 +3,11 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { WaitBand } from "@/components/brand/wait-band";
 import { PageHeader } from "@/components/console/page-header";
+import { ShopToggles } from "@/components/shop-editor/shop-toggles";
 import { Link } from "@/i18n/navigation";
+import { redirect } from "@/i18n/navigation";
 import { requireOwner } from "@/lib/auth/guards";
+import { merchantAccess } from "@/lib/billing/access";
 import { getOverview, type Lane } from "@/lib/merchants/overview";
 import { formatMoney } from "@/lib/money";
 import { minutesBetween } from "@/lib/time";
@@ -25,6 +28,10 @@ const laneTone = {
 export default async function OverviewPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await initLocale(params);
   const ctx = await requireOwner(locale);
+  // First visit after activation: the setup wizard opens before anything else.
+  if (merchantAccess(ctx.merchant).canEdit && !ctx.merchant.setupCompletedAt) {
+    redirect({ href: "/dashboard/setup", locale });
+  }
   const t = await getTranslations("console.overview");
   const now = new Date();
   const data = await getOverview(ctx.user.id, ctx.merchant, now);
@@ -38,7 +45,18 @@ export default async function OverviewPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <PageHeader title={t("title")} />
+      <PageHeader
+        title={t("title")}
+        actions={
+          <ShopToggles
+            compact
+            isOpen={ctx.merchant.isOpen}
+            acceptingOrders={ctx.merchant.acceptingOrders}
+            canEditOpen
+            disabled={!merchantAccess(ctx.merchant).canEdit}
+          />
+        }
+      />
 
       <section aria-labelledby="service-now" className="flex flex-col gap-3">
         <h2 id="service-now" className="text-sm font-semibold text-muted-foreground">

@@ -60,3 +60,25 @@ Each entry records a choice the brief left open, with the reason. Newest decisio
 **D25. Emails.** A `Mailer` interface with a `log` implementation (bodies printed in development only, never in production logs) and a `resend` implementation. Account changes and receipt rejections email the owner in their own language.
 
 **D26. Shop creation is serialised per user.** Found during browser verification: on the first visit after signing up, the console layout and page render in parallel and both created a shop. Creation now takes a per-user advisory lock, covered by a regression test that fails without the lock.
+
+## Phase 3: Shop builder
+
+**D27. Customer surface structure: the ticket builder.** From the surface roll (seed `18468747`): a merchant-branded menu with a docked order "ticket" that grows as items are added and, once placed, becomes the numbered order ticket on the status page. The contract is in `.impeccable/surfaces/` (development only). The menu is built in this phase; the ticket arrives with ordering in phase 5.
+
+**D28. Merchant branding is enforced, not trusted.** `shopTheme()` derives the customer palette from any two colours. Text on a brand fill is white or ink, whichever has more contrast. Brand-coloured text on the page is darkened until it reaches 4.5:1 (`--brand-ink`). The editor shows a warning whenever a colour had to be corrected or still falls short. Brand fill appears only in the header band and the single primary action.
+
+**D29. Curated fonts.** Eight Google faces with Arabic and Latin coverage, declared through `next/font` with `preload: false`. `@font-face` is lazy, so a shop downloads only its own face.
+
+**D30. Slug redirects.** Changing the link records the old slug in `slug_redirects`, so `/s/old` answers with a 308 to `/s/new` and printed QR codes keep working. An owner can reclaim their own old slug. A slug that is, or was, another shop's is refused. Reserved words cover routes and impersonation risks.
+
+**D31. Public data is cached with tags.** The slug lookup and the public menu are cached for 60 s with tags (`shop:<id>`, `shop-slug:<slug>`). Every menu, branding, slug and account change invalidates them. The page itself stays dynamic for the CSP nonce.
+
+**D32. "Can a customer order now?" is one function.** `storefrontStatus()` requires all four: account live (active or in grace), shop switched open, inside posted opening hours (overnight hours supported), and taking orders. The phase 5 order endpoint will reuse it.
+
+**D33. Language fallback.** A visitor whose language the shop doesn't offer is redirected to the shop's main language. Menu texts fall back to the untranslated base name. Search ignores Latin accents and Arabic diacritics and letter variants.
+
+**D34. Images.** Logos, covers and dish photos are compressed in the browser (WebP, max 512/1600/1200 px), checked by content on the server, and stored under the merchant's own prefix in the public bucket. A replaced image's old file is deleted after the new record saves. An upload that is never saved can leave a stray file; a storage sweep is a possible later job.
+
+**D35. Staff may pause orders.** "Taking orders" can be paused by any member during a rush. "Open/closed" and everything else in the shop editor is owner-only.
+
+**D36. Week order.** The hours editor lists Saturday first, matching the Algerian working week. Day names come from `Intl`.

@@ -1,8 +1,8 @@
 ---
 version: 1
-slug: "src-app-locale-dashboard-layout-tsx"
-primary_target: "src/app/[locale]/dashboard/layout.tsx"
-related_targets: ["src/app/[locale]/admin/layout.tsx"]
+slug: "src-app-console-locale-dashboard-layout-tsx"
+primary_target: "src/app/(console)/[locale]/dashboard/layout.tsx"
+related_targets: ["src/app/(console)/[locale]/admin/layout.tsx"]
 ---
 
 ## Scope

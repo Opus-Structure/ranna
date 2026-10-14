@@ -8,9 +8,18 @@ function keys(obj: unknown, prefix = ""): string[] {
   return Object.entries(obj).flatMap(([k, v]) => keys(v, prefix ? `${prefix}.${k}` : k));
 }
 
+/**
+ * ICU argument names ({name} or {name, plural, …}). Braces that open a plural/select branch
+ * body (preceded by a selector such as `one` or `=0`) are skipped: they hold text, not names.
+ */
 function placeholders(text: string): string[] {
-  // Top-level ICU arguments only ({name} or {name, plural, ...}).
-  return [...text.matchAll(/\{(\w+)[,}]/g)].map((m) => m[1]!).sort();
+  const names: string[] = [];
+  for (const m of text.matchAll(/\{(\w+)[,}]/g)) {
+    const before = text.slice(0, m.index).trimEnd();
+    if (/(?:=\d+|\b(?:zero|one|two|few|many|other))$/.test(before)) continue;
+    names.push(m[1]!);
+  }
+  return names.sort();
 }
 
 function get(obj: unknown, path: string): unknown {

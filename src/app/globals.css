@@ -280,3 +280,11 @@
   mask-repeat: no-repeat, no-repeat, repeat-x;
   opacity: 0.55;
 }
+
+/* Horizontal chip rows scroll by touch; the bar itself stays out of sight. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

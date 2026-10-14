@@ -15,6 +15,7 @@ const config = [
       "playwright-report/**",
       "test-results/**",
       ".impeccable/**",
+      ".scratch/**",
     ],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),

@@ -4,6 +4,7 @@ import { billingConfig } from "@/config/billing";
 import { writeAudit } from "@/lib/audit/log";
 import { serviceDb, type Tx } from "@/lib/db/client";
 import { merchants, subscriptions } from "@/lib/db/schema";
+import { invalidateShop } from "@/lib/shop/cache";
 import {
   transition,
   type AccountEvent,
@@ -108,5 +109,8 @@ export async function applyAccountEvent(
     });
     return { ...result, merchantId, from };
   };
-  return tx ? run(tx) : serviceDb.transaction(run);
+  const result = tx ? await run(tx) : await serviceDb.transaction(run);
+  // Status decides whether the public shop page is live; drop its cached copy.
+  if (result.ok && result.changed) invalidateShop(merchantId);
+  return result;
 }
