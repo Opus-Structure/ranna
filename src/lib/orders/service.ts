@@ -11,6 +11,7 @@ import { storefrontStatus } from "@/lib/shop/status";
 import { businessDate } from "@/lib/time";
 import { placeOrderSchema } from "@/lib/validation/order";
 import { priceOrder, type PricingError } from "./pricing";
+import { ringOrder } from "./ring";
 import { hashToken, orderTokenFor, orderTopic, TOKEN_PATTERN } from "./token";
 import { canTransition, customerStage, timestampFor, type OrderStatus } from "./transitions";
 
@@ -304,7 +305,8 @@ export type StatusChangeResult =
 
 /**
  * Moves an order through its lifecycle as a staff member (RLS-scoped to their shop), stamps the
- * step's time and tells the customer's page. Phase 7 adds the ring on "ready".
+ * step's time and tells the customer's page. "Ready" also rings the customer's phones
+ * (push, then the SMS/WhatsApp fallback), awaited so serverless platforms don't cut it off.
  */
 export async function setOrderStatus(
   ctx: MerchantContext,
@@ -312,6 +314,7 @@ export async function setOrderStatus(
   to: OrderStatus,
   opts: { cancelReason?: string } = {},
   publisher: RealtimePublisher = supabaseBroadcast,
+  ringer: (orderId: string) => Promise<unknown> = (id) => ringOrder(id, "ready"),
 ): Promise<StatusChangeResult> {
   if (!/^[0-9a-f-]{36}$/i.test(orderId)) return { ok: false, error: "not_found" };
   const reason = opts.cancelReason?.trim().slice(0, 200) ?? "";
@@ -348,6 +351,18 @@ export async function setOrderStatus(
     return { ok: true, tokenHash: order.tokenHash, updated: updated! } as const;
   });
   if (!result.ok) return result;
-  await publisher.publish(orderTopic(result.tokenHash), "status", statusPayload(result.updated));
+  let payload = statusPayload(result.updated);
+  if (to === "ready") {
+    // A fresh "ready" (also after "Not ready yet") must ring even if the customer had already
+    // said they were coming. These columns are service-written, after RLS approved the move.
+    const now = new Date();
+    await serviceDb
+      .update(orders)
+      .set({ acknowledgedAt: null, ringCount: 1, lastRungAt: now })
+      .where(eq(orders.id, orderId));
+    payload = { ...payload, acknowledgedAt: null };
+  }
+  await publisher.publish(orderTopic(result.tokenHash), "status", payload);
+  if (to === "ready") await ringer(orderId);
   return { ok: true, status: to };
 }

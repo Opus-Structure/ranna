@@ -1,5 +1,5 @@
 import "server-only";
-import { createTranslator } from "next-intl";
+import { createTranslator } from "use-intl/core";
 import { isAppLocale, routing, type AppLocale } from "@/i18n/routing";
 import ar from "../../../messages/ar.json";
 import en from "../../../messages/en.json";

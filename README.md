@@ -4,7 +4,7 @@ Multi-tenant QR ordering for restaurants, cafés, food trucks and snack shops, w
 
 The working name lives in [`src/config/brand.ts`](src/config/brand.ts). Product context: [PRODUCT.md](PRODUCT.md) · plan: [PLAN.md](PLAN.md) · decisions: [DECISIONS.md](DECISIONS.md).
 
-> Status: phases 1–6 of 10 done (foundation; billing; shop builder; QR codes; ordering; order board and staff). After `npm run seed`, order from the demo shop at `/s/demo`, run it from the board at `/dashboard/orders` and follow it live at `/o/<token>`. Sections marked _planned_ arrive in later phases.
+> Status: phases 1–7 of 10 done (foundation; billing; shop builder; QR codes; ordering; order board and staff; ring system). After `npm run seed`, order from the demo shop at `/s/demo`, run it from the board at `/dashboard/orders` and get rung at `/o/<token>`. Sections marked _planned_ arrive in later phases.
 
 ## Quick start (about 10 minutes)
 
@@ -108,4 +108,20 @@ tests/unit · tests/db        Vitest suites
 
 ## Deployment _(planned: phase 10)_
 
-## What alerts work where _(planned: phase 7)_
+## What alerts work where
+
+When the counter taps **Ready**, the customer is told through every channel their phone allows. This is what each phone can actually do; the order page tells the customer which case applies to them.
+
+| Customer's phone and browser                                             | Page open, screen on                               | Page in background / screen off                               | Page closed                      |
+| ------------------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------- | -------------------------------- |
+| Android, Chrome / Samsung Internet / Firefox                             | Full-screen alert, looping sound, vibration        | Push notification with vibration (after "Ring my phone")      | Push notification                |
+| iPhone, Safari tab (iOS 16.4+)                                           | Full-screen alert; sound after one tap on the page | No push from a Safari tab: nothing until the page is reopened | Nothing (no push from a tab)     |
+| iPhone, added to Home Screen (iOS 16.4+)                                 | Full-screen alert, sound                           | Push notification                                             | Push notification                |
+| iPhone before iOS 16.4                                                   | Full-screen alert; sound after one tap             | Nothing                                                       | Nothing                          |
+| Desktop Chrome / Edge / Firefox / Safari 16+                             | Full-screen alert, sound                           | Push notification                                             | Push only while the browser runs |
+| Notifications denied, or in-app browsers (Instagram, Facebook, WhatsApp) | Full-screen alert, sound                           | Nothing                                                       | Nothing                          |
+
+- **Fallback:** if no push got through and the shop enabled it in Settings, an SMS/WhatsApp is sent to the customer's phone number (optional field). v1 ships a mock adapter that sends nothing and records the attempt as skipped; plug a real provider into `src/lib/notify/messaging.ts`.
+- **Vibration** is not available on iPhone in any browser. **Sound** in a background tab depends on the browser and is not relied on.
+- **Keeping the screen on** while waiting uses the Screen Wake Lock API (Chrome/Android, Safari 16.4+); elsewhere the page asks the customer to keep it open.
+- Staff can **Ring again** (every 30 s, up to 6 times); the counter and the call-out screen remain the last resort.

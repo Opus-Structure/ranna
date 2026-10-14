@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import type { CustomerOrderStatus } from "@/lib/orders/service";
 import { useOrderLive } from "@/lib/orders/use-order-live";
+import { AlertsPanel } from "./alerts-panel";
+import { ReadyAlert } from "./ready-alert";
 import { cn } from "@/lib/utils";
 
 const steps = ["received", "preparing", "ready"] as const;
@@ -26,8 +28,15 @@ export function OrderTicket({
   children?: React.ReactNode;
 }) {
   const t = useTranslations("order.status");
-  const { status, live } = useOrderLive(token, topic, initial);
+  const { status, setStatus, live, ringAt } = useOrderLive(token, topic, initial);
   const stage = status.stage;
+  const ringing = stage === "ready" && !status.acknowledgedAt;
+
+  function acknowledge() {
+    // Stop ringing at once; the server tells other tabs and the board.
+    setStatus((s) => ({ ...s, acknowledgedAt: new Date().toISOString() }));
+    void fetch(`/api/orders/${token}/ack`, { method: "POST" }).catch(() => undefined);
+  }
   const ready = stage === "ready";
   const collected = stage === "collected";
   const stepIndex = collected ? steps.length : steps.indexOf(stage as (typeof steps)[number]);
@@ -145,7 +154,19 @@ export function OrderTicket({
       <p aria-live="assertive" className="sr-only">
         {announcement}
       </p>
+      {status.acknowledgedAt && ready ? (
+        <p className="-mt-2 text-center text-sm font-semibold text-[var(--brand-ink)]">
+          {t("onTheWay")}
+        </p>
+      ) : null}
+      <AlertsPanel token={token} open={stage === "received" || stage === "preparing"} />
       {children}
+      <ReadyAlert
+        number={status.number}
+        active={ringing}
+        ringAt={ringAt}
+        onAcknowledge={acknowledge}
+      />
     </section>
   );
 }

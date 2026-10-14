@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, MessageSquareText, MoreHorizontal, PersonStanding } from "lucide-react";
+import { BellRing, Loader2, MessageSquareText, MoreHorizontal, PersonStanding } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { WaitBand } from "@/components/brand/wait-band";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,7 @@ export function OrderCard({
   pending,
   onMove,
   onCancel,
+  onRing,
 }: {
   order: BoardOrder;
   now: number;
@@ -55,6 +56,7 @@ export function OrderCard({
   pending: boolean;
   onMove: (order: BoardOrder, to: OrderStatus) => void;
   onCancel: (order: BoardOrder) => void;
+  onRing: (order: BoardOrder) => void;
 }) {
   const t = useTranslations("orders");
   const waited = Math.max(0, Math.floor((now - Date.parse(order.statusAt)) / 60_000));
@@ -160,6 +162,12 @@ export function OrderCard({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              {order.status === "ready" ? (
+                <DropdownMenuItem onSelect={() => onRing(order)}>
+                  <BellRing aria-hidden />
+                  {t("actions.ringAgain")}
+                </DropdownMenuItem>
+              ) : null}
               {extra ? (
                 <>
                   <DropdownMenuItem onSelect={() => onMove(order, extra.to)}>

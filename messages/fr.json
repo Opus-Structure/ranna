@@ -805,6 +805,45 @@
       "notFound": {
         "title": "Commande introuvable",
         "body": "Le lien est peut-être incomplet. Vérifiez l’adresse ou demandez au comptoir."
+      },
+      "onTheWay": "La boutique sait que vous arrivez."
+    },
+    "alerts": {
+      "title": "Être prévenu quand c’est prêt",
+      "body": "On fait sonner et vibrer ce téléphone et on envoie une notification, même s’il est dans votre poche.",
+      "bodyNoPush": "Ce navigateur ne reçoit pas de notifications. Gardez cette page ouverte : elle sonnera et vibrera ici.",
+      "bodyIos": "Sur iPhone, les notifications ne marchent qu’une fois la page ajoutée à l’écran d’accueil. Gardez la page ouverte pour qu’elle sonne ici, ou ajoutez-la ci-dessous.",
+      "enable": "Faire sonner mon téléphone",
+      "enableHere": "Sonner sur cette page",
+      "on": "On vous prévient quand c’est prêt",
+      "status": {
+        "push": "Notification : activée, même écran éteint",
+        "noPush": {
+          "denied": "Notifications bloquées pour ce site : gardez cette page ouverte",
+          "unsupported": "Pas de notifications dans ce navigateur : gardez cette page ouverte",
+          "error": "Impossible d’activer les notifications : gardez cette page ouverte",
+          "skipped": "Pas de notification tant que la page n’est pas sur l’écran d’accueil"
+        },
+        "page": "Son et vibration tant que cette page est ouverte",
+        "awake": "L’écran reste allumé pendant l’attente"
+      },
+      "ios": {
+        "title": "Ajouter à l’écran d’accueil pour les notifications",
+        "step1": "Touchez Partager dans Safari",
+        "shareIcon": "Partager",
+        "step2": "Choisissez « Sur l’écran d’accueil »",
+        "step3": "Ouvrez la nouvelle icône, puis touchez « Faire sonner mon téléphone »."
+      },
+      "ready": {
+        "title": "Votre commande est prête",
+        "numberLabel": "Numéro {number}",
+        "body": "Présentez-vous au comptoir avec ce numéro.",
+        "acknowledge": "Compris, j’arrive",
+        "tabTitle": "{number} est prête"
+      },
+      "push": {
+        "title": "Votre commande {number} est prête",
+        "body": "{shop} : venez au comptoir."
       }
     }
   },
@@ -834,7 +873,8 @@
     "waitLabel": "Attente : {minutes} sur {target} minutes",
     "acknowledged": "Le client arrive",
     "toast": {
-      "ready": "{number} est prête. Le client est prévenu."
+      "ready": "{number} est prête. Le client est prévenu.",
+      "rang": "{number} a été rappelé."
     },
     "actions": {
       "preparing": "Préparer",
@@ -843,7 +883,8 @@
       "readyNow": "Marquer prête maintenant",
       "backToPreparing": "Pas encore prête",
       "cancel": "Annuler la commande…",
-      "more": "Autres actions pour la commande {number}"
+      "more": "Autres actions pour la commande {number}",
+      "ringAgain": "Sonner à nouveau"
     },
     "cancel": {
       "title": "Annuler la commande {number} ?",
@@ -877,7 +918,14 @@
       "reason_required": "Indiquez un motif pour que le client comprenne.",
       "forbidden": "Vous n’avez plus accès à cette boutique.",
       "not_found": "Cette commande n’existe plus.",
-      "generic": "Enregistrement impossible. Vérifiez la connexion et réessayez."
+      "generic": "Enregistrement impossible. Vérifiez la connexion et réessayez.",
+      "ring": {
+        "not_found": "Cette commande n’existe plus.",
+        "not_ready": "Seules les commandes prêtes peuvent sonner.",
+        "rate_limited": "Déjà sonné. Attendez 30 secondes.",
+        "too_many": "Déjà sonné 6 fois. Appelez le numéro à voix haute.",
+        "forbidden": "Vous n’avez plus accès à cette boutique."
+      }
     },
     "history": {
       "title": "Historique des commandes",

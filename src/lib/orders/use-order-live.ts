@@ -13,6 +13,8 @@ export type LiveState = "live" | "connecting" | "offline";
 export function useOrderLive(token: string, topic: string, initial: CustomerOrderStatus) {
   const [status, setStatus] = useState(initial);
   const [live, setLive] = useState<LiveState>("connecting");
+  /** Set when staff tap "Ring again": restarts the alarm even after "I'm coming". */
+  const [ringAt, setRingAt] = useState<string | null>(null);
 
   useEffect(() => {
     let stopped = false;
@@ -30,6 +32,11 @@ export function useOrderLive(token: string, topic: string, initial: CustomerOrde
       channel
         .on("broadcast", { event: "status" }, (message) => {
           setStatus(message.payload as CustomerOrderStatus);
+        })
+        .on("broadcast", { event: "ring" }, (message) => {
+          const at = (message.payload as { at?: unknown }).at;
+          setRingAt(typeof at === "string" ? at : new Date().toISOString());
+          setStatus((s) => ({ ...s, acknowledgedAt: null }));
         })
         .subscribe((state) =>
           setLive(state === "SUBSCRIBED" ? "live" : state === "CLOSED" ? "offline" : "connecting"),
@@ -72,5 +79,5 @@ export function useOrderLive(token: string, topic: string, initial: CustomerOrde
     };
   }, [token]);
 
-  return { status, live };
+  return { status, setStatus, live, ringAt };
 }

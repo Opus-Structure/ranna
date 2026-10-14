@@ -15,14 +15,20 @@ import { assetUrl } from "@/lib/storage/public-url";
 type Params = Promise<{ locale: string; token: string }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const { token } = await params;
+  const { token, locale } = await params;
   const order = await loadCustomerOrder(token);
   const t = await getTranslations("order.status");
   // Never indexed, never previewed: the URL is the customer's only credential.
+  const base: Metadata = { robots: { index: false, follow: false }, referrer: "same-origin" };
+  if (!order) return { ...base, title: t("notFound.title") };
+  const title = `${order.number} · ${order.shop.name}`;
   return {
-    title: order ? `${order.number} · ${order.shop.name}` : t("notFound.title"),
-    robots: { index: false, follow: false },
-    referrer: "same-origin",
+    ...base,
+    title,
+    // "Add to Home Screen" installs this order (iPhone push needs the Home Screen app).
+    manifest: `/api/orders/${token}/manifest?locale=${locale}`,
+    appleWebApp: { capable: true, title, statusBarStyle: "default" },
+    icons: { icon: "/icons/icon.svg", apple: "/icons/apple-touch-icon.png" },
   };
 }
 

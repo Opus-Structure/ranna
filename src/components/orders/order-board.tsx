@@ -4,7 +4,10 @@ import { Bell, BellOff } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
-import { changeStatusAction } from "@/app/(console)/[locale]/dashboard/orders/actions";
+import {
+  changeStatusAction,
+  ringAgainAction,
+} from "@/app/(console)/[locale]/dashboard/orders/actions";
 import { Button } from "@/components/ui/button";
 import type { Board, BoardOrder } from "@/lib/orders/board";
 import {
@@ -106,6 +109,19 @@ export function OrderBoard({
         });
         void refresh();
       }
+    });
+  }
+
+  function ringAgain(order: BoardOrder) {
+    startTransition(async () => {
+      try {
+        const result = await ringAgainAction(order.id);
+        if (result.ok) toast.success(t("toast.rang", { number: order.number }));
+        else toast.error(t(`errors.ring.${result.error}`));
+      } catch {
+        toast.error(t("errors.generic"));
+      }
+      void refresh();
     });
   }
 
@@ -231,6 +247,7 @@ export function OrderBoard({
                     pending={pending.has(o.id)}
                     onMove={(order, to) => move(order, to)}
                     onCancel={setCanceling}
+                    onRing={ringAgain}
                   />
                 ))
               )}

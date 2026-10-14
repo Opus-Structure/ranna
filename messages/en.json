@@ -805,6 +805,45 @@
       "notFound": {
         "title": "Order not found",
         "body": "This link may be incomplete. Check the address, or ask at the counter."
+      },
+      "onTheWay": "The shop knows you’re on your way."
+    },
+    "alerts": {
+      "title": "Get rung when it’s ready",
+      "body": "We’ll ring this phone with a sound, a vibration and a notification, even if you put it in your pocket.",
+      "bodyNoPush": "This browser can’t receive notifications. Keep this page open and we’ll ring here with a sound and a vibration.",
+      "bodyIos": "On iPhone, notifications only work once this page is on your Home Screen. Keep the page open and we’ll ring here, or add it to your Home Screen below.",
+      "enable": "Ring my phone",
+      "enableHere": "Ring me on this page",
+      "on": "We’ll ring you when it’s ready",
+      "status": {
+        "push": "Notification: on, even if the screen is off",
+        "noPush": {
+          "denied": "Notifications are blocked for this site: keep this page open",
+          "unsupported": "No notifications in this browser: keep this page open",
+          "error": "Couldn’t turn on notifications: keep this page open",
+          "skipped": "No notification until the page is on your Home Screen"
+        },
+        "page": "Sound and vibration while this page is open",
+        "awake": "Your screen stays on while you wait"
+      },
+      "ios": {
+        "title": "Add to Home Screen for notifications",
+        "step1": "Tap Share in Safari",
+        "shareIcon": "Share",
+        "step2": "Choose “Add to Home Screen”",
+        "step3": "Open the new icon, then tap “Ring my phone” there."
+      },
+      "ready": {
+        "title": "Your order is ready",
+        "numberLabel": "Number {number}",
+        "body": "Come to the counter and show this number.",
+        "acknowledge": "Got it, I’m coming",
+        "tabTitle": "{number} is ready"
+      },
+      "push": {
+        "title": "Your order {number} is ready",
+        "body": "{shop}: come to the counter."
       }
     }
   },
@@ -834,7 +873,8 @@
     "waitLabel": "Waiting {minutes} of {target} minutes",
     "acknowledged": "Customer is on the way",
     "toast": {
-      "ready": "{number} is ready. The customer has been told."
+      "ready": "{number} is ready. The customer has been told.",
+      "rang": "Rang {number} again."
     },
     "actions": {
       "preparing": "Start preparing",
@@ -843,7 +883,8 @@
       "readyNow": "Mark ready now",
       "backToPreparing": "Not ready yet",
       "cancel": "Cancel order…",
-      "more": "More actions for order {number}"
+      "more": "More actions for order {number}",
+      "ringAgain": "Ring again"
     },
     "cancel": {
       "title": "Cancel order {number}?",
@@ -877,7 +918,14 @@
       "reason_required": "Give a reason so the customer knows.",
       "forbidden": "You no longer have access to this shop.",
       "not_found": "This order no longer exists.",
-      "generic": "Couldn’t save. Check the connection and try again."
+      "generic": "Couldn’t save. Check the connection and try again.",
+      "ring": {
+        "not_found": "This order no longer exists.",
+        "not_ready": "Only ready orders can be rung.",
+        "rate_limited": "Just rang. Wait 30 seconds before ringing again.",
+        "too_many": "Already rung 6 times. Call the number out instead.",
+        "forbidden": "You no longer have access to this shop."
+      }
     },
     "history": {
       "title": "Order history",

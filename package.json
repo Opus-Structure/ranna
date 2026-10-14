@@ -25,6 +25,7 @@
     "db:migrate": "supabase migration up",
     "seed": "tsx --conditions=react-server scripts/seed.ts",
     "vapid": "tsx scripts/vapid.ts",
+    "icons": "tsx scripts/icons.ts",
     "check": "npm run lint && npm run typecheck && npm run test:all",
     "test:all": "vitest run"
   },
@@ -53,6 +54,7 @@
     "server-only": "^0.0.1",
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.7.0",
+    "use-intl": "4.14.9",
     "web-push": "^3.6.7",
     "zod": "^4.6.7"
   },

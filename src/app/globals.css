@@ -292,6 +292,17 @@
   }
 }
 
+/* The ring takeover: alternates between the enamel green and a deeper shade of it. */
+@keyframes ready-flash {
+  0%,
+  100% {
+    background-color: var(--state-ready);
+  }
+  50% {
+    background-color: color-mix(in oklch, var(--state-ready) 72%, black);
+  }
+}
+
 /* Horizontal chip rows scroll by touch; the bar itself stays out of sight. */
 @utility no-scrollbar {
   scrollbar-width: none;
