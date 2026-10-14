@@ -3,7 +3,7 @@
  *   - subscription plans (placeholder prices from src/config/plans.ts)
  *   - a platform admin (SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD from .env.local)
  *   - the demo shop at /s/demo with a trilingual menu (owner: SEED_DEMO_EMAIL / SEED_DEMO_PASSWORD)
- * Phase 5 adds sample orders.
+ *   - sample orders on today's board for the demo shop (wiped and replaced on each run)
  * Run with the react-server condition so `server-only` modules load outside Next.
  */
 import { config } from "dotenv";
@@ -17,6 +17,7 @@ import { closeDb, serviceDb } from "@/lib/db/client";
 import { plans, profiles } from "@/lib/db/schema";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { seedDemoShop } from "./seed-demo";
+import { seedDemoOrders } from "./seed-orders";
 
 async function seedPlans() {
   for (const p of planSeeds) {
@@ -79,8 +80,9 @@ async function seedDemo() {
   const email = process.env.SEED_DEMO_EMAIL || "demo@ranna.local";
   const password = process.env.SEED_DEMO_PASSWORD || randomBytes(18).toString("base64url");
   const ownerId = await ensureAuthUser(email, password, { locale: "ar", full_name: "Demo owner" });
-  await seedDemoShop(ownerId);
+  const merchantId = await seedDemoShop(ownerId);
   console.info(`demo shop: /s/demo (owner ${email})`);
+  console.info(`demo orders: ${await seedDemoOrders(merchantId, ownerId)}`);
 }
 
 async function main() {

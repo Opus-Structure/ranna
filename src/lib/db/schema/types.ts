@@ -47,5 +47,7 @@ export type MerchantSettings = {
 export type OrderItemOptionSnapshot = {
   groupName: string;
   optionName: string;
+  /** Translations at the time of ordering, so the customer reads their order in their language. */
+  optionNameI18n?: I18nText;
   priceDeltaMinor: number;
 };

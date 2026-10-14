@@ -716,5 +716,96 @@
       "generic": "Something went wrong on our side. Try again in a moment.",
       "pdf": "This browser couldn’t create the PDF. Try another browser, or download the PNG."
     }
+  },
+  "order": {
+    "add": "Add · {price}",
+    "quantity": "Quantity",
+    "decrease": "One fewer",
+    "increase": "One more",
+    "choose": "Choose {count}",
+    "chooseUpTo": "Up to {count}",
+    "optional": "Optional",
+    "lineNote": "Note for the kitchen",
+    "lineNotePlaceholder": "e.g. no onion",
+    "soldOut": "Sold out",
+    "ticket": {
+      "items": "{count, plural, one {# item} other {# items}}",
+      "review": "Review order",
+      "title": "Your order",
+      "empty": "Your ticket is empty. Tap a dish to add it.",
+      "remove": "Remove {name}",
+      "total": "Total",
+      "payAtCounter": "You pay at the counter when you collect.",
+      "table": "Table: {label}",
+      "continue": "Add more"
+    },
+    "checkout": {
+      "name": "Your name",
+      "nameHint": "The shop calls this name when your order is ready.",
+      "phone": "Phone (optional)",
+      "phoneHint": "Only used to text you if your phone can’t receive the alert.",
+      "note": "Note for the shop (optional)",
+      "place": "Place order · {total}",
+      "placing": "Sending…"
+    },
+    "closed": "Ordering is closed right now",
+    "recent": "Your order {number}",
+    "errors": {
+      "nameRequired": "Enter a name so the shop can call you.",
+      "nameTooLong": "Keep the name under 40 characters.",
+      "phone": "Enter a valid phone number, or leave it empty.",
+      "noteTooLong": "Keep the note shorter.",
+      "empty": "Your ticket is empty.",
+      "too_many_lines": "That’s a lot of lines. Combine identical dishes.",
+      "quantity": "Check the quantities.",
+      "item_unavailable": "“{item}” just sold out. Remove it to continue.",
+      "option_required": "Choose the required options for “{item}”.",
+      "option_invalid": "The options for “{item}” changed. Remove it and add it again.",
+      "option_unavailable": "An option for “{item}” just ran out. Remove it and add it again.",
+      "too_many_options": "Too many choices for “{item}”.",
+      "total_too_large": "This order is too large to place online. Please order at the counter.",
+      "closed": "The shop just stopped taking orders.",
+      "paused": "The shop paused orders for a moment. Try again shortly.",
+      "shop_busy": "The shop can’t take more online orders right now. Please order at the counter.",
+      "rate_limited": "Too many orders from this device. Wait a few minutes.",
+      "not_found": "This shop is no longer available.",
+      "invalid": "Something in your order isn’t valid. Check it and try again.",
+      "network": "No connection. Your ticket is saved: try again when you’re back online.",
+      "generic": "Something went wrong on our side. Your ticket is saved: try again in a moment."
+    },
+    "status": {
+      "yourNumber": "Your number",
+      "progress": "Order progress",
+      "stages": {
+        "received": "Received",
+        "preparing": "Preparing",
+        "ready": "Ready"
+      },
+      "headline": {
+        "received": "The shop has your order",
+        "preparing": "Your order is being prepared",
+        "ready": "Your order is ready",
+        "collected": "Collected. Enjoy!",
+        "canceled": "This order was canceled"
+      },
+      "body": {
+        "received": "Wait wherever you like. This page updates by itself.",
+        "preparing": "Almost there. This page updates by itself.",
+        "ready": "Go to the counter and show this number.",
+        "collected": "Thank you for ordering.",
+        "canceled": "Reason given by the shop: {reason}"
+      },
+      "live": "Live",
+      "offline": "Reconnecting…",
+      "items": "Your order",
+      "name": "Name",
+      "table": "Table",
+      "placedAt": "Ordered at {time}",
+      "backToMenu": "Back to the menu",
+      "notFound": {
+        "title": "Order not found",
+        "body": "This link may be incomplete. Check the address, or ask at the counter."
+      }
+    }
   }
 }

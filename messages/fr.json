@@ -716,5 +716,96 @@
       "generic": "Un problème est survenu de notre côté. Réessayez dans un instant.",
       "pdf": "Ce navigateur n’a pas pu créer le PDF. Essayez un autre navigateur ou téléchargez le PNG."
     }
+  },
+  "order": {
+    "add": "Ajouter · {price}",
+    "quantity": "Quantité",
+    "decrease": "Un de moins",
+    "increase": "Un de plus",
+    "choose": "Choisissez {count}",
+    "chooseUpTo": "Jusqu’à {count}",
+    "optional": "Facultatif",
+    "lineNote": "Note pour la cuisine",
+    "lineNotePlaceholder": "ex. sans oignon",
+    "soldOut": "Épuisé",
+    "ticket": {
+      "items": "{count, plural, one {# article} other {# articles}}",
+      "review": "Voir la commande",
+      "title": "Votre commande",
+      "empty": "Votre ticket est vide. Touchez un plat pour l’ajouter.",
+      "remove": "Retirer {name}",
+      "total": "Total",
+      "payAtCounter": "Vous payez au comptoir en récupérant votre commande.",
+      "table": "Table : {label}",
+      "continue": "Ajouter autre chose"
+    },
+    "checkout": {
+      "name": "Votre prénom",
+      "nameHint": "La boutique appelle ce nom quand votre commande est prête.",
+      "phone": "Téléphone (facultatif)",
+      "phoneHint": "Utilisé seulement pour un SMS si votre téléphone ne peut pas recevoir l’alerte.",
+      "note": "Note pour la boutique (facultatif)",
+      "place": "Commander · {total}",
+      "placing": "Envoi…"
+    },
+    "closed": "Les commandes sont fermées pour le moment",
+    "recent": "Votre commande {number}",
+    "errors": {
+      "nameRequired": "Indiquez un prénom pour que la boutique puisse vous appeler.",
+      "nameTooLong": "Le prénom doit faire moins de 40 caractères.",
+      "phone": "Saisissez un numéro valide, ou laissez vide.",
+      "noteTooLong": "Raccourcissez la note.",
+      "empty": "Votre ticket est vide.",
+      "too_many_lines": "Beaucoup de lignes : regroupez les plats identiques.",
+      "quantity": "Vérifiez les quantités.",
+      "item_unavailable": "« {item} » vient d’être épuisé. Retirez-le pour continuer.",
+      "option_required": "Choisissez les options obligatoires pour « {item} ».",
+      "option_invalid": "Les options de « {item} » ont changé. Retirez-le puis ajoutez-le de nouveau.",
+      "option_unavailable": "Une option de « {item} » est épuisée. Retirez-le puis ajoutez-le de nouveau.",
+      "too_many_options": "Trop de choix pour « {item} ».",
+      "total_too_large": "Cette commande est trop importante pour être passée en ligne. Commandez au comptoir.",
+      "closed": "La boutique vient d’arrêter les commandes.",
+      "paused": "La boutique a mis les commandes en pause. Réessayez dans un instant.",
+      "shop_busy": "La boutique ne peut plus prendre de commandes en ligne pour le moment. Commandez au comptoir.",
+      "rate_limited": "Trop de commandes depuis cet appareil. Patientez quelques minutes.",
+      "not_found": "Cette boutique n’est plus disponible.",
+      "invalid": "Un élément de votre commande n’est pas valide. Vérifiez et réessayez.",
+      "network": "Pas de connexion. Votre ticket est enregistré : réessayez une fois en ligne.",
+      "generic": "Un problème est survenu de notre côté. Votre ticket est enregistré : réessayez dans un instant."
+    },
+    "status": {
+      "yourNumber": "Votre numéro",
+      "progress": "Avancement de la commande",
+      "stages": {
+        "received": "Reçue",
+        "preparing": "En préparation",
+        "ready": "Prête"
+      },
+      "headline": {
+        "received": "La boutique a reçu votre commande",
+        "preparing": "Votre commande est en préparation",
+        "ready": "Votre commande est prête",
+        "collected": "Récupérée. Bon appétit !",
+        "canceled": "Cette commande a été annulée"
+      },
+      "body": {
+        "received": "Attendez où vous voulez. Cette page se met à jour toute seule.",
+        "preparing": "Presque prête. Cette page se met à jour toute seule.",
+        "ready": "Présentez-vous au comptoir avec ce numéro.",
+        "collected": "Merci pour votre commande.",
+        "canceled": "Motif donné par la boutique : {reason}"
+      },
+      "live": "En direct",
+      "offline": "Reconnexion…",
+      "items": "Votre commande",
+      "name": "Prénom",
+      "table": "Table",
+      "placedAt": "Commandé à {time}",
+      "backToMenu": "Retour au menu",
+      "notFound": {
+        "title": "Commande introuvable",
+        "body": "Le lien est peut-être incomplet. Vérifiez l’adresse ou demandez au comptoir."
+      }
+    }
   }
 }

@@ -2,6 +2,7 @@
  * The demo shop at /s/demo: a synthetic Algiers café-snack used for showing the product.
  * Flagged `is_demo`; every name and price here is illustrative, not a real business.
  */
+import { createHash } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { serviceDb } from "@/lib/db/client";
 import {
@@ -202,6 +203,16 @@ const menu: DemoCategory[] = [
 
 const tr = (x: { fr: string; en: string }): I18nText => ({ fr: x.fr, en: x.en });
 
+/**
+ * Same menu, same ids on every run (a name-based UUID, v5 layout), so a re-seed never
+ * invalidates customers' saved tickets or a menu page the server has cached.
+ */
+function stableId(key: string) {
+  const h = createHash("sha1").update(`ranna-demo:${key}`).digest("hex");
+  const variant = ((parseInt(h[16]!, 16) & 0x3) | 0x8).toString(16);
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-5${h.slice(13, 16)}-${variant}${h.slice(17, 20)}-${h.slice(20, 32)}`;
+}
+
 export async function seedDemoShop(ownerId: string) {
   const [business] = await serviceDb.select().from(plans).where(eq(plans.code, "business"));
   if (!business) throw new Error("seed plans first");
@@ -283,12 +294,19 @@ export async function seedDemoShop(ownerId: string) {
   for (const [ci, c] of menu.entries()) {
     const [cat] = await serviceDb
       .insert(categories)
-      .values({ merchantId, name: c.ar, nameI18n: tr(c), sort: (ci + 1) * 10 })
+      .values({
+        id: stableId(`c${ci}`),
+        merchantId,
+        name: c.ar,
+        nameI18n: tr(c),
+        sort: (ci + 1) * 10,
+      })
       .returning({ id: categories.id });
     for (const [ii, it] of c.items.entries()) {
       const [item] = await serviceDb
         .insert(items)
         .values({
+          id: stableId(`c${ci}i${ii}`),
           merchantId,
           categoryId: cat!.id,
           name: it.ar,
@@ -304,6 +322,7 @@ export async function seedDemoShop(ownerId: string) {
         const [group] = await serviceDb
           .insert(optionGroups)
           .values({
+            id: stableId(`c${ci}i${ii}g${gi}`),
             merchantId,
             itemId: item!.id,
             name: g.ar,
@@ -315,6 +334,7 @@ export async function seedDemoShop(ownerId: string) {
           .returning({ id: optionGroups.id });
         await serviceDb.insert(options).values(
           g.options.map((o, oi) => ({
+            id: stableId(`c${ci}i${ii}g${gi}o${oi}`),
             merchantId,
             groupId: group!.id,
             name: o.ar,

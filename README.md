@@ -4,7 +4,7 @@ Multi-tenant QR ordering for restaurants, cafés, food trucks and snack shops, w
 
 The working name lives in [`src/config/brand.ts`](src/config/brand.ts). Product context: [PRODUCT.md](PRODUCT.md) · plan: [PLAN.md](PLAN.md) · decisions: [DECISIONS.md](DECISIONS.md).
 
-> Status: phases 1–4 of 10 done (foundation; billing; shop builder; QR codes). Try the demo shop at `/s/demo` after `npm run seed`. Sections marked _planned_ arrive in later phases.
+> Status: phases 1–5 of 10 done (foundation; billing; shop builder; QR codes; ordering). After `npm run seed`, order from the demo shop at `/s/demo` and follow it live at `/o/<token>`. Sections marked _planned_ arrive in later phases.
 
 ## Quick start (about 10 minutes)
 
@@ -40,17 +40,17 @@ Open http://localhost:3000. Create a shop at `/signup`, or sign in as the seeded
 
 ## Scripts
 
-| Script                         | What it does                                                                  |
-| ------------------------------ | ----------------------------------------------------------------------------- |
-| `npm run dev`                  | Next.js dev server on :3000                                                   |
-| `npm run check`                | Lint + type-check + all tests (unit and database)                             |
-| `npm test`                     | Unit tests (no database needed)                                               |
-| `npm run test:db`              | Tenant-isolation tests against the local Supabase database                    |
-| `npm run db:start` / `db:stop` | Start/stop local Supabase (Docker)                                            |
-| `npm run db:reset`             | Recreate the local database from `supabase/migrations`                        |
-| `npm run db:generate`          | Generate a migration from the Drizzle schema                                  |
-| `npm run seed`                 | Idempotent seed: plans, platform admin (demo shop and orders in later phases) |
-| `npm run vapid`                | Print a new VAPID key pair for Web Push                                       |
+| Script                         | What it does                                                                       |
+| ------------------------------ | ---------------------------------------------------------------------------------- |
+| `npm run dev`                  | Next.js dev server on :3000                                                        |
+| `npm run check`                | Lint + type-check + all tests (unit and database)                                  |
+| `npm test`                     | Unit tests (no database needed)                                                    |
+| `npm run test:db`              | Tenant-isolation tests against the local Supabase database                         |
+| `npm run db:start` / `db:stop` | Start/stop local Supabase (Docker)                                                 |
+| `npm run db:reset`             | Recreate the local database from `supabase/migrations`                             |
+| `npm run db:generate`          | Generate a migration from the Drizzle schema                                       |
+| `npm run seed`                 | Idempotent seed: plans, platform admin, demo shop at `/s/demo` and 7 sample orders |
+| `npm run vapid`                | Print a new VAPID key pair for Web Push                                            |
 
 ## Environment variables
 
@@ -97,7 +97,7 @@ flowchart LR
 ## Project layout
 
 ```
-src/app/(site)/[locale]      public pages: landing, auth, (shop, order status: planned)
+src/app/(site)/[locale]      public pages: landing, auth, shop /s/<slug>, order status /o/<token>
 src/app/(console)/[locale]   merchant dashboard, platform admin, /start
 src/app/auth/*               Supabase email-link and sign-out route handlers
 src/lib/db                   Drizzle schema (+ RLS policies), client, withRls

@@ -94,3 +94,21 @@ Each entry records a choice the brief left open, with the reason. Newest decisio
 **D40. Table codes.** 1–12 characters `[A-Za-z0-9_-]`, unique per shop, managed one at a time or as a numbered series (at most 100 per series; existing codes are skipped). The label ("Table 5") is what staff see on the order.
 
 **D41. Removed an unused dependency.** The shadcn CLI had installed an npm package called `cn` to satisfy an import it generated. The import was rewritten to `@/lib/utils` in phase 1, so the package was removed in phase 4.
+
+## Phase 5: Ordering
+
+**D42. The server prices every order.** The browser sends only item ids, option ids, quantities and notes. `priceOrder()` rebuilds each line from the live menu: the item must exist and be available, options must belong to it and respect each group's min/max, quantities are 1–50, lines at most 30. Names, translations and prices are snapshotted onto `order_items` (with a `position` for display order), so editing the menu never changes a placed order. v1 has no fees or discounts, so the total equals the subtotal; customers pay at the counter.
+
+**D43. Daily order numbers start at 101.** Each shop has a counter per business date in its own timezone, incremented atomically in the placing transaction. The numbers are short, easy to call out, and never confused with a quantity ("2"). The number restarts each day; the id and the token stay unique.
+
+**D44. The customer's link is the credential.** Placing returns a 128-bit token: HMAC(APP_SECRET, merchant id + client request id), base64url. Only its SHA-256 is stored. The status page `/o/<token>` and `/api/orders/<token>` need nothing else: no account, no cookie. The page is `noindex` and sends no referrer. The browser keeps its last ten orders locally ("Your order 108" chip on the shop page for 12 h).
+
+**D45. Placing is idempotent.** The ticket generates one `clientRequestId` per attempt and reuses it on retry. A unique index on (merchant, clientRequestId) plus the deterministic token means a double tap or a resend after a dropped connection returns the same order instead of a second one.
+
+**D46. Abuse controls on public ordering.** A hidden honeypot field (filled ⇒ rejected as `invalid`) and two rate limits: per IP across all shops, and per IP per shop (5 per 5 min). The monthly order cap from the plan answers "the shop can't take more online orders right now", never an error about billing. A CAPTCHA can be added at the marked hook in `placeOrderAction` without touching the service.
+
+**D47. Live status with a polling safety net.** Status changes go out as Supabase Realtime Broadcast messages (sent by the server over REST with the service key) on a topic derived from the token hash. The page subscribes with the anon key; the topic is unguessable, and its payload carries only number, status and times. It also polls every 15 s and on focus, visibility and reconnect, because cheap phones and patchy 4G drop sockets. The "Live / Reconnecting…" pill tells the truth about the socket.
+
+**D48. Reserved colour for "ready".** On the customer page the enamel green `--state-ready` appears only when the order is ready: the number plate fills with it and a slow halo pulses (no opacity flicker, disabled under reduced motion). The three-step track uses lozenges from the band motif. Phase 7 adds the sound, vibration and push alert.
+
+**D49. The demo seed uses stable ids and synthetic orders.** `npm run seed` rebuilds the demo menu with name-based UUIDs, so saved tickets and the 60 s menu cache stay valid. It then places seven orders through the real `placeOrder`/`setOrderStatus` code, covering every state. Demo orders are wiped and replaced on each run.

@@ -3,7 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { ShopFooter } from "@/components/storefront/shop-footer";
 import { ShopHeader } from "@/components/storefront/shop-header";
-import { ShopMenu } from "@/components/storefront/shop-menu";
+import { shopFontClass } from "@/app/shop-fonts";
+import { OrderApp } from "@/components/storefront/ordering/order-app";
 import { ShopNotice } from "@/components/storefront/shop-notice";
 import { ShopRoot } from "@/components/storefront/shop-root";
 import { isAppLocale, type AppLocale } from "@/i18n/routing";
@@ -12,6 +13,7 @@ import { localizedPath } from "@/lib/auth/paths";
 import { shopTheme } from "@/lib/branding/theme";
 import { intlLocale } from "@/i18n/format";
 import { pickOptional } from "@/lib/i18n/pick";
+import { resolveTableLabel } from "@/lib/qr/service";
 import { getPublicShop, resolveSlug, type PublicShop } from "@/lib/shop/public";
 import { storefrontStatus } from "@/lib/shop/status";
 import { validateSlug } from "@/lib/slug";
@@ -112,6 +114,7 @@ export default async function ShopPage({
           : t("status.closed");
 
   const theme = shopTheme(shop.branding);
+  const tableLabel = await resolveTableLabel(shop.id, table);
   return (
     <ShopRoot theme={theme} className="min-h-dvh">
       {shop.isDemo ? (
@@ -127,7 +130,18 @@ export default async function ShopPage({
           status={{ label: statusLabel, tone: status.tone }}
           welcome={pickOptional(null, shop.branding.welcome, locale)}
         />
-        <ShopMenu categories={shop.menu} layout={theme.layout} currency={shop.currency} />
+        <OrderApp
+          slug={shop.slug}
+          menu={shop.menu}
+          layout={theme.layout}
+          currency={shop.currency}
+          canOrder={status.canOrder}
+          closedLabel={statusLabel}
+          askPhone={shop.askPhone}
+          table={table ? { code: table, label: tableLabel ?? table } : null}
+          themeVars={theme.vars}
+          fontClass={shopFontClass[theme.font]}
+        />
       </main>
       <ShopFooter
         slug={shop.slug}

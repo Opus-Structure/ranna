@@ -7,6 +7,7 @@ import {
   pgPolicy,
   pgTable,
   primaryKey,
+  smallint,
   text,
   timestamp,
   uniqueIndex,
@@ -26,7 +27,7 @@ import {
 } from "./_shared";
 import { merchants } from "./accounts";
 import { items } from "./menu";
-import type { OrderItemOptionSnapshot } from "./types";
+import type { I18nText, OrderItemOptionSnapshot } from "./types";
 
 const merchantRef = () =>
   uuid("merchant_id")
@@ -115,6 +116,9 @@ export const orderItems = pgTable(
     merchantId: merchantRef(),
     itemId: uuid("item_id").references(() => items.id, { onDelete: "set null" }),
     name: text("name").notNull(),
+    nameI18n: jsonb("name_i18n").$type<I18nText>().notNull().default({}),
+    /** The line's place on the ticket (ids are random, so they can't order lines). */
+    position: smallint("position").notNull().default(0),
     unitPriceMinor: integer("unit_price_minor").notNull(),
     quantity: integer("quantity").notNull(),
     options: jsonb("options").$type<OrderItemOptionSnapshot[]>().notNull().default([]),

@@ -1,8 +1,8 @@
 import "server-only";
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { AccountLockedError, assertCanEdit } from "@/lib/billing/access";
-import { withRls } from "@/lib/db/client";
+import { serviceDb, withRls } from "@/lib/db/client";
 import { qrCodes } from "@/lib/db/schema";
 import type { MerchantContext } from "@/lib/merchants/context";
 import { cleanText } from "@/lib/validation/text";
@@ -99,4 +99,17 @@ export async function deleteTableQr(ctx: MerchantContext, id: string): Promise<Q
     );
     return rows.length ? { ok: true } : { ok: false, error: "not_found" };
   });
+}
+
+/** Public: the staff-facing name of a table code on a shop page (?t=), or null if unknown. */
+export async function resolveTableLabel(
+  merchantId: string,
+  code: string | undefined,
+): Promise<string | null> {
+  if (!code || !TABLE_CODE.test(code)) return null;
+  const [row] = await serviceDb
+    .select({ label: qrCodes.label })
+    .from(qrCodes)
+    .where(and(eq(qrCodes.merchantId, merchantId), eq(qrCodes.tableCode, code)));
+  return row?.label ?? null;
 }

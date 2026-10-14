@@ -281,6 +281,17 @@
   opacity: 0.55;
 }
 
+/* "Ready": a slow outward halo, never an opacity flicker, so the number stays fully legible. */
+@keyframes ready-halo {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--state-ready) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 14px color-mix(in oklch, var(--state-ready) 0%, transparent);
+  }
+}
+
 /* Horizontal chip rows scroll by touch; the bar itself stays out of sight. */
 @utility no-scrollbar {
   scrollbar-width: none;
