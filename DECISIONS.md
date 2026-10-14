@@ -82,3 +82,15 @@ Each entry records a choice the brief left open, with the reason. Newest decisio
 **D35. Staff may pause orders.** "Taking orders" can be paused by any member during a rush. "Open/closed" and everything else in the shop editor is owner-only.
 
 **D36. Week order.** The hours editor lists Saturday first, matching the Algerian working week. Day names come from `Intl`.
+
+## Phase 4: QR codes
+
+**D37. QR content is the shop page link.** The main code is `https://<domain>/s/<slug>`; table codes append `?t=<code>`. Changing the slug keeps printed codes working through the phase 3 redirects, which preserve `?t=`. Error correction "M" survives a crumpled tent while keeping modules large.
+
+**D38. Downloads.** SVG (vector, about 3 KB) and a 2048 px PNG with the standard 4-module quiet zone come from an owner-only endpoint, `/api/qr`.
+
+**D39. Printable PDFs are built in the browser.** Each card is painted on a 300 dpi canvas, so the browser shapes Arabic and renders the merchant's own font, then `pdf-lib` (loaded only on click) places the images on A4. This avoids server-side Chromium and Arabic-shaping hacks in a PDF library. The table tent prints its top half upside down, so both faces read correctly when folded; A4 sheets hold four A6 cards with cut guides. "Scan to order" appears in every shop language, main language first.
+
+**D40. Table codes.** 1–12 characters `[A-Za-z0-9_-]`, unique per shop, managed one at a time or as a numbered series (at most 100 per series; existing codes are skipped). The label ("Table 5") is what staff see on the order.
+
+**D41. Removed an unused dependency.** The shadcn CLI had installed an npm package called `cn` to satisfy an import it generated. The import was rewritten to `@/lib/utils` in phase 1, so the package was removed in phase 4.

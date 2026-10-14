@@ -659,5 +659,62 @@
       "forbidden": "Only the shop owner can change settings.",
       "generic": "Something went wrong on our side. Try again in a moment."
     }
+  },
+  "qr": {
+    "title": "QR codes",
+    "description": "Print these and put them where customers wait. Every code opens your shop page.",
+    "noSlug": {
+      "title": "Choose your page link first",
+      "body": "QR codes point to your shop page, so it needs a link before you can print them.",
+      "action": "Set up the shop page"
+    },
+    "main": {
+      "heading": "Shop QR code",
+      "body": "For the counter, the window and flyers.",
+      "link": "Page link"
+    },
+    "downloads": {
+      "svg": "SVG",
+      "png": "PNG for print",
+      "tent": "Table tent PDF",
+      "sheet": "A4 sheet PDF"
+    },
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "tables": {
+      "heading": "Table and counter codes",
+      "body": "Orders placed from these codes show the table name to your staff.",
+      "label": "Name, e.g. Table 5",
+      "code": "Code",
+      "codeHint": "Appears in the link as ?t=… Letters, numbers, dashes.",
+      "add": "Add",
+      "bulkHeading": "Add a numbered series",
+      "prefix": "Name",
+      "prefixDefault": "Table",
+      "from": "From",
+      "to": "To",
+      "addRange": "Add series",
+      "empty": "No table codes yet. Add one, or a numbered series like Table 1 to Table 12.",
+      "delete": "Delete {label}",
+      "printAll": "Print all tables (A4 PDF)"
+    },
+    "print": {
+      "scan": "Scan to order",
+      "noApp": "No app needed. Your phone rings when the order is ready."
+    },
+    "generating": "Preparing the PDF…",
+    "errors": {
+      "labelRequired": "Give the code a name.",
+      "tooLong": "This is too long.",
+      "code": "Use up to 12 letters, numbers, dashes or underscores.",
+      "code_taken": "This code is already in use.",
+      "range": "Add at most 100 codes at a time, with “To” after “From”.",
+      "locked": "Read-only until your plan is active.",
+      "forbidden": "Only the shop owner can manage QR codes.",
+      "not_found": "This code was deleted in the meantime.",
+      "invalid": "Some values are not valid.",
+      "generic": "Something went wrong on our side. Try again in a moment.",
+      "pdf": "This browser couldn’t create the PDF. Try another browser, or download the PNG."
+    }
   }
 }

@@ -61,6 +61,7 @@ export default async function ConsoleRootLayout({
         "setup",
         "menu",
         "settings",
+        "qr",
       ]}
       wrap={(node, nonce) => (
         <ThemeProvider

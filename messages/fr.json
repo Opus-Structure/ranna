@@ -659,5 +659,62 @@
       "forbidden": "Seul le propriétaire peut modifier les paramètres.",
       "generic": "Un problème est survenu de notre côté. Réessayez dans un instant."
     }
+  },
+  "qr": {
+    "title": "QR codes",
+    "description": "Imprimez-les et placez-les là où vos clients attendent. Chaque code ouvre votre page boutique.",
+    "noSlug": {
+      "title": "Choisissez d’abord le lien de votre page",
+      "body": "Les QR codes mènent à votre page boutique : elle doit avoir un lien avant l’impression.",
+      "action": "Configurer la page boutique"
+    },
+    "main": {
+      "heading": "QR code de la boutique",
+      "body": "Pour le comptoir, la vitrine et les flyers.",
+      "link": "Lien de la page"
+    },
+    "downloads": {
+      "svg": "SVG",
+      "png": "PNG pour impression",
+      "tent": "Chevalet de table PDF",
+      "sheet": "Planche A4 PDF"
+    },
+    "copy": "Copier le lien",
+    "copied": "Lien copié",
+    "tables": {
+      "heading": "Codes de table et de comptoir",
+      "body": "Les commandes passées depuis ces codes affichent le nom de la table à votre équipe.",
+      "label": "Nom, ex. Table 5",
+      "code": "Code",
+      "codeHint": "Apparaît dans le lien sous la forme ?t=… Lettres, chiffres, tirets.",
+      "add": "Ajouter",
+      "bulkHeading": "Ajouter une série numérotée",
+      "prefix": "Nom",
+      "prefixDefault": "Table",
+      "from": "De",
+      "to": "À",
+      "addRange": "Ajouter la série",
+      "empty": "Aucun code de table. Ajoutez-en un, ou une série comme Table 1 à Table 12.",
+      "delete": "Supprimer {label}",
+      "printAll": "Imprimer toutes les tables (PDF A4)"
+    },
+    "print": {
+      "scan": "Scannez pour commander",
+      "noApp": "Sans application. Votre téléphone sonne quand la commande est prête."
+    },
+    "generating": "Préparation du PDF…",
+    "errors": {
+      "labelRequired": "Donnez un nom au code.",
+      "tooLong": "C’est trop long.",
+      "code": "Jusqu’à 12 lettres, chiffres, tirets ou tirets bas.",
+      "code_taken": "Ce code est déjà utilisé.",
+      "range": "100 codes maximum à la fois, avec « À » après « De ».",
+      "locked": "Lecture seule jusqu’à l’activation de votre abonnement.",
+      "forbidden": "Seul le propriétaire gère les QR codes.",
+      "not_found": "Ce code a été supprimé entre-temps.",
+      "invalid": "Certaines valeurs ne sont pas valides.",
+      "generic": "Un problème est survenu de notre côté. Réessayez dans un instant.",
+      "pdf": "Ce navigateur n’a pas pu créer le PDF. Essayez un autre navigateur ou téléchargez le PNG."
+    }
   }
 }
