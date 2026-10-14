@@ -1,5 +1,5 @@
 import "server-only";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { writeAudit } from "@/lib/audit/log";
 import { serviceDb } from "@/lib/db/client";
 import { merchantMembers, merchants } from "@/lib/db/schema";
@@ -12,7 +12,9 @@ export function defaultLocalesFor(locale: AppLocale): AppLocale[] {
 
 /**
  * Creates the merchant (state `pending_payment`) and its owner membership.
- * Idempotent: a user who already owns a shop gets that shop back.
+ * Idempotent, including under concurrency: the console layout and page render in parallel on
+ * the first visit, so both may try to create the shop. A per-user advisory lock serialises
+ * them; the second caller waits, then finds and returns the first caller's shop.
  */
 export async function createMerchantForOwner(input: {
   userId: string;
@@ -20,6 +22,9 @@ export async function createMerchantForOwner(input: {
   locale: AppLocale;
 }): Promise<{ merchantId: string; created: boolean }> {
   return serviceDb.transaction(async (tx) => {
+    await tx.execute(
+      sql`select pg_advisory_xact_lock(hashtextextended(${`merchant-create:${input.userId}`}, 0))`,
+    );
     const [existing] = await tx
       .select({ merchantId: merchantMembers.merchantId })
       .from(merchantMembers)

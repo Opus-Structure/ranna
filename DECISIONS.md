@@ -40,3 +40,23 @@ Each entry records a choice the brief left open, with the reason. Newest decisio
 **D16. Platform admins.** Flagged by `profiles.is_platform_admin`, which can only be set by the seed or SQL, never by any API. RLS policies grant admins read access through a `security definer` helper. Admin mutations run through services that re-check the flag.
 
 **D17. A user can belong to several merchants.** The data model is many-to-many through `merchant_members`. The v1 UI uses the user's first membership (owner first). That is the extension point for multi-branch.
+
+## Phase 2: Billing and account states
+
+**D18. Mock gateway for development and tests.** `PAYMENT_PROVIDERS=mock` adds a "test payment" method. Its checkout page lives inside the console, and the result is sent as an HMAC-signed webhook over HTTP to `/api/webhooks/mock`. Signature checks, idempotency and settlement therefore run exactly as they will with Chargily. Never enable `mock` in production.
+
+**D19. Paying early extends, it never overwrites.** A payment received while a paid period or trial is still running adds one interval to the current period end. After the period has ended, the new period starts at the payment date.
+
+**D20. One free trial per merchant.** Tracked by `subscriptions.trial_used`. Canceling during a trial ends it immediately; canceling a paid period takes effect at period end and can be undone until then. `past_due` and `suspended` accounts cancel immediately.
+
+**D21. Plan changes.** Choosing another plan while subscribed queues it for the next renewal (`pending_plan_id`). Paying for a different plan switches immediately.
+
+**D22. Invoices.** Numbers come from a Postgres sequence (`RN-2026-000042`). An open, unexpired invoice for the same plan is reused, so retries and double clicks never create duplicates.
+
+**D23. Webhook ledger.** `webhook_events (provider, event_id)` is unique. A replayed event returns 200 with no side effects. An event that was recorded but never finished is processed again, and settlement is idempotent on its own as well. Unknown payments are acknowledged with 200 so providers stop retrying. Processing errors return 500 so the provider retries.
+
+**D24. Receipts.** Stored in the private `receipts` bucket, checked by content (magic bytes) and size, with images compressed in the browser first. Only platform admins see them, through signed links that expire after 5 minutes.
+
+**D25. Emails.** A `Mailer` interface with a `log` implementation (bodies printed in development only, never in production logs) and a `resend` implementation. Account changes and receipt rejections email the owner in their own language.
+
+**D26. Shop creation is serialised per user.** Found during browser verification: on the first visit after signing up, the console layout and page render in parallel and both created a shop. Creation now takes a per-user advisory lock, covered by a regression test that fails without the lock.

@@ -50,7 +50,7 @@ export default async function ConsoleRootLayout({
   return (
     <RootDocument
       locale={locale}
-      namespaces={["common", "console", "admin", "auth"]}
+      namespaces={["common", "console", "admin", "auth", "billing"]}
       wrap={(node, nonce) => (
         <ThemeProvider
           attribute="class"

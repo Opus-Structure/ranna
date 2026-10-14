@@ -6,6 +6,7 @@ import {
   integer,
   jsonb,
   pgPolicy,
+  pgSequence,
   pgTable,
   text,
   timestamp,
@@ -39,6 +40,8 @@ export const subscriptions = pgTable(
     /** Plan the merchant switches to at the next renewal. */
     pendingPlanId: uuid("pending_plan_id").references(() => plans.id),
     isTrial: boolean("is_trial").notNull().default(false),
+    /** One free trial per merchant, ever. */
+    trialUsed: boolean("trial_used").notNull().default(false),
     currentPeriodStart: timestamp("current_period_start", { withTimezone: true }),
     currentPeriodEnd: timestamp("current_period_end", { withTimezone: true }),
     cancelAtPeriodEnd: boolean("cancel_at_period_end").notNull().default(false),
@@ -54,6 +57,9 @@ export const subscriptions = pgTable(
     }),
   ],
 );
+
+/** Source of human invoice numbers (RN-2026-000042). Service-only. */
+export const invoiceNumberSeq = pgSequence("invoice_number_seq", { startWith: 1, increment: 1 });
 
 export const invoices = pgTable(
   "invoices",

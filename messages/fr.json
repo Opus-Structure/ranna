@@ -212,7 +212,19 @@
       },
       "empty": "Aucun commerçant pour l’instant.",
       "noPlan": "Aucune",
-      "noSlug": "Non défini"
+      "noSlug": "Non défini",
+      "search": "Rechercher par nom ou lien",
+      "filterAll": "Tous les statuts",
+      "results": "{count, plural, =0 {Aucun commerçant} one {# commerçant} other {# commerçants}}",
+      "actions": "Actions pour {shop}",
+      "suspend": "Suspendre",
+      "reactivate": "Réactiver",
+      "suspendTitle": "Suspendre {shop} ?",
+      "suspendBody": "Les clients verront une page « temporairement indisponible » et le tableau de bord passera en lecture seule.",
+      "reactivateTitle": "Réactiver {shop} ?",
+      "reactivateBody": "La boutique revient en ligne si sa période payée est en cours ; sinon elle attend un paiement.",
+      "confirm": "Confirmer",
+      "updated": "Compte mis à jour"
     },
     "status": {
       "pending_payment": "En attente de paiement",
@@ -220,6 +232,217 @@
       "past_due": "En retard",
       "suspended": "Suspendu",
       "canceled": "Résilié"
+    },
+    "payments": {
+      "title": "Paiements",
+      "pending": "En attente de vérification",
+      "pendingEmpty": "Rien à vérifier. Les nouveaux reçus apparaissent ici.",
+      "recent": "Paiements récents",
+      "merchant": "Boutique",
+      "plan": "Formule",
+      "amount": "Montant",
+      "reference": "Référence",
+      "submitted": "Envoyé le",
+      "viewReceipt": "Ouvrir le reçu",
+      "noReceipt": "Pas de reçu",
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "rejectNote": "Motif affiché au commerçant",
+      "rejectPlaceholder": "ex. Le montant ne correspond pas à la facture",
+      "approved": "Approuvé : le compte est actif",
+      "rejected": "Refusé : le commerçant a été prévenu",
+      "status": "Statut",
+      "provider": "Moyen",
+      "date": "Date",
+      "statuses": {
+        "pending": "En attente",
+        "pending_review": "En vérification",
+        "succeeded": "Reçu",
+        "failed": "Échoué",
+        "rejected": "Refusé"
+      }
+    },
+    "plans": {
+      "title": "Formules",
+      "help": "Les prix s’appliquent aux nouvelles factures. Les périodes déjà payées ne changent pas.",
+      "price": "Prix par période",
+      "trialDays": "Jours d’essai",
+      "maxItems": "Articles au menu",
+      "maxStaff": "Comptes équipe",
+      "maxOrders": "Commandes par mois (vide = illimité)",
+      "active": "Proposée aux commerçants",
+      "save": "Enregistrer",
+      "saved": "Formule enregistrée"
+    },
+    "metrics": {
+      "title": "Indicateurs",
+      "byState": "Commerçants par statut",
+      "mrr": "Revenu mensuel des formules payantes actives",
+      "orders30": "Commandes sur 30 jours",
+      "pendingReview": "Reçus en attente",
+      "trials": "Boutiques en essai gratuit",
+      "count": "Nombre"
+    },
+    "errors": {
+      "forbidden": "Réservé aux administrateurs.",
+      "not_found": "Cet élément n’existe plus.",
+      "invalid": "Certaines valeurs ne sont pas valides.",
+      "generic": "Un problème est survenu de notre côté. Réessayez dans un instant."
+    }
+  },
+  "billing": {
+    "title": "Abonnement",
+    "current": {
+      "heading": "Votre formule",
+      "none": "Aucune formule pour l’instant",
+      "trialEnds": "Essai gratuit jusqu’au {date}",
+      "renews": "Payé jusqu’au {date}",
+      "endsOn": "Se termine le {date}. Aucun nouveau prélèvement.",
+      "graceUntil": "En retard : la boutique reste ouverte jusqu’au {date}",
+      "pendingPlan": "À partir du prochain paiement : {plan}",
+      "keep": "Garder mon abonnement",
+      "cancel": "Résilier l’abonnement",
+      "renewNow": "Renouveler maintenant",
+      "changePlan": "Passer à cette formule au renouvellement",
+      "changeQueued": "Changement de formule enregistré"
+    },
+    "plans": {
+      "heading": "Choisissez une formule",
+      "perMonth": "/ mois",
+      "perYear": "/ an",
+      "items": "Jusqu’à {count} articles au menu",
+      "staff": "{count, plural, one {# compte équipe} other {# comptes équipe}}",
+      "orders": "Jusqu’à {count} commandes par mois",
+      "ordersUnlimited": "Commandes illimitées",
+      "trial": "Essai gratuit de {days} jours",
+      "current": "Formule actuelle",
+      "next": "Prochaine formule"
+    },
+    "pay": {
+      "heading": "Payer la formule {plan}",
+      "amountDue": "Montant à payer",
+      "methods": "Moyen de paiement",
+      "chargily": "Carte EDAHABIA ou CIB",
+      "chargilyHint": "Paiement sécurisé par Chargily Pay. Vous revenez ici une fois terminé.",
+      "manual": "Virement, BaridiMob ou espèces",
+      "manualHint": "Effectuez le paiement puis envoyez le reçu. Nous activons votre compte après vérification, en général sous un jour ouvré.",
+      "mock": "Paiement de test",
+      "mockHint": "Développement uniquement : simule une passerelle, confirmation signée comprise.",
+      "continue": "Continuer vers le paiement",
+      "trial": "Démarrer l’essai gratuit de {days} jours",
+      "trialHint": "Rien à payer maintenant. Votre boutique est en ligne immédiatement."
+    },
+    "manual": {
+      "instructions": "Coordonnées de paiement",
+      "beneficiary": "Bénéficiaire",
+      "bank": "Banque",
+      "rib": "RIB",
+      "baridimob": "BaridiMob (RIP)",
+      "cash": "Les espèces sont acceptées à notre bureau contre reçu.",
+      "reference": "Référence du virement (facultatif)",
+      "receipt": "Reçu : photo ou PDF, 5 Mo maximum",
+      "submit": "Envoyer pour vérification",
+      "pending": "Reçu envoyé le {date}. Nous le vérifions ; votre formule s’active dès son approbation.",
+      "rejected": "Votre dernier reçu n’a pas été accepté : {note}",
+      "rejectedNoNote": "Votre dernier reçu n’a pas été accepté. Envoyez une copie plus lisible ou contactez le support."
+    },
+    "checkout": {
+      "success": "Paiement envoyé. Votre formule s’active dès la confirmation du prestataire, en général en moins d’une minute.",
+      "failed": "Le paiement n’a pas abouti et rien n’a été débité. Vous pouvez réessayer."
+    },
+    "invoices": {
+      "heading": "Factures",
+      "empty": "Aucune facture. Elles apparaissent ici après paiement.",
+      "number": "Facture",
+      "period": "Période",
+      "amount": "Montant",
+      "status": "Statut",
+      "method": "Moyen",
+      "statuses": {
+        "open": "À payer",
+        "paid": "Payée",
+        "void": "Annulée",
+        "failed": "Échouée"
+      },
+      "providers": {
+        "mock": "Test",
+        "manual": "Manuel",
+        "chargily": "Carte (Chargily)"
+      }
+    },
+    "cancelDialog": {
+      "title": "Résilier votre abonnement ?",
+      "body": "Votre boutique reste ouverte jusqu’au {date}. Ensuite, vos clients verront une page « temporairement indisponible ». Votre menu et votre historique sont conservés.",
+      "bodyNow": "Votre boutique passe hors ligne maintenant. Votre menu et votre historique sont conservés.",
+      "confirm": "Résilier",
+      "keep": "Garder"
+    },
+    "mock": {
+      "title": "Paiement de test",
+      "body": "Cette page remplace une passerelle de paiement en développement. Choisissez ce que la passerelle renvoie ; le résultat arrive par un webhook signé, comme en production.",
+      "invoice": "Facture {number}",
+      "succeed": "Simuler un paiement réussi",
+      "fail": "Simuler un paiement échoué",
+      "unavailable": "Ce paiement n’attend plus de règlement."
+    },
+    "errors": {
+      "forbidden": "Seul le propriétaire de la boutique gère l’abonnement.",
+      "plan_unavailable": "Cette formule n’est plus proposée. Choisissez-en une autre.",
+      "provider_unavailable": "Ce moyen de paiement est indisponible pour le moment. Essayez-en un autre.",
+      "trial_already_used": "Votre boutique a déjà profité de son essai gratuit.",
+      "trial_not_available": "L’essai gratuit n’est pas disponible pour ce compte.",
+      "not_cancelable": "Aucun abonnement en cours à résilier.",
+      "nothing_to_revert": "Votre abonnement n’est pas en cours de résiliation.",
+      "invalid_plan_change": "Réabonnez-vous avant de changer de formule.",
+      "already_suspended": "Ce compte est déjà suspendu.",
+      "not_suspended": "Ce compte n’est pas suspendu.",
+      "receipt_missing": "Joignez d’abord le reçu.",
+      "receipt_too_large": "Le reçu dépasse 5 Mo. Envoyez une photo ou un PDF plus léger.",
+      "receipt_bad_type": "Envoyez le reçu en photo JPG, PNG, WebP ou en PDF.",
+      "reference_too_long": "La référence doit faire moins de 120 caractères.",
+      "already_pending": "Un reçu est déjà en cours de vérification.",
+      "rate_limited": "Trop d’envois. Réessayez dans une heure.",
+      "generic": "Un problème est survenu de notre côté. Réessayez dans un instant."
+    }
+  },
+  "emails": {
+    "account": {
+      "activated": {
+        "subject": "{shop} est en ligne sur {brand}",
+        "body": "Votre formule pour {shop} est active. Configurez votre page et votre menu, puis imprimez vos QR codes."
+      },
+      "renewed": {
+        "subject": "Paiement reçu pour {shop}",
+        "body": "Merci. La formule de {shop} est renouvelée."
+      },
+      "trial_started": {
+        "subject": "L’essai gratuit de {shop} a commencé",
+        "body": "{shop} est en ligne pendant toute la durée de l’essai. Choisissez une formule quand vous voulez pour continuer."
+      },
+      "trial_expired": {
+        "subject": "L’essai gratuit de {shop} est terminé",
+        "body": "{shop} est hors ligne jusqu’au choix d’une formule. Votre menu est conservé."
+      },
+      "past_due": {
+        "subject": "Paiement en retard pour {shop}",
+        "body": "La période de {shop} est terminée. La boutique reste ouverte quelques jours ; renouvelez pour continuer à recevoir des commandes."
+      },
+      "suspended": {
+        "subject": "{shop} est hors ligne",
+        "body": "{shop} n’est plus visible par vos clients. Renouvelez votre formule pour rouvrir."
+      },
+      "canceled": {
+        "subject": "L’abonnement de {shop} est terminé",
+        "body": "{shop} est hors ligne. Votre menu et votre historique sont conservés."
+      },
+      "reactivated": {
+        "subject": "{shop} est de nouveau en ligne",
+        "body": "La formule de {shop} est de nouveau active et vos clients peuvent commander."
+      }
+    },
+    "paymentRejected": {
+      "subject": "Votre reçu de paiement est à revoir · {brand}",
+      "body": "Nous n’avons pas pu approuver le reçu envoyé pour {shop}."
     }
   }
 }

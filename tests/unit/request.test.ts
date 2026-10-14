@@ -59,3 +59,14 @@ describe("isSameOrigin", () => {
     expect(isSameOrigin(req(), "http://localhost:3000")).toBe(false);
   });
 });
+
+describe("localizedPath", () => {
+  it("adds a prefix for every locale but the default", async () => {
+    const { localizedPath, localeFromPath } = await import("@/lib/auth/paths");
+    expect(localizedPath("/dashboard", "ar")).toBe("/dashboard");
+    expect(localizedPath("/dashboard", "fr")).toBe("/fr/dashboard");
+    expect(localizedPath("/", "en")).toBe("/en");
+    expect(localeFromPath("/fr/dashboard")).toBe("fr");
+    expect(localeFromPath("/dashboard")).toBe("ar");
+  });
+});

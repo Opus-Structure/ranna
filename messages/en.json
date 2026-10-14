@@ -212,7 +212,19 @@
       },
       "empty": "No merchants yet.",
       "noPlan": "None",
-      "noSlug": "Not set"
+      "noSlug": "Not set",
+      "search": "Search by name or link",
+      "filterAll": "All states",
+      "results": "{count, plural, =0 {No merchants match} one {# merchant} other {# merchants}}",
+      "actions": "Actions for {shop}",
+      "suspend": "Suspend",
+      "reactivate": "Reactivate",
+      "suspendTitle": "Suspend {shop}?",
+      "suspendBody": "Customers will see a “temporarily unavailable” page and the owner’s dashboard turns read-only.",
+      "reactivateTitle": "Reactivate {shop}?",
+      "reactivateBody": "The shop goes live again if its paid period is still running; otherwise it waits for payment.",
+      "confirm": "Confirm",
+      "updated": "Account updated"
     },
     "status": {
       "pending_payment": "Awaiting payment",
@@ -220,6 +232,217 @@
       "past_due": "Past due",
       "suspended": "Suspended",
       "canceled": "Canceled"
+    },
+    "payments": {
+      "title": "Payments",
+      "pending": "Waiting for review",
+      "pendingEmpty": "Nothing to review. New manual receipts appear here.",
+      "recent": "Recent payments",
+      "merchant": "Shop",
+      "plan": "Plan",
+      "amount": "Amount",
+      "reference": "Reference",
+      "submitted": "Submitted",
+      "viewReceipt": "Open receipt",
+      "noReceipt": "No receipt",
+      "approve": "Approve",
+      "reject": "Reject",
+      "rejectNote": "Reason shown to the merchant",
+      "rejectPlaceholder": "e.g. The amount doesn’t match the invoice",
+      "approved": "Approved: the account is active",
+      "rejected": "Rejected: the merchant was notified",
+      "status": "Status",
+      "provider": "Method",
+      "date": "Date",
+      "statuses": {
+        "pending": "Pending",
+        "pending_review": "In review",
+        "succeeded": "Received",
+        "failed": "Failed",
+        "rejected": "Rejected"
+      }
+    },
+    "plans": {
+      "title": "Plans",
+      "help": "Prices apply to new invoices. Existing paid periods are not affected.",
+      "price": "Price per period",
+      "trialDays": "Trial days",
+      "maxItems": "Menu items",
+      "maxStaff": "Staff accounts",
+      "maxOrders": "Orders a month (empty = unlimited)",
+      "active": "Offered to merchants",
+      "save": "Save",
+      "saved": "Plan saved"
+    },
+    "metrics": {
+      "title": "Metrics",
+      "byState": "Merchants by state",
+      "mrr": "Monthly revenue from active paid plans",
+      "orders30": "Orders in the last 30 days",
+      "pendingReview": "Receipts waiting for review",
+      "trials": "Shops on a free trial",
+      "count": "Count"
+    },
+    "errors": {
+      "forbidden": "Platform admins only.",
+      "not_found": "That record no longer exists.",
+      "invalid": "Some values are not valid.",
+      "generic": "Something went wrong on our side. Try again in a moment."
+    }
+  },
+  "billing": {
+    "title": "Billing",
+    "current": {
+      "heading": "Your plan",
+      "none": "No plan yet",
+      "trialEnds": "Free trial until {date}",
+      "renews": "Paid until {date}",
+      "endsOn": "Ends on {date}. You won’t be charged again.",
+      "graceUntil": "Overdue: the shop stays open until {date}",
+      "pendingPlan": "From your next payment: {plan}",
+      "keep": "Keep my subscription",
+      "cancel": "Cancel subscription",
+      "renewNow": "Renew now",
+      "changePlan": "Switch to this plan at renewal",
+      "changeQueued": "Plan change saved"
+    },
+    "plans": {
+      "heading": "Choose a plan",
+      "perMonth": "/ month",
+      "perYear": "/ year",
+      "items": "Up to {count} menu items",
+      "staff": "{count, plural, one {# staff account} other {# staff accounts}}",
+      "orders": "Up to {count} orders a month",
+      "ordersUnlimited": "Unlimited orders",
+      "trial": "{days}-day free trial",
+      "current": "Current plan",
+      "next": "Next plan"
+    },
+    "pay": {
+      "heading": "Pay for {plan}",
+      "amountDue": "Amount due",
+      "methods": "Payment method",
+      "chargily": "EDAHABIA or CIB card",
+      "chargilyHint": "Secure checkout by Chargily Pay. You come back here when it’s done.",
+      "manual": "Bank transfer, BaridiMob or cash",
+      "manualHint": "Send the payment, then upload the receipt. We activate your account after checking it, usually within one working day.",
+      "mock": "Test payment",
+      "mockHint": "Development only: simulates a gateway, including its signed confirmation.",
+      "continue": "Continue to payment",
+      "trial": "Start the {days}-day free trial",
+      "trialHint": "No payment now. Your shop goes live immediately."
+    },
+    "manual": {
+      "instructions": "Payment details",
+      "beneficiary": "Beneficiary",
+      "bank": "Bank",
+      "rib": "RIB",
+      "baridimob": "BaridiMob (RIP)",
+      "cash": "Cash is accepted at our office against a receipt.",
+      "reference": "Transfer reference (optional)",
+      "receipt": "Receipt: photo or PDF, up to 5 MB",
+      "submit": "Send for review",
+      "pending": "Receipt received on {date}. We’re checking it; your plan activates as soon as it’s approved.",
+      "rejected": "Your last receipt was not accepted: {note}",
+      "rejectedNoNote": "Your last receipt was not accepted. Send a clearer copy or contact support."
+    },
+    "checkout": {
+      "success": "Payment sent. Your plan activates as soon as the payment provider confirms it, usually within a minute.",
+      "failed": "The payment didn’t go through and nothing was charged. You can try again."
+    },
+    "invoices": {
+      "heading": "Invoices",
+      "empty": "No invoices yet. They appear here once you pay.",
+      "number": "Invoice",
+      "period": "Period",
+      "amount": "Amount",
+      "status": "Status",
+      "method": "Method",
+      "statuses": {
+        "open": "Open",
+        "paid": "Paid",
+        "void": "Void",
+        "failed": "Failed"
+      },
+      "providers": {
+        "mock": "Test",
+        "manual": "Manual",
+        "chargily": "Card (Chargily)"
+      }
+    },
+    "cancelDialog": {
+      "title": "Cancel your subscription?",
+      "body": "Your shop stays open until {date}. After that, customers see a “temporarily unavailable” page. Your menu and history are kept.",
+      "bodyNow": "Your shop goes offline now. Your menu and history are kept.",
+      "confirm": "Cancel subscription",
+      "keep": "Keep it"
+    },
+    "mock": {
+      "title": "Test checkout",
+      "body": "This page stands in for a payment gateway during development. Choose what the gateway reports; the result arrives through a signed webhook, as in production.",
+      "invoice": "Invoice {number}",
+      "succeed": "Simulate a successful payment",
+      "fail": "Simulate a failed payment",
+      "unavailable": "This payment is no longer waiting for checkout."
+    },
+    "errors": {
+      "forbidden": "Only the shop owner can manage billing.",
+      "plan_unavailable": "That plan is no longer offered. Pick another one.",
+      "provider_unavailable": "This payment method isn’t available right now. Try another one.",
+      "trial_already_used": "Your shop has already used its free trial.",
+      "trial_not_available": "A free trial isn’t available for this account.",
+      "not_cancelable": "There is no running subscription to cancel.",
+      "nothing_to_revert": "Your subscription isn’t scheduled to end.",
+      "invalid_plan_change": "Subscribe again before changing plans.",
+      "already_suspended": "This account is already suspended.",
+      "not_suspended": "This account isn’t suspended.",
+      "receipt_missing": "Attach the receipt first.",
+      "receipt_too_large": "The receipt is larger than 5 MB. Send a smaller photo or PDF.",
+      "receipt_bad_type": "Send the receipt as a JPG, PNG, WebP photo or a PDF.",
+      "reference_too_long": "Keep the reference under 120 characters.",
+      "already_pending": "A receipt is already waiting for review.",
+      "rate_limited": "Too many uploads. Try again in an hour.",
+      "generic": "Something went wrong on our side. Try again in a moment."
+    }
+  },
+  "emails": {
+    "account": {
+      "activated": {
+        "subject": "{shop} is live on {brand}",
+        "body": "Your plan for {shop} is active. Set up your shop page and menu, then print your QR codes."
+      },
+      "renewed": {
+        "subject": "Payment received for {shop}",
+        "body": "Thank you. Your plan for {shop} has been renewed."
+      },
+      "trial_started": {
+        "subject": "Your free trial for {shop} has started",
+        "body": "{shop} is live for the length of your trial. Choose a plan any time to keep it running."
+      },
+      "trial_expired": {
+        "subject": "The free trial for {shop} has ended",
+        "body": "{shop} is offline until you choose a plan. Your menu is kept."
+      },
+      "past_due": {
+        "subject": "Payment overdue for {shop}",
+        "body": "The plan period for {shop} has ended. The shop stays open for a few more days; renew to keep taking orders."
+      },
+      "suspended": {
+        "subject": "{shop} is offline",
+        "body": "{shop} is no longer visible to customers. Renew your plan to reopen it."
+      },
+      "canceled": {
+        "subject": "The subscription for {shop} has ended",
+        "body": "{shop} is offline. Your menu and history are kept if you come back."
+      },
+      "reactivated": {
+        "subject": "{shop} is back online",
+        "body": "The plan for {shop} is active again and customers can order."
+      }
+    },
+    "paymentRejected": {
+      "subject": "Your payment receipt needs attention · {brand}",
+      "body": "We couldn’t approve the receipt you sent for {shop}."
     }
   }
 }

@@ -1,9 +1,14 @@
-import { getPathname } from "@/i18n/navigation";
 import { isAppLocale, routing, type AppLocale } from "@/i18n/routing";
 
-/** Localized path (respects as-needed prefixes): ("/dashboard","fr") -> "/fr/dashboard". */
+/**
+ * Localized path under `localePrefix: "as-needed"` (D11): the default locale has no prefix.
+ * ("/dashboard","fr") -> "/fr/dashboard"; ("/dashboard","ar") -> "/dashboard".
+ * Pure on purpose: used by emails, webhooks and cron, outside any request.
+ */
 export function localizedPath(href: string, locale: AppLocale): string {
-  return getPathname({ href, locale });
+  const path = href.startsWith("/") ? href : `/${href}`;
+  if (locale === routing.defaultLocale) return path;
+  return path === "/" ? `/${locale}` : `/${locale}${path}`;
 }
 
 /** Locale implied by an already-localized path, e.g. "/fr/dashboard" -> "fr". */
