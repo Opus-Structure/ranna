@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: order ? `${order.number} · ${order.shop.name}` : t("notFound.title"),
     robots: { index: false, follow: false },
-    referrer: "no-referrer",
+    referrer: "same-origin",
   };
 }
 

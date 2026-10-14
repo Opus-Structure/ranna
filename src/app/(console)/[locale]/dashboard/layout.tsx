@@ -7,6 +7,7 @@ import type { NavItem } from "@/components/console/console-nav";
 import { Link } from "@/i18n/navigation";
 import { requireMerchant } from "@/lib/auth/guards";
 import { getProfile } from "@/lib/auth/session";
+import { countNewOrders } from "@/lib/orders/board";
 import { cn } from "@/lib/utils";
 import { initLocale } from "@/i18n/server";
 
@@ -22,10 +23,11 @@ export default async function DashboardLayout({
   const profile = await getProfile(ctx.user.id);
   const t = await getTranslations("console");
   const { merchant, role } = ctx;
+  const newOrders = await countNewOrders(ctx);
 
   const ownerNav: NavItem[] = [
     { href: "/dashboard", label: t("nav.overview"), icon: "overview", exact: true },
-    { href: "/dashboard/orders", label: t("nav.orders"), icon: "orders" },
+    { href: "/dashboard/orders", label: t("nav.orders"), icon: "orders", badge: newOrders },
     { href: "/dashboard/menu", label: t("nav.menu"), icon: "menu" },
     { href: "/dashboard/shop", label: t("nav.shop"), icon: "shop" },
     { href: "/dashboard/qr", label: t("nav.qr"), icon: "qr" },

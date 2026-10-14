@@ -807,5 +807,220 @@
         "body": "This link may be incomplete. Check the address, or ask at the counter."
       }
     }
+  },
+  "orders": {
+    "title": "Orders",
+    "orderLabel": "Order",
+    "lanesLabel": "Order lanes",
+    "lanes": {
+      "new": "New",
+      "preparing": "Preparing",
+      "ready": "Ready"
+    },
+    "empty": {
+      "new": "No new orders. They appear here by themselves.",
+      "preparing": "Nothing being prepared.",
+      "ready": "Nothing waiting at the counter."
+    },
+    "live": "Live",
+    "offline": "Reconnecting…",
+    "sound": {
+      "on": "Sound on",
+      "off": "Sound off",
+      "enable": "Turn on the new-order sound"
+    },
+    "waited": "{minutes} min",
+    "placedAgo": "Ordered {minutes} min ago",
+    "waitLabel": "Waiting {minutes} of {target} minutes",
+    "acknowledged": "Customer is on the way",
+    "toast": {
+      "ready": "{number} is ready. The customer has been told."
+    },
+    "actions": {
+      "preparing": "Start preparing",
+      "ready": "Ready",
+      "completed": "Collected",
+      "readyNow": "Mark ready now",
+      "backToPreparing": "Not ready yet",
+      "cancel": "Cancel order…",
+      "more": "More actions for order {number}"
+    },
+    "cancel": {
+      "title": "Cancel order {number}?",
+      "body": "The customer sees this reason on their order page.",
+      "reason": "Reason",
+      "reasons": {
+        "soldOut": "Sold out",
+        "closing": "We’re closing",
+        "noShow": "Customer didn’t come",
+        "duplicate": "Duplicate order"
+      },
+      "placeholder": "Or write a short reason",
+      "required": "Give a reason so the customer knows.",
+      "confirm": "Cancel the order",
+      "keep": "Keep it"
+    },
+    "done": {
+      "title": "Finished today",
+      "empty": "Nothing finished yet today."
+    },
+    "status": {
+      "new": "New",
+      "accepted": "Accepted",
+      "preparing": "Preparing",
+      "ready": "Ready",
+      "completed": "Collected",
+      "canceled": "Canceled"
+    },
+    "errors": {
+      "invalid_transition": "This order just changed. The board is up to date now.",
+      "reason_required": "Give a reason so the customer knows.",
+      "forbidden": "You no longer have access to this shop.",
+      "not_found": "This order no longer exists.",
+      "generic": "Couldn’t save. Check the connection and try again."
+    },
+    "history": {
+      "title": "Order history",
+      "link": "History",
+      "board": "Live board",
+      "today": "Today",
+      "previousDay": "Previous day",
+      "nextDay": "Next day",
+      "date": "Day",
+      "status": "Status",
+      "all": "All",
+      "searchLabel": "Search",
+      "search": "Number, name or table",
+      "apply": "Show",
+      "totals": {
+        "orders": "Orders",
+        "completed": "Collected",
+        "canceled": "Canceled",
+        "collected": "Taken at the counter",
+        "average": "Average order"
+      },
+      "empty": "No orders on this day.",
+      "noMatch": "No orders match these filters.",
+      "export": "Download CSV",
+      "truncated": "Showing the latest {limit} orders.",
+      "reason": "Canceled: {reason}",
+      "columns": {
+        "number": "No.",
+        "time": "Time",
+        "customer": "Customer",
+        "items": "Items",
+        "total": "Total",
+        "status": "Status"
+      }
+    },
+    "screen": {
+      "link": "Call-out screen",
+      "title": "Call-out screen",
+      "preparing": "Being prepared",
+      "ready": "Ready: come to the counter",
+      "nonePreparing": "Nothing in the kitchen right now.",
+      "noneReady": "Numbers appear here when orders are ready.",
+      "start": "Start the screen",
+      "startHint": "Opens full screen, keeps the display awake and chimes when a number is ready. Put it on a screen your customers can see. It shows numbers only, never names.",
+      "back": "Back to the order board",
+      "live": "Live",
+      "offline": "Reconnecting…"
+    },
+    "csv": {
+      "number": "Number",
+      "placedAt": "Ordered at",
+      "status": "Status",
+      "customer": "Customer",
+      "table": "Table",
+      "items": "Items",
+      "total": "Total ({currency})",
+      "cancelReason": "Cancel reason"
+    }
+  },
+  "staff": {
+    "title": "Staff",
+    "description": "People who run the order board with you. Staff see orders only: no menu, billing or settings.",
+    "seats": "{used} of {max} staff seats used",
+    "seatsUnlimited": "{used, plural, =0 {No staff yet} one {# staff member} other {# staff members}}",
+    "invite": {
+      "title": "Invite someone",
+      "body": "They get an email with a link to join. The link works once and expires in 7 days.",
+      "email": "Email address",
+      "placeholder": "name@example.com",
+      "submit": "Send invitation",
+      "sent": "Invitation sent to {email}.",
+      "linkHint": "If the email doesn’t arrive, send them this link yourself (WhatsApp, SMS). It works only for that address.",
+      "linkLabel": "Invitation link",
+      "copy": "Copy link",
+      "copied": "Copied.",
+      "copyFailed": "Couldn’t copy. Select the link and copy it."
+    },
+    "members": {
+      "title": "Team",
+      "owner": "Owner",
+      "staff": "Staff",
+      "you": "you",
+      "since": "since {date}",
+      "onlyYou": "It’s just you for now. Invite the people at the counter and in the kitchen.",
+      "remove": "Remove",
+      "removeTitle": "Remove {email}?",
+      "removeBody": "They lose access to the order board straight away. You can invite them again later.",
+      "removeConfirm": "Remove",
+      "keep": "Keep"
+    },
+    "pending": {
+      "title": "Pending invitations",
+      "empty": "No pending invitations.",
+      "expires": "Link expires {date}",
+      "expired": "Link expired",
+      "revoke": "Revoke",
+      "remove": "Remove"
+    },
+    "errors": {
+      "invalid": "Enter a valid email address.",
+      "seats": "All staff seats on your plan are used. Remove someone or change plan first.",
+      "already": "This person is already on your team.",
+      "self": "That’s your own address.",
+      "rateLimited": "Too many invitations in a short time. Try again in an hour.",
+      "forbidden": "Only the owner can manage staff.",
+      "generic": "Something went wrong. Try again."
+    },
+    "email": {
+      "subject": "Join {shop} on {brand}",
+      "body": "{inviter} invited you to run the order board of {shop} on {brand}.\n\nAccept the invitation (the link works for {days} days):\n{link}\n\nIf you weren’t expecting this, you can ignore this email."
+    }
+  },
+  "invite": {
+    "pageTitle": "Invitation",
+    "title": "Join {shop}",
+    "body": "You’ve been invited to run the order board of {shop}: see new orders, prepare them and call customers when they’re ready.",
+    "accept": "Join {shop}",
+    "switch": "Log out and switch account",
+    "wrongAccount": "You’re logged in as <b>{current}</b>, but this invitation is for <b>{email}</b>.",
+    "signup": {
+      "email": "Email",
+      "password": "Choose a password",
+      "passwordHint": "At least 8 characters.",
+      "submit": "Create account and join",
+      "haveAccount": "Already have an account with this email?",
+      "logIn": "Log in"
+    },
+    "checkEmail": {
+      "title": "Check your email",
+      "body": "We sent a confirmation link to {email}. Open it on this device: it brings you back here to join."
+    },
+    "invalid": {
+      "title": "This invitation can’t be used",
+      "body": "It may have expired, been revoked or already used. Ask the shop owner for a new one.",
+      "home": "Go to the home page"
+    },
+    "errors": {
+      "invalid": "This invitation is no longer valid. Ask the owner for a new one.",
+      "wrongAccount": "This invitation is for another email address.",
+      "weakPassword": "Use at least 8 characters.",
+      "emailTaken": "An account already exists for this email. Log in instead.",
+      "rateLimited": "Too many attempts. Wait a few minutes.",
+      "generic": "Something went wrong. Try again."
+    }
   }
 }

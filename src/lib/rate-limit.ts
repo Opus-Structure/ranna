@@ -45,6 +45,7 @@ export const limits = {
   reRing: { limit: 1, windowSec: 30 },
   pushSubscribe: { limit: 10, windowSec: 10 * 60 },
   receiptUpload: { limit: 10, windowSec: 60 * 60 },
+  staffInvite: { limit: 20, windowSec: 60 * 60 },
 } as const;
 
 export type LimitName = keyof typeof limits;

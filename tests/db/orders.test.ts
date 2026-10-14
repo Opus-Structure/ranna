@@ -25,9 +25,20 @@ const users: string[] = [];
 const merchantIds: string[] = [];
 let planId: string;
 
-type Shop = { slug: string; merchantId: string; ownerId: string; teaId: string; wrapId: string; sizeIds: string[]; soldOutId: string };
+type Shop = {
+  slug: string;
+  merchantId: string;
+  ownerId: string;
+  teaId: string;
+  wrapId: string;
+  sizeIds: string[];
+  soldOutId: string;
+};
 
-async function shop(label: string, extra: Partial<typeof merchants.$inferInsert> = {}): Promise<Shop> {
+async function shop(
+  label: string,
+  extra: Partial<typeof merchants.$inferInsert> = {},
+): Promise<Shop> {
   const ownerId = await createAuthUser(label);
   users.push(ownerId);
   const slug = `${label}-${randomUUID().slice(0, 6)}`;
@@ -38,7 +49,10 @@ async function shop(label: string, extra: Partial<typeof merchants.$inferInsert>
   const merchantId = m!.id;
   merchantIds.push(merchantId);
   await serviceDb.insert(merchantMembers).values({ merchantId, userId: ownerId, role: "owner" });
-  const [cat] = await serviceDb.insert(categories).values({ merchantId, name: "Menu" }).returning({ id: categories.id });
+  const [cat] = await serviceDb
+    .insert(categories)
+    .values({ merchantId, name: "Menu" })
+    .returning({ id: categories.id });
   const [tea, wrap, soldOut] = await serviceDb
     .insert(items)
     .values([
@@ -58,7 +72,15 @@ async function shop(label: string, extra: Partial<typeof merchants.$inferInsert>
       { merchantId, groupId: group!.id, name: "Maxi", priceDeltaMinor: 15000 },
     ])
     .returning({ id: options.id });
-  return { slug, merchantId, ownerId, teaId: tea!.id, wrapId: wrap!.id, sizeIds: sizes.map((s) => s.id), soldOutId: soldOut!.id };
+  return {
+    slug,
+    merchantId,
+    ownerId,
+    teaId: tea!.id,
+    wrapId: wrap!.id,
+    sizeIds: sizes.map((s) => s.id),
+    soldOutId: soldOut!.id,
+  };
 }
 
 const order = (s: Shop, over: Record<string, unknown> = {}) => ({
@@ -124,8 +146,17 @@ describe("placeOrder", () => {
     const second = await placeOrder(order(s));
     expect(second).toMatchObject({ ok: true, number: 102 });
     if (!first.ok) return;
-    const [row] = await serviceDb.select().from(orders).where(eq(orders.tokenHash, hashToken(first.token)));
-    expect(row).toMatchObject({ totalMinor: 80000, currency: "DZD", customerName: "Amine", customerPhone: "0555123456", status: "new" });
+    const [row] = await serviceDb
+      .select()
+      .from(orders)
+      .where(eq(orders.tokenHash, hashToken(first.token)));
+    expect(row).toMatchObject({
+      totalMinor: 80000,
+      currency: "DZD",
+      customerName: "Amine",
+      customerPhone: "0555123456",
+      status: "new",
+    });
     const lines = await serviceDb.select().from(orderItems).where(eq(orderItems.orderId, row!.id));
     expect(lines.map((l) => [l.name, l.unitPriceMinor, l.quantity])).toEqual(
       expect.arrayContaining([
@@ -143,7 +174,9 @@ describe("placeOrder", () => {
     expect(a.ok && b.ok).toBe(true);
     if (!a.ok || !b.ok) return;
     expect(b).toMatchObject({ duplicate: true, number: a.number, token: a.token });
-    expect(await serviceDb.select().from(orders).where(eq(orders.merchantId, s.merchantId))).toHaveLength(1);
+    expect(
+      await serviceDb.select().from(orders).where(eq(orders.merchantId, s.merchantId)),
+    ).toHaveLength(1);
   });
 
   it("restarts numbering each business day in the shop's time zone", async () => {
@@ -156,23 +189,45 @@ describe("placeOrder", () => {
   });
 
   it("refuses when the shop cannot take orders", async () => {
-    expect(await placeOrder(order(await shop("closed", { isOpen: false })))).toMatchObject({ ok: false, error: "closed" });
-    expect(await placeOrder(order(await shop("paused", { acceptingOrders: false })))).toMatchObject({ ok: false, error: "paused" });
-    expect(await placeOrder(order(await shop("suspended", { status: "suspended" })))).toMatchObject({ ok: false, error: "closed" });
-    expect(await placeOrder({ ...order(await shop("ghost")), slug: "no-such-shop-x" })).toMatchObject({ ok: false, error: "not_found" });
+    expect(await placeOrder(order(await shop("closed", { isOpen: false })))).toMatchObject({
+      ok: false,
+      error: "closed",
+    });
+    expect(await placeOrder(order(await shop("paused", { acceptingOrders: false })))).toMatchObject(
+      { ok: false, error: "paused" },
+    );
+    expect(await placeOrder(order(await shop("suspended", { status: "suspended" })))).toMatchObject(
+      { ok: false, error: "closed" },
+    );
+    expect(
+      await placeOrder({ ...order(await shop("ghost")), slug: "no-such-shop-x" }),
+    ).toMatchObject({ ok: false, error: "not_found" });
   });
 
   it("refuses bots, bad input and unavailable dishes", async () => {
     const s = await shop("guard");
-    expect(await placeOrder(order(s, { website: "http://spam" }))).toMatchObject({ ok: false, error: "invalid" });
-    expect(await placeOrder(order(s, { customerName: "   " }))).toMatchObject({ ok: false, error: "nameRequired" });
-    expect(await placeOrder(order(s, { phone: "call me" }))).toMatchObject({ ok: false, error: "phone" });
-    expect(await placeOrder(order(s, { lines: [{ itemId: s.soldOutId, quantity: 1, optionIds: [] }] }))).toMatchObject({
+    expect(await placeOrder(order(s, { website: "http://spam" }))).toMatchObject({
+      ok: false,
+      error: "invalid",
+    });
+    expect(await placeOrder(order(s, { customerName: "   " }))).toMatchObject({
+      ok: false,
+      error: "nameRequired",
+    });
+    expect(await placeOrder(order(s, { phone: "call me" }))).toMatchObject({
+      ok: false,
+      error: "phone",
+    });
+    expect(
+      await placeOrder(order(s, { lines: [{ itemId: s.soldOutId, quantity: 1, optionIds: [] }] })),
+    ).toMatchObject({
       ok: false,
       error: "item_unavailable",
       itemId: s.soldOutId,
     });
-    expect(await placeOrder(order(s, { lines: [{ itemId: s.wrapId, quantity: 1, optionIds: [] }] }))).toMatchObject({
+    expect(
+      await placeOrder(order(s, { lines: [{ itemId: s.wrapId, quantity: 1, optionIds: [] }] })),
+    ).toMatchObject({
       ok: false,
       error: "option_required",
     });
@@ -186,7 +241,9 @@ describe("placeOrder", () => {
 
   it("records the table label from the shop's QR codes", async () => {
     const s = await shop("table");
-    await serviceDb.insert(qrCodes).values({ merchantId: s.merchantId, label: "Terrasse 4", tableCode: "T4" });
+    await serviceDb
+      .insert(qrCodes)
+      .values({ merchantId: s.merchantId, label: "Terrasse 4", tableCode: "T4" });
     const r = await placeOrder(order(s, { table: "T4" }));
     if (!r.ok) throw new Error(r.error);
     const view = await loadCustomerOrder(r.token);
@@ -197,8 +254,14 @@ describe("placeOrder", () => {
 
   it("shows lines in ticket order with the translations they had when ordered", async () => {
     const s = await shop("i18n");
-    await serviceDb.update(items).set({ nameI18n: { fr: "Wrap poulet" } }).where(eq(items.id, s.wrapId));
-    await serviceDb.update(options).set({ nameI18n: { fr: "Grand" } }).where(eq(options.id, s.sizeIds[1]!));
+    await serviceDb
+      .update(items)
+      .set({ nameI18n: { fr: "Wrap poulet" } })
+      .where(eq(items.id, s.wrapId));
+    await serviceDb
+      .update(options)
+      .set({ nameI18n: { fr: "Grand" } })
+      .where(eq(options.id, s.sizeIds[1]!));
     // Wrap first, then tea: the reverse of the default fixture, and of nothing alphabetical.
     const lines = [
       { itemId: s.wrapId, quantity: 1, optionIds: [s.sizeIds[1]] },
@@ -207,7 +270,10 @@ describe("placeOrder", () => {
     const r = await placeOrder(order(s, { lines }));
     if (!r.ok) throw new Error(r.error);
     // A later rename never rewrites a placed order.
-    await serviceDb.update(items).set({ name: "Renamed", nameI18n: { fr: "Renommé" } }).where(eq(items.id, s.wrapId));
+    await serviceDb
+      .update(items)
+      .set({ name: "Renamed", nameI18n: { fr: "Renommé" } })
+      .where(eq(items.id, s.wrapId));
     const view = await loadCustomerOrder(r.token);
     expect(view?.items.map((i) => [i.name, i.nameI18n.fr ?? null, i.quantity])).toEqual([
       ["Wrap", "Wrap poulet", 1],
@@ -222,13 +288,24 @@ describe("setOrderStatus", () => {
     const s = await shop("life");
     const placed = await placeOrder(order(s));
     if (!placed.ok) throw new Error(placed.error);
-    const [row] = await serviceDb.select().from(orders).where(eq(orders.tokenHash, hashToken(placed.token)));
+    const [row] = await serviceDb
+      .select()
+      .from(orders)
+      .where(eq(orders.tokenHash, hashToken(placed.token)));
     const sent: { topic: string; payload: Record<string, unknown> }[] = [];
-    const publisher: RealtimePublisher = { publish: async (topic, _e, payload) => void sent.push({ topic, payload }) };
+    const publisher: RealtimePublisher = {
+      publish: async (topic, _e, payload) => void sent.push({ topic, payload }),
+    };
     const ctx = staffCtx(s);
 
-    expect(await setOrderStatus(ctx, row!.id, "preparing", {}, publisher)).toEqual({ ok: true, status: "preparing" });
-    expect(await setOrderStatus(ctx, row!.id, "accepted", {}, publisher)).toMatchObject({ ok: false, error: "invalid_transition" });
+    expect(await setOrderStatus(ctx, row!.id, "preparing", {}, publisher)).toEqual({
+      ok: true,
+      status: "preparing",
+    });
+    expect(await setOrderStatus(ctx, row!.id, "accepted", {}, publisher)).toMatchObject({
+      ok: false,
+      error: "invalid_transition",
+    });
     expect(await setOrderStatus(ctx, row!.id, "ready", {}, publisher)).toMatchObject({ ok: true });
     const [ready] = await serviceDb.select().from(orders).where(eq(orders.id, row!.id));
     expect(ready?.readyAt).toBeInstanceOf(Date);
@@ -237,8 +314,13 @@ describe("setOrderStatus", () => {
       topic: orderTopic(hashToken(placed.token)),
       payload: expect.objectContaining({ status: "ready", stage: "ready", number: 101 }),
     });
-    expect(await setOrderStatus(ctx, row!.id, "canceled", {}, publisher)).toMatchObject({ ok: false, error: "reason_required" });
-    expect(await setOrderStatus(ctx, row!.id, "completed", {}, publisher)).toMatchObject({ ok: true });
+    expect(await setOrderStatus(ctx, row!.id, "canceled", {}, publisher)).toMatchObject({
+      ok: false,
+      error: "reason_required",
+    });
+    expect(await setOrderStatus(ctx, row!.id, "completed", {}, publisher)).toMatchObject({
+      ok: true,
+    });
   });
 
   it("cannot touch another shop's orders", async () => {
@@ -246,8 +328,14 @@ describe("setOrderStatus", () => {
     const b = await shop("iso-b");
     const placed = await placeOrder(order(a));
     if (!placed.ok) throw new Error(placed.error);
-    const [row] = await serviceDb.select().from(orders).where(eq(orders.tokenHash, hashToken(placed.token)));
+    const [row] = await serviceDb
+      .select()
+      .from(orders)
+      .where(eq(orders.tokenHash, hashToken(placed.token)));
     const noop: RealtimePublisher = { publish: async () => undefined };
-    expect(await setOrderStatus(staffCtx(b), row!.id, "ready", {}, noop)).toMatchObject({ ok: false, error: "not_found" });
+    expect(await setOrderStatus(staffCtx(b), row!.id, "ready", {}, noop)).toMatchObject({
+      ok: false,
+      error: "not_found",
+    });
   });
 });

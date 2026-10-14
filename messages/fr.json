@@ -807,5 +807,220 @@
         "body": "Le lien est peut-être incomplet. Vérifiez l’adresse ou demandez au comptoir."
       }
     }
+  },
+  "orders": {
+    "title": "Commandes",
+    "orderLabel": "Commande",
+    "lanesLabel": "Colonnes de commandes",
+    "lanes": {
+      "new": "Nouvelles",
+      "preparing": "En préparation",
+      "ready": "Prêtes"
+    },
+    "empty": {
+      "new": "Aucune nouvelle commande. Elles apparaissent ici toutes seules.",
+      "preparing": "Rien en préparation.",
+      "ready": "Rien n’attend au comptoir."
+    },
+    "live": "En direct",
+    "offline": "Reconnexion…",
+    "sound": {
+      "on": "Son activé",
+      "off": "Son coupé",
+      "enable": "Activer le son des nouvelles commandes"
+    },
+    "waited": "{minutes} min",
+    "placedAgo": "Commandé il y a {minutes} min",
+    "waitLabel": "Attente : {minutes} sur {target} minutes",
+    "acknowledged": "Le client arrive",
+    "toast": {
+      "ready": "{number} est prête. Le client est prévenu."
+    },
+    "actions": {
+      "preparing": "Préparer",
+      "ready": "Prête",
+      "completed": "Récupérée",
+      "readyNow": "Marquer prête maintenant",
+      "backToPreparing": "Pas encore prête",
+      "cancel": "Annuler la commande…",
+      "more": "Autres actions pour la commande {number}"
+    },
+    "cancel": {
+      "title": "Annuler la commande {number} ?",
+      "body": "Le client voit ce motif sur la page de sa commande.",
+      "reason": "Motif",
+      "reasons": {
+        "soldOut": "Épuisé",
+        "closing": "Nous fermons",
+        "noShow": "Client non venu",
+        "duplicate": "Commande en double"
+      },
+      "placeholder": "Ou écrivez un court motif",
+      "required": "Indiquez un motif pour que le client comprenne.",
+      "confirm": "Annuler la commande",
+      "keep": "La garder"
+    },
+    "done": {
+      "title": "Terminées aujourd’hui",
+      "empty": "Rien de terminé aujourd’hui."
+    },
+    "status": {
+      "new": "Nouvelle",
+      "accepted": "Acceptée",
+      "preparing": "En préparation",
+      "ready": "Prête",
+      "completed": "Récupérée",
+      "canceled": "Annulée"
+    },
+    "errors": {
+      "invalid_transition": "Cette commande vient de changer. Le tableau est à jour.",
+      "reason_required": "Indiquez un motif pour que le client comprenne.",
+      "forbidden": "Vous n’avez plus accès à cette boutique.",
+      "not_found": "Cette commande n’existe plus.",
+      "generic": "Enregistrement impossible. Vérifiez la connexion et réessayez."
+    },
+    "history": {
+      "title": "Historique des commandes",
+      "link": "Historique",
+      "board": "Tableau en direct",
+      "today": "Aujourd’hui",
+      "previousDay": "Jour précédent",
+      "nextDay": "Jour suivant",
+      "date": "Jour",
+      "status": "Statut",
+      "all": "Tous",
+      "searchLabel": "Recherche",
+      "search": "Numéro, nom ou table",
+      "apply": "Afficher",
+      "totals": {
+        "orders": "Commandes",
+        "completed": "Récupérées",
+        "canceled": "Annulées",
+        "collected": "Encaissé au comptoir",
+        "average": "Panier moyen"
+      },
+      "empty": "Aucune commande ce jour-là.",
+      "noMatch": "Aucune commande ne correspond à ces filtres.",
+      "export": "Télécharger le CSV",
+      "truncated": "Affichage des {limit} dernières commandes.",
+      "reason": "Annulée : {reason}",
+      "columns": {
+        "number": "N°",
+        "time": "Heure",
+        "customer": "Client",
+        "items": "Articles",
+        "total": "Total",
+        "status": "Statut"
+      }
+    },
+    "screen": {
+      "link": "Écran d’appel",
+      "title": "Écran d’appel",
+      "preparing": "En préparation",
+      "ready": "Prêtes : venez au comptoir",
+      "nonePreparing": "Rien en cuisine pour le moment.",
+      "noneReady": "Les numéros apparaissent ici quand les commandes sont prêtes.",
+      "start": "Lancer l’écran",
+      "startHint": "Passe en plein écran, garde l’affichage allumé et sonne quand un numéro est prêt. Placez-le sur un écran visible par vos clients. Il n’affiche que des numéros, jamais de noms.",
+      "back": "Retour au tableau des commandes",
+      "live": "En direct",
+      "offline": "Reconnexion…"
+    },
+    "csv": {
+      "number": "Numéro",
+      "placedAt": "Commandé le",
+      "status": "Statut",
+      "customer": "Client",
+      "table": "Table",
+      "items": "Articles",
+      "total": "Total ({currency})",
+      "cancelReason": "Motif d’annulation"
+    }
+  },
+  "staff": {
+    "title": "Équipe",
+    "description": "Les personnes qui gèrent le tableau des commandes avec vous. L’équipe ne voit que les commandes : ni menu, ni facturation, ni réglages.",
+    "seats": "{used} place(s) d’équipe utilisée(s) sur {max}",
+    "seatsUnlimited": "{used, plural, =0 {Aucun membre pour l’instant} one {# membre} other {# membres}}",
+    "invite": {
+      "title": "Inviter quelqu’un",
+      "body": "La personne reçoit un e-mail avec un lien pour rejoindre. Le lien sert une fois et expire après 7 jours.",
+      "email": "Adresse e-mail",
+      "placeholder": "nom@exemple.com",
+      "submit": "Envoyer l’invitation",
+      "sent": "Invitation envoyée à {email}.",
+      "linkHint": "Si l’e-mail n’arrive pas, envoyez-lui ce lien vous-même (WhatsApp, SMS). Il ne fonctionne que pour cette adresse.",
+      "linkLabel": "Lien d’invitation",
+      "copy": "Copier le lien",
+      "copied": "Copié.",
+      "copyFailed": "Copie impossible. Sélectionnez le lien et copiez-le."
+    },
+    "members": {
+      "title": "Membres",
+      "owner": "Propriétaire",
+      "staff": "Équipe",
+      "you": "vous",
+      "since": "depuis le {date}",
+      "onlyYou": "Vous êtes seul pour l’instant. Invitez les personnes au comptoir et en cuisine.",
+      "remove": "Retirer",
+      "removeTitle": "Retirer {email} ?",
+      "removeBody": "La personne perd immédiatement l’accès au tableau des commandes. Vous pourrez l’inviter à nouveau.",
+      "removeConfirm": "Retirer",
+      "keep": "Garder"
+    },
+    "pending": {
+      "title": "Invitations en attente",
+      "empty": "Aucune invitation en attente.",
+      "expires": "Le lien expire le {date}",
+      "expired": "Lien expiré",
+      "revoke": "Révoquer",
+      "remove": "Supprimer"
+    },
+    "errors": {
+      "invalid": "Saisissez une adresse e-mail valide.",
+      "seats": "Toutes les places d’équipe de votre formule sont prises. Retirez quelqu’un ou changez de formule.",
+      "already": "Cette personne fait déjà partie de l’équipe.",
+      "self": "C’est votre propre adresse.",
+      "rateLimited": "Trop d’invitations en peu de temps. Réessayez dans une heure.",
+      "forbidden": "Seul le propriétaire gère l’équipe.",
+      "generic": "Une erreur est survenue. Réessayez."
+    },
+    "email": {
+      "subject": "Rejoignez {shop} sur {brand}",
+      "body": "{inviter} vous invite à gérer le tableau des commandes de {shop} sur {brand}.\n\nAcceptez l’invitation (lien valable {days} jours) :\n{link}\n\nSi vous ne vous attendiez pas à ce message, ignorez-le."
+    }
+  },
+  "invite": {
+    "pageTitle": "Invitation",
+    "title": "Rejoindre {shop}",
+    "body": "Vous êtes invité(e) à gérer le tableau des commandes de {shop} : voir les nouvelles commandes, les préparer et appeler les clients quand elles sont prêtes.",
+    "accept": "Rejoindre {shop}",
+    "switch": "Se déconnecter et changer de compte",
+    "wrongAccount": "Vous êtes connecté(e) avec <b>{current}</b>, mais cette invitation est pour <b>{email}</b>.",
+    "signup": {
+      "email": "E-mail",
+      "password": "Choisissez un mot de passe",
+      "passwordHint": "Au moins 8 caractères.",
+      "submit": "Créer le compte et rejoindre",
+      "haveAccount": "Vous avez déjà un compte avec cet e-mail ?",
+      "logIn": "Se connecter"
+    },
+    "checkEmail": {
+      "title": "Vérifiez vos e-mails",
+      "body": "Nous avons envoyé un lien de confirmation à {email}. Ouvrez-le sur cet appareil : il vous ramène ici pour rejoindre l’équipe."
+    },
+    "invalid": {
+      "title": "Cette invitation n’est plus utilisable",
+      "body": "Elle a peut-être expiré, été révoquée ou déjà utilisée. Demandez-en une nouvelle au propriétaire.",
+      "home": "Aller à l’accueil"
+    },
+    "errors": {
+      "invalid": "Cette invitation n’est plus valable. Demandez-en une nouvelle au propriétaire.",
+      "wrongAccount": "Cette invitation est destinée à une autre adresse e-mail.",
+      "weakPassword": "Utilisez au moins 8 caractères.",
+      "emailTaken": "Un compte existe déjà pour cet e-mail. Connectez-vous.",
+      "rateLimited": "Trop de tentatives. Patientez quelques minutes.",
+      "generic": "Une erreur est survenue. Réessayez."
+    }
   }
 }

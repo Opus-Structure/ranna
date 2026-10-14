@@ -16,7 +16,7 @@ import type { AppLocale } from "@/i18n/routing";
 export default async function AuthLayout({ children }: { children: ReactNode }) {
   const locale = (await getLocale()) as AppLocale;
   const t = await getTranslations("site.hero");
-  const messages = await pickMessages(["common", "auth"]);
+  const messages = await pickMessages(["common", "auth", "invite"]);
   return (
     <NextIntlClientProvider messages={messages}>
       <div className="grid min-h-dvh lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">

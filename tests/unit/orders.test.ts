@@ -2,10 +2,21 @@ import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import { priceOrder, type CartLine } from "@/lib/orders/pricing";
 import { hashToken, orderTokenFor, orderTopic, TOKEN_PATTERN } from "@/lib/orders/token";
-import { canTransition, customerStage, ORDER_STATUSES, timestampFor } from "@/lib/orders/transitions";
+import {
+  canTransition,
+  customerStage,
+  ORDER_STATUSES,
+  timestampFor,
+} from "@/lib/orders/transitions";
 import type { PublicCategory } from "@/lib/shop/public";
 
-const opt = (id: string, delta = 0, isAvailable = true) => ({ id, name: id, nameI18n: {}, priceDeltaMinor: delta, isAvailable });
+const opt = (id: string, delta = 0, isAvailable = true) => ({
+  id,
+  name: id,
+  nameI18n: {},
+  priceDeltaMinor: delta,
+  isAvailable,
+});
 
 const menu: PublicCategory[] = [
   {
@@ -23,21 +34,63 @@ const menu: PublicCategory[] = [
         imagePath: null,
         isAvailable: true,
         optionGroups: [
-          { id: "size", name: "Size", nameI18n: {}, minSelect: 1, maxSelect: 1, options: [opt("regular"), opt("maxi", 15000)] },
-          { id: "sauce", name: "Sauce", nameI18n: {}, minSelect: 0, maxSelect: 2, options: [opt("harissa"), opt("mayo"), opt("cheese", 5000, false)] },
+          {
+            id: "size",
+            name: "Size",
+            nameI18n: {},
+            minSelect: 1,
+            maxSelect: 1,
+            options: [opt("regular"), opt("maxi", 15000)],
+          },
+          {
+            id: "sauce",
+            name: "Sauce",
+            nameI18n: {},
+            minSelect: 0,
+            maxSelect: 2,
+            options: [opt("harissa"), opt("mayo"), opt("cheese", 5000, false)],
+          },
         ],
       },
-      { id: "tea", name: "Tea", nameI18n: {}, description: null, descriptionI18n: {}, priceMinor: 10000, imagePath: null, isAvailable: true, optionGroups: [] },
-      { id: "zlabia", name: "Zlabia", nameI18n: {}, description: null, descriptionI18n: {}, priceMinor: 5000, imagePath: null, isAvailable: false, optionGroups: [] },
+      {
+        id: "tea",
+        name: "Tea",
+        nameI18n: {},
+        description: null,
+        descriptionI18n: {},
+        priceMinor: 10000,
+        imagePath: null,
+        isAvailable: true,
+        optionGroups: [],
+      },
+      {
+        id: "zlabia",
+        name: "Zlabia",
+        nameI18n: {},
+        description: null,
+        descriptionI18n: {},
+        priceMinor: 5000,
+        imagePath: null,
+        isAvailable: false,
+        optionGroups: [],
+      },
     ],
   },
 ];
 
-const line = (itemId: string, quantity = 1, optionIds: string[] = [], note?: string): CartLine => ({ itemId, quantity, optionIds, note });
+const line = (itemId: string, quantity = 1, optionIds: string[] = [], note?: string): CartLine => ({
+  itemId,
+  quantity,
+  optionIds,
+  note,
+});
 
 describe("priceOrder", () => {
   it("prices from the menu, adds option deltas and snapshots names", () => {
-    const r = priceOrder(menu, [line("shawarma", 2, ["maxi", "harissa"], " sans oignon "), line("tea", 3)]);
+    const r = priceOrder(menu, [
+      line("shawarma", 2, ["maxi", "harissa"], " sans oignon "),
+      line("tea", 3),
+    ]);
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.lines[0]).toMatchObject({
