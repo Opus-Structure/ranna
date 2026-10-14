@@ -1,44 +1,93 @@
-import { BellRing } from "lucide-react";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { WaitBand } from "@/components/brand/wait-band";
-import { Button } from "@/components/ui/button";
+import { AlertMatrix } from "@/components/marketing/alert-matrix";
+import { CounterBoard } from "@/components/marketing/counter-board";
+import { CounterSweep } from "@/components/marketing/counter-sweep";
+import { Faq } from "@/components/marketing/faq";
+import { HowItWorks } from "@/components/marketing/how-it-works";
+import { Pricing } from "@/components/marketing/pricing";
+import { StartForm } from "@/components/marketing/start-form";
+import { TryDemo } from "@/components/marketing/try-demo";
+import { brand } from "@/config/brand";
 import { Link } from "@/i18n/navigation";
+import type { AppLocale } from "@/i18n/routing";
 import { initLocale } from "@/i18n/server";
 
-/** Phase 1 landing: the promise and the way in. The full marketing page lands in phase 9. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations("site.meta");
+  return {
+    title: { absolute: t("title") },
+    description: t("description"),
+    alternates: { languages: { ar: "/", fr: "/fr", en: "/en", "x-default": "/" } },
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      locale,
+      siteName: brand.name,
+      type: "website",
+    },
+  };
+}
+
+/**
+ * The landing: the counter before and after, the visitor's own hand doing the sweep, and the
+ * way in (name your shop) in the first viewport. Then the three moments, the counter side, the
+ * real demo, what rings where, prices, questions, and a closing clay plate with the same action.
+ */
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
-  await initLocale(params);
-  const t = await getTranslations("site.hero");
+  const locale = (await initLocale(params)) as AppLocale;
+  const t = await getTranslations("site");
   return (
-    <main className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-10 pb-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pt-20">
-      <section className="flex flex-col gap-6">
-        <h1 className="max-w-[16ch] font-display text-4xl leading-[1.08] font-bold sm:text-5xl lg:text-6xl">
-          {t("title")}
+    <main>
+      <section
+        aria-labelledby="hero-title"
+        className="mx-auto w-full max-w-6xl px-4 pt-3 pb-5 sm:px-6 sm:pt-6 sm:pb-8"
+      >
+        <h1
+          id="hero-title"
+          className="max-w-[24ch] font-display text-[clamp(2.1rem,4.5vw,4rem)] leading-[1.05] font-bold text-balance"
+        >
+          {t("hero.title")}
         </h1>
-        <p className="max-w-[56ch] text-lg leading-relaxed text-muted-foreground">{t("body")}</p>
-        <div className="flex flex-wrap gap-3">
-          <Button asChild size="lg" className="h-12 px-6 text-base">
-            <Link href="/signup">{t("cta")}</Link>
-          </Button>
-          <Button asChild size="lg" variant="ghost" className="h-12 px-6 text-base">
-            <Link href="/login">{t("secondary")}</Link>
-          </Button>
+        <p className="mt-2 max-w-[80ch] text-lg leading-relaxed text-muted-foreground sm:mt-3">
+          {t("hero.body")}
+        </p>
+        <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:gap-3 lg:flex-row lg:items-end lg:gap-8">
+          <StartForm locale={locale} id="start-top" />
+          <Link
+            href="#try"
+            className="w-fit pb-1 text-sm font-semibold underline underline-offset-4 hover:no-underline lg:mb-9"
+          >
+            {t("hero.demo")}
+          </Link>
         </div>
       </section>
-      <section
-        aria-hidden
-        className="rounded-2xl bg-clay p-8 text-clay-foreground shadow-[0_24px_60px_-28px_oklch(0.38_0.105_30/0.6)]"
-      >
-        <div className="flex items-end justify-between gap-6">
-          <span className="order-number text-[7.5rem] sm:text-[9rem]" data-numeric>
-            107
-          </span>
-          <span className="mb-4 grid size-12 place-items-center rounded-full bg-state-ready text-state-ready-foreground">
-            <BellRing className="size-6" />
-          </span>
-        </div>
-        <div className="mt-6 text-clay-foreground [--band-empty:var(--clay-line)] [--band-ink:var(--clay-foreground)]">
-          <WaitBand elapsedMinutes={7} targetMinutes={10} />
+
+      <CounterSweep />
+      <HowItWorks />
+      <CounterBoard />
+      <TryDemo />
+      <AlertMatrix />
+      <Pricing locale={locale} />
+      <Faq />
+
+      <section aria-labelledby="close-title" className="bg-clay text-clay-foreground">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h2
+              id="close-title"
+              className="max-w-[16ch] font-display text-3xl leading-tight font-bold text-balance sm:text-5xl"
+            >
+              {t("close.title")}
+            </h2>
+            <p className="mt-4 max-w-[44ch] text-clay-muted">{t("close.body")}</p>
+          </div>
+          <StartForm locale={locale} tone="clay" id="start-bottom" />
         </div>
       </section>
     </main>

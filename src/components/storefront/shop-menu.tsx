@@ -230,7 +230,6 @@ function MenuItemCard({
           "flex w-full flex-col overflow-hidden rounded-2xl bg-[var(--shop-card)] text-start shadow-[0_1px_3px_rgb(31_26_23/0.08)]",
           interactive &&
             "transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-ink)] active:scale-[0.98]",
-          !item.isAvailable && "opacity-60",
         )}
       >
         <div className="relative aspect-[4/3] w-full bg-[var(--shop-line)]">
@@ -240,7 +239,7 @@ function MenuItemCard({
               alt=""
               fill
               sizes="(max-width: 672px) 50vw, 330px"
-              className="object-cover"
+              className={cn("object-cover", !item.isAvailable && "opacity-50 grayscale")}
             />
           ) : null}
           {!item.isAvailable ? (
@@ -266,11 +265,17 @@ function MenuItemCard({
         "flex w-full items-start gap-4 border-b border-[var(--shop-line)] py-4 text-start",
         interactive &&
           "-mx-2 rounded-xl px-2 transition-colors hover:bg-[color-mix(in_srgb,var(--brand)_5%,transparent)] focus-visible:outline-2 focus-visible:outline-[var(--brand-ink)]",
-        !item.isAvailable && "opacity-60",
       )}
     >
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="text-[1.0625rem] leading-snug font-semibold">{name}</span>
+        <span
+          className={cn(
+            "text-[1.0625rem] leading-snug font-semibold",
+            !item.isAvailable && "text-[var(--shop-muted)] line-through decoration-1",
+          )}
+        >
+          {name}
+        </span>
         {description ? (
           <span className="line-clamp-2 text-sm leading-relaxed text-[var(--shop-muted)]">
             {description}
@@ -292,7 +297,10 @@ function MenuItemCard({
           width={96}
           height={96}
           sizes="96px"
-          className="size-24 shrink-0 rounded-xl object-cover"
+          className={cn(
+            "size-24 shrink-0 rounded-xl object-cover",
+            !item.isAvailable && "opacity-50 grayscale",
+          )}
         />
       ) : null}
     </Tag>

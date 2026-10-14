@@ -25,3 +25,6 @@ coverage
 Thumbs.db
 # local throwaway scripts
 .scratch
+
+# impeccable review captures (local evidence, regenerated each round)
+.impeccable/review

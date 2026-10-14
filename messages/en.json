@@ -49,18 +49,227 @@
     "nav": {
       "pricing": "Pricing",
       "login": "Log in",
-      "start": "Start free"
+      "start": "Start free",
+      "label": "Main",
+      "how": "How it works",
+      "faq": "Questions"
     },
     "hero": {
       "title": "Your customer's phone rings when the order is ready.",
-      "body": "Customers scan a QR code, order from your menu, and wait anywhere. Tap Ready and their phone calls them back. No app, no pagers, no crowd at the counter.",
+      "body": "Customers scan, order from your menu and wait anywhere. Tap Ready and their phone calls them back.",
       "cta": "Create your shop",
-      "secondary": "I already have an account"
+      "secondary": "I already have an account",
+      "demo": "Or try the demo café first"
     },
     "footer": {
       "terms": "Terms",
       "privacy": "Privacy",
       "rights": "© {year} {brand}"
+    },
+    "meta": {
+      "title": "Ranna: QR ordering that rings your customer’s phone",
+      "description": "Customers scan a QR code, order from your menu and wait anywhere. Tap Ready and their phone rings. No app, no pagers. Arabic, French and English, priced in dinars."
+    },
+    "start": {
+      "label": "Your shop’s name",
+      "placeholder": "e.g. Café El Bahdja",
+      "submit": "Create my shop",
+      "note": "Next: your email and a password. Set up the menu and print your QR codes in one sitting."
+    },
+    "counter": {
+      "title": "Your counter, before and after",
+      "slider": "Sweep between the counter before and after",
+      "sliderValue": "{calm}% calm",
+      "yourNumber": "Your number",
+      "stage": {
+        "received": "Received",
+        "preparing": "Preparing",
+        "ready": "Ready"
+      },
+      "before": {
+        "title": "Before",
+        "body": "Everyone crowds the counter. Numbers get shouted twice. Pagers walk out the door."
+      },
+      "after": {
+        "title": "After",
+        "body": "They sit down, step outside, check their messages. Their own phone rings when it’s ready."
+      },
+      "phones": "Customers’ phones, each showing its order number"
+    },
+    "how": {
+      "title": "Three moments, and no app to install",
+      "body": "Everything happens in the phone’s browser, in your shop’s colours and your customer’s language.",
+      "scan": {
+        "title": "Scan",
+        "body": "A QR code on the table, the counter or the window opens your menu. Print it from the dashboard.",
+        "tent": "Scan to order",
+        "noApp": "No app needed"
+      },
+      "order": {
+        "title": "Order",
+        "body": "They pick dishes and options, give a name, and get a short number like 108. They pay at the counter as usual.",
+        "open": "Open · taking orders",
+        "review": "Review order",
+        "total": "DZD 530",
+        "items": {
+          "coffee": {
+            "name": "Black coffee",
+            "price": "80"
+          },
+          "shawarma": {
+            "name": "Chicken shawarma",
+            "price": "450"
+          },
+          "juice": {
+            "name": "Fresh orange juice",
+            "price": "250"
+          }
+        }
+      },
+      "ring": {
+        "title": "Get rung",
+        "body": "You tap Ready. Their screen turns green, the phone sounds and vibrates until they tap “I’m coming”.",
+        "ready": "Your order is ready",
+        "counter": "Come to the counter",
+        "ack": "Got it, I’m coming"
+      },
+      "demoLabel": "Shown with the demo café: a sample shop with a made-up menu."
+    },
+    "board": {
+      "title": "At the counter, one button matters",
+      "body": "New orders appear on the board by themselves. Tap Start, then Ready. The customer is called; nobody shouts.",
+      "lanes": {
+        "new": "New",
+        "preparing": "Preparing",
+        "ready": "Ready"
+      },
+      "actions": {
+        "new": "Start preparing",
+        "preparing": "Ready",
+        "ready": "Collected"
+      },
+      "minutes": "{minutes} min",
+      "caption": "The order board on a counter tablet. Sample orders.",
+      "points": {
+        "chime": {
+          "title": "A chime for every new order,",
+          "body": "and the count in the browser tab."
+        },
+        "screen": {
+          "title": "A call-out screen",
+          "body": "for a TV your customers can see: numbers only, never names."
+        },
+        "staff": {
+          "title": "Staff accounts:",
+          "body": "cashiers and cooks see the orders and nothing else."
+        },
+        "device": {
+          "title": "Any tablet or phone",
+          "body": "with a browser. No printer, no special hardware."
+        },
+        "languages": {
+          "title": "Arabic, French and English,",
+          "body": "for you, your staff and every customer."
+        }
+      }
+    },
+    "try": {
+      "title": "Try it on your own phone",
+      "qrLabel": "QR code that opens the demo café’s menu",
+      "steps": {
+        "scan": "Scan this code with your phone’s camera.",
+        "order": "Order a coffee from the demo café and tap “Ring my phone”.",
+        "wait": "Put the phone down. In about a minute, it rings."
+      },
+      "note": "The demo café is a sample shop with a made-up menu: nothing is cooked or charged. With no staff there, its orders move to Ready by themselves so you can feel the ring.",
+      "open": "Open the demo café"
+    },
+    "alerts": {
+      "title": "What rings, on which phone",
+      "body": "Phones don’t all allow the same things. Your customers see exactly what will work on theirs, and nobody is promised a ring that can’t happen.",
+      "more": "Details in the questions below",
+      "rows": {
+        "android": {
+          "phone": "Android phones",
+          "rings": "Notification with sound and vibration, even with the screen off or the page closed."
+        },
+        "iphoneApp": {
+          "phone": "iPhone, from the Home Screen",
+          "rings": "Notification with sound, after adding the order page to the Home Screen (iOS 16.4 and later)."
+        },
+        "iphoneSafari": {
+          "phone": "iPhone, in Safari",
+          "rings": "A full-screen alert and sound while the page is open. The page keeps the screen awake while they wait."
+        },
+        "any": {
+          "phone": "Every phone",
+          "rings": "The full-screen green alert with the number. Plus your call-out screen, and your voice as the last resort."
+        }
+      }
+    },
+    "pricing": {
+      "title": "Pricing",
+      "body": "One monthly price per shop, in dinars. Payment for food stays between you and your customers, at the counter.",
+      "cols": {
+        "plan": "Plan",
+        "price": "Price",
+        "items": "Menu items",
+        "staff": "Staff accounts",
+        "orders": "Online orders",
+        "start": "Start"
+      },
+      "per": {
+        "month": "/ month",
+        "year": "/ year"
+      },
+      "trial": "{days}-day free trial",
+      "noTrial": "No free trial",
+      "unlimited": "Unlimited",
+      "perMonth": "{count, number} a month",
+      "start": "Start with {plan}",
+      "payment": "Pay your subscription by EDAHABIA or CIB card through Chargily, or by BaridiMob or bank transfer with the receipt uploaded in your dashboard. No commission on your orders.",
+      "provisional": "Introductory prices: they may change before general launch. You always see the current price before you pay."
+    },
+    "faq": {
+      "title": "Questions",
+      "items": {
+        "app": {
+          "q": "Do my customers need to install an app?",
+          "a": "No. They scan the QR code with the phone camera and everything happens in the browser. iPhone users can add the order page to their Home Screen to receive notifications, which takes three taps and is optional."
+        },
+        "iphone": {
+          "q": "Does the ring work on iPhone?",
+          "a": "Yes, with a limit Apple sets: notifications only reach web pages added to the Home Screen (iOS 16.4 and later). Without that, the iPhone rings with a full-screen alert and sound while the order page is open, and the page keeps the screen awake. We show customers which case applies to their phone."
+        },
+        "internet": {
+          "q": "What if the connection is bad?",
+          "a": "The order page is light and keeps checking for updates every few seconds when the live connection drops, so a ready order still reaches the customer. The board works the same way at the counter."
+        },
+        "payment": {
+          "q": "Do customers pay online?",
+          "a": "Not in this version. Customers pay at the counter as they do today; the order shows the total. You pay only your monthly subscription, never a commission on orders."
+        },
+        "hardware": {
+          "q": "What equipment do I need?",
+          "a": "A tablet or phone with a browser at the counter, and a printer for the QR codes (any office printer, or a print shop). A TV for the call-out screen is optional."
+        },
+        "languages": {
+          "q": "Which languages are supported?",
+          "a": "Arabic, French and English, everywhere: your menu, the customer pages and your dashboard. Arabic is laid out right to left. You choose which languages your shop page offers."
+        },
+        "data": {
+          "q": "What do you keep about my customers?",
+          "a": "A first name or nickname for calling the order, and an optional phone number used only for the fallback alert. Phone numbers are erased automatically after the period you set (30 days by default). We never sell data or show ads."
+        },
+        "cancel": {
+          "q": "Can I stop at any time?",
+          "a": "Yes. Cancel from the billing page; your shop stays active until the end of the period you paid for. There is no long contract."
+        }
+      }
+    },
+    "close": {
+      "title": "Give your counter its calm back",
+      "body": "Name your shop, add your menu, print the QR codes. Your first order can come in today."
     }
   },
   "auth": {
@@ -1079,6 +1288,137 @@
       "emailTaken": "An account already exists for this email. Log in instead.",
       "rateLimited": "Too many attempts. Wait a few minutes.",
       "generic": "Something went wrong. Try again."
+    }
+  },
+  "legal": {
+    "draft": "Draft for review: these terms were written for the product as built and must be completed with the operator’s legal details and reviewed by a lawyer before launch.",
+    "updated": "Last updated {date}",
+    "contents": "On this page",
+    "other": "Also read the <link>{other}</link>.",
+    "terms": {
+      "title": "Terms of service",
+      "intro": "These terms govern the use of {brand}, a service that lets food businesses take orders through QR codes and call customers when their order is ready. By creating a shop you accept them on behalf of your business.",
+      "sections": [
+        {
+          "h": "Who we are",
+          "p": [
+            "{brand} is operated by [operator legal name], [registered address], [registration number] (“we”). You can reach us at the support address shown in the app."
+          ]
+        },
+        {
+          "h": "The service",
+          "p": [
+            "We provide a shop page and menu for your business, QR codes to print, an order board, alerts that tell customers their order is ready, and the related dashboard. Payment for food between you and your customers happens outside the service.",
+            "Alerts depend on each customer’s phone, browser and settings. We describe their limits in the product and do not guarantee that every alert reaches every customer."
+          ]
+        },
+        {
+          "h": "Your account",
+          "p": [
+            "You must give accurate information and keep your password safe. You are responsible for what happens under your account, including the staff you invite.",
+            "You must be authorised to act for the business you register and to sell what your menu offers."
+          ]
+        },
+        {
+          "h": "Subscription and payment",
+          "p": [
+            "Plans, prices and limits are shown on the pricing page and in your dashboard. A subscription period starts when your payment is confirmed. Payments are made per period; nothing is charged automatically.",
+            "If a period ends unpaid, your shop enters a grace period and is then suspended until you pay. You can cancel at any time; the shop stays active until the end of the period already paid. Paid periods are not refunded except where the law requires it."
+          ]
+        },
+        {
+          "h": "Your content and your customers",
+          "p": [
+            "You keep all rights to your menu, photos, logo and other content. You allow us to host and display them to provide the service.",
+            "You are responsible for your menu, prices, allergen and product information, and for the food you sell. You process your customers’ order data through the service; our Privacy notice explains how we handle it on your behalf."
+          ]
+        },
+        {
+          "h": "Acceptable use",
+          "p": [
+            "Do not use the service for anything unlawful, to collect data you are not entitled to, to send unsolicited messages, or to disrupt or probe the service. We may suspend accounts that do."
+          ]
+        },
+        {
+          "h": "Availability and liability",
+          "p": [
+            "We work to keep the service available but do not promise it will be uninterrupted. To the extent the law allows, our liability is limited to the amount you paid us in the three months before the event giving rise to the claim, and we are not liable for indirect losses such as lost profits."
+          ]
+        },
+        {
+          "h": "Changes and termination",
+          "p": [
+            "We may update these terms; we will tell you in advance of material changes. You may close your account at any time. We may end the service for an account that breaches these terms, after notice when possible."
+          ]
+        },
+        {
+          "h": "Governing law",
+          "p": [
+            "These terms are governed by the laws of [country]. Disputes go to the competent courts of [city], unless the law provides otherwise."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy notice",
+      "intro": "This notice explains what personal data {brand} handles, why, and for how long. It covers shop owners and staff, and the customers who order from shops using {brand}.",
+      "sections": [
+        {
+          "h": "Who is responsible",
+          "p": [
+            "For shop accounts, [operator legal name] is the controller. For customer orders, the shop is the controller and we process the data on its behalf to run the service."
+          ]
+        },
+        {
+          "h": "Data about customers",
+          "p": [
+            "When you order: the name or nickname you give, your order, the time, and the table if you scanned a table code. Optionally a phone number, used only to alert you if a notification can’t reach you.",
+            "If you allow notifications, your browser gives us a push address for this order. It is deleted a day after the order is closed. Phone numbers are erased automatically after the period the shop sets (30 days by default, at most one year)."
+          ]
+        },
+        {
+          "h": "Data about shop owners and staff",
+          "p": [
+            "Your email, password (stored only as a secure hash by our authentication provider), shop details, menu, staff invitations, invoices and payment records, and receipts you upload for manual payments."
+          ]
+        },
+        {
+          "h": "Why we use it",
+          "p": [
+            "To take and show orders, to tell customers their order is ready, to run your account and billing, to keep the service secure (for example rate limits on sign-in and ordering), and to meet legal obligations. We do not sell data, use it for advertising, or profile customers."
+          ]
+        },
+        {
+          "h": "Cookies",
+          "p": [
+            "We use only what the service needs: a sign-in cookie for shop owners and staff, a language preference, and storage on the customer’s own device that remembers their ticket and recent orders. No advertising or analytics cookies."
+          ]
+        },
+        {
+          "h": "Who else handles it",
+          "p": [
+            "Hosting and database (Supabase, Vercel), card payments for subscriptions (Chargily Pay), email delivery, and, if the shop enables it, an SMS or WhatsApp provider for fallback alerts. Each processes data only to provide its part of the service."
+          ]
+        },
+        {
+          "h": "How long we keep it",
+          "p": [
+            "Orders are kept for the shop’s history and accounting. Customer phone numbers and push addresses are deleted as described above. Account data is kept while the account is active and then for the period the law requires for invoices."
+          ]
+        },
+        {
+          "h": "Your rights",
+          "p": [
+            "You can ask to access, correct or delete your data, or object to its use, by contacting the shop you ordered from or our support address. Where Algerian Law No. 18-07 on the protection of personal data applies, you have the rights it grants."
+          ]
+        },
+        {
+          "h": "Security",
+          "p": [
+            "Data is encrypted in transit, each shop’s data is isolated from every other shop’s, staff see only orders, and order links use long random codes. No system is perfectly secure; we will tell affected users and authorities about breaches as the law requires."
+          ]
+        }
+      ]
     }
   }
 }

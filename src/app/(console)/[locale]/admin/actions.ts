@@ -1,7 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { writeAudit } from "@/lib/audit/log";
 import { adminAction } from "@/lib/auth/action-context";
@@ -19,6 +19,8 @@ const id = z.string().uuid();
 
 function refresh() {
   revalidatePath("/[locale]/admin", "layout");
+  // Prices and limits shown on the public pricing section.
+  revalidateTag("plans");
 }
 
 export async function setMerchantSuspendedAction(

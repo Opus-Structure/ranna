@@ -24,7 +24,16 @@ export default async function MarketingLayout({ children }: { children: ReactNod
           <BrandMark className="size-7 text-primary" />
           <Wordmark ar={brand.nameAr} latin={brand.name} />
         </Link>
-        <nav className="flex items-center gap-1 sm:gap-2" aria-label={t("nav.start")}>
+        <nav className="flex items-center gap-1 sm:gap-2" aria-label={t("nav.label")}>
+          {(["how", "pricing", "faq"] as const).map((k) => (
+            <Link
+              key={k}
+              href={{ pathname: "/", hash: k }}
+              className="hidden rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground md:inline-block"
+            >
+              {t(`nav.${k}`)}
+            </Link>
+          ))}
           <LocaleSwitcher />
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link href="/login">{t("nav.login")}</Link>

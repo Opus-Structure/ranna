@@ -51,10 +51,13 @@ export function AuthForm({
   mode,
   next,
   initialError,
+  initialShopName = "",
 }: {
   mode: Mode;
   next?: string;
   initialError?: "link";
+  /** Prefilled from the landing page start form. */
+  initialShopName?: string;
 }) {
   const t = useTranslations("auth");
   const tc = useTranslations("common");
@@ -72,7 +75,7 @@ export function AuthForm({
   const form = useForm<Values>({
     // The schema depends on the chosen method, so it is rebuilt on every render.
     resolver: zodResolver(schemaFor(mode, method)) as never,
-    defaultValues: { shopName: "", email: "", password: "" },
+    defaultValues: { shopName: initialShopName, email: "", password: "" },
     mode: "onTouched",
   });
   const { register, handleSubmit, formState, setError } = form;

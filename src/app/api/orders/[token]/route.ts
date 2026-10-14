@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { advanceDemoOrder } from "@/lib/orders/demo";
 import { loadCustomerOrderStatus } from "@/lib/orders/service";
 
 /**
@@ -7,6 +8,8 @@ import { loadCustomerOrderStatus } from "@/lib/orders/service";
  */
 export async function GET(_request: Request, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
+  // Only for the demo café: lets a visitor's order reach Ready (and ring) with no staff.
+  await advanceDemoOrder(token).catch(() => undefined);
   const status = await loadCustomerOrderStatus(token);
   if (!status)
     return NextResponse.json(

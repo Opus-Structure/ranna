@@ -10,7 +10,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title") };
 }
 
-export default async function SignupPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function SignupPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ shop?: string }>;
+}) {
   const locale = await initLocale(params);
   if (await getSessionUser()) redirect({ href: "/dashboard", locale: locale });
 
@@ -22,7 +28,7 @@ export default async function SignupPage({ params }: { params: Promise<{ locale:
         <h1 className="font-display text-3xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground">{t("body")}</p>
       </header>
-      <AuthForm mode="signup" />
+      <AuthForm mode="signup" initialShopName={(await searchParams).shop?.slice(0, 80) ?? ""} />
       <p className="text-sm leading-relaxed text-muted-foreground">
         {t.rich("terms", {
           terms: (chunks) => (
