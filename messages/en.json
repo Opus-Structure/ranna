@@ -443,6 +443,16 @@
     "paymentRejected": {
       "subject": "Your payment receipt needs attention · {brand}",
       "body": "We couldn’t approve the receipt you sent for {shop}."
+    },
+    "reminder": {
+      "paid": {
+        "subject": "{shop}: your paid period ends on {date}",
+        "body": "Your {shop} subscription runs until {date}. Pay the next period before then to keep taking orders online without interruption."
+      },
+      "trial": {
+        "subject": "{shop}: your free trial ends on {date}",
+        "body": "Your {shop} free trial ends on {date}. Choose a plan before then to keep your shop page and QR codes taking orders."
+      }
     }
   },
   "storefront": {

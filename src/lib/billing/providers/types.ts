@@ -9,6 +9,9 @@ export type ProviderWebhookEvent = {
   providerRef: string | null;
   /** Our payment id, when the provider echoes our metadata back. */
   paymentId?: string | null;
+  /** What the provider says was paid, when it reports it: checked against the payment. */
+  amountMinor?: number;
+  currency?: string;
 };
 
 export type CheckoutInput = {

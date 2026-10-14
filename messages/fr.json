@@ -443,6 +443,16 @@
     "paymentRejected": {
       "subject": "Votre reçu de paiement est à revoir · {brand}",
       "body": "Nous n’avons pas pu approuver le reçu envoyé pour {shop}."
+    },
+    "reminder": {
+      "paid": {
+        "subject": "{shop} : votre période payée se termine le {date}",
+        "body": "L’abonnement de {shop} court jusqu’au {date}. Réglez la période suivante avant cette date pour continuer à prendre des commandes en ligne sans interruption."
+      },
+      "trial": {
+        "subject": "{shop} : votre essai gratuit se termine le {date}",
+        "body": "L’essai gratuit de {shop} se termine le {date}. Choisissez une formule avant cette date pour que votre page et vos QR codes continuent de prendre des commandes."
+      }
     }
   },
   "storefront": {

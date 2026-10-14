@@ -1,6 +1,7 @@
 import "server-only";
 import { appUrl } from "@/config/brand";
 import { serverEnv } from "@/lib/env";
+import { createChargilyProvider } from "./chargily";
 import { createMockProvider } from "./mock";
 import type { PaymentProvider } from "./types";
 
@@ -13,7 +14,10 @@ export function enabledProviderIds(): ProviderId[] {
   const raw = serverEnv()
     .PAYMENT_PROVIDERS.split(",")
     .map((s) => s.trim());
-  return (["chargily", "manual", "mock"] as const).filter((id) => raw.includes(id));
+  return (["chargily", "manual", "mock"] as const).filter(
+    // Chargily is only offered once its secret key is configured.
+    (id) => raw.includes(id) && (id !== "chargily" || Boolean(serverEnv().CHARGILY_SECRET_KEY)),
+  );
 }
 
 export function getProvider(id: string): PaymentProvider | null {
@@ -28,6 +32,11 @@ export function getProvider(id: string): PaymentProvider | null {
       });
     case "manual":
       return manualProvider;
+    case "chargily":
+      // Without a key the provider stays off rather than failing at checkout time.
+      return env.CHARGILY_SECRET_KEY
+        ? createChargilyProvider({ secretKey: env.CHARGILY_SECRET_KEY, mode: env.CHARGILY_MODE })
+        : null;
     default:
       return null;
   }

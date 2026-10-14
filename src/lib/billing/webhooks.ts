@@ -68,7 +68,7 @@ export async function handleProviderWebhook(
 
   const [payment] = event.providerRef
     ? await serviceDb
-        .select({ id: payments.id })
+        .select({ id: payments.id, amountMinor: payments.amountMinor, currency: payments.currency })
         .from(payments)
         .where(and(eq(payments.provider, provider.id), eq(payments.providerRef, event.providerRef)))
     : [];
@@ -76,6 +76,15 @@ export async function handleProviderWebhook(
     // Acknowledge so the provider stops retrying; the ledger keeps the reason for support.
     await markProcessed("unknown_payment");
     return { status: 200, body: { received: true, error: "unknown_payment" } };
+  }
+  // A "paid" event for another amount or currency never activates a plan: an admin reviews it.
+  const amountMismatch =
+    (event.amountMinor !== undefined && event.amountMinor !== payment.amountMinor) ||
+    (event.currency !== undefined && event.currency !== payment.currency.toUpperCase());
+  if (event.type === "payment.succeeded" && amountMismatch) {
+    await markProcessed("amount_mismatch");
+    console.error("webhook amount mismatch", { provider: provider.id, eventId: event.eventId });
+    return { status: 200, body: { received: true, error: "amount_mismatch" } };
   }
 
   try {

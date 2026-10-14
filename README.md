@@ -4,7 +4,7 @@ Multi-tenant QR ordering for restaurants, cafés, food trucks and snack shops, w
 
 The working name lives in [`src/config/brand.ts`](src/config/brand.ts). Product context: [PRODUCT.md](PRODUCT.md) · plan: [PLAN.md](PLAN.md) · decisions: [DECISIONS.md](DECISIONS.md).
 
-> Status: phases 1–7 of 10 done (foundation; billing; shop builder; QR codes; ordering; order board and staff; ring system). After `npm run seed`, order from the demo shop at `/s/demo`, run it from the board at `/dashboard/orders` and get rung at `/o/<token>`. Sections marked _planned_ arrive in later phases.
+> Status: phases 1–8 of 10 done (foundation; billing; shop builder; QR codes; ordering; order board and staff; ring system; Chargily Pay and daily jobs). After `npm run seed`, order from the demo shop at `/s/demo`, run it from the board at `/dashboard/orders` and get rung at `/o/<token>`. Sections marked _planned_ arrive in later phases.
 
 ## Quick start (about 10 minutes)
 
