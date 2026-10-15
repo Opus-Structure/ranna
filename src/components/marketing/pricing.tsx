@@ -74,7 +74,10 @@ export async function Pricing({ locale }: { locale: AppLocale }) {
                     {formatMoney(p.priceMinor, p.currency, locale)}
                   </span>
                   <span
-                    className={cn("text-sm", featured ? "text-clay-muted" : "text-muted-foreground")}
+                    className={cn(
+                      "text-sm",
+                      featured ? "text-clay-muted" : "text-muted-foreground",
+                    )}
                   >
                     {t(`per.${p.interval}`)}
                   </span>
@@ -83,7 +86,10 @@ export async function Pricing({ locale }: { locale: AppLocale }) {
               </div>
               <span
                 aria-hidden
-                className={cn("lattice mx-6", featured ? "text-clay-foreground" : "text-foreground")}
+                className={cn(
+                  "mx-6 lattice",
+                  featured ? "text-clay-foreground" : "text-foreground",
+                )}
               />
               <dl className="flex flex-1 flex-col px-6 py-3">
                 {rows.map((r) => (

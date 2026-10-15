@@ -179,9 +179,9 @@
       "steps": {
         "scan": "Scannez ce code avec l’appareil photo de votre téléphone.",
         "order": "Commandez un café au café de démonstration et touchez « Faire sonner mon téléphone ».",
-        "wait": "Posez le téléphone. Dans une minute environ, il sonne."
+        "wait": "Posez le téléphone. Dans quelques secondes, il sonne."
       },
-      "note": "Le café de démonstration est une boutique d’exemple au menu inventé : rien n’est préparé ni facturé. Comme personne n’y travaille, ses commandes passent seules à « Prête » pour que vous sentiez la sonnerie.",
+      "note": "Le café de démonstration est une boutique d’exemple au menu inventé : rien n’est préparé ni facturé. Comme personne n’y travaille, ses commandes passent seules à « Prête » en quelques secondes pour que vous sentiez la sonnerie.",
       "open": "Ouvrir le café de démonstration"
     },
     "alerts": {

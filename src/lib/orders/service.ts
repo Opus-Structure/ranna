@@ -179,6 +179,8 @@ export type CustomerOrderView = {
   acknowledgedAt: string | null;
   cancelReason: string | null;
   topic: string;
+  /** The demo café: its page polls fast so the order reaches Ready in seconds. */
+  isDemo: boolean;
   items: {
     name: string;
     nameI18n: I18nText;
@@ -216,6 +218,7 @@ export async function loadCustomerOrder(token: string): Promise<CustomerOrderVie
       cancelReason: orders.cancelReason,
       shopName: merchants.name,
       shopSlug: merchants.slug,
+      isDemo: merchants.isDemo,
       shopTimezone: merchants.timezone,
       branding: merchants.branding,
     })
@@ -251,6 +254,7 @@ export async function loadCustomerOrder(token: string): Promise<CustomerOrderVie
       options: l.options.map((o) => ({ name: o.optionName, nameI18n: o.optionNameI18n ?? {} })),
       note: l.note,
     })),
+    isDemo: row.isDemo,
     shop: {
       name: row.shopName,
       slug: row.shopSlug,

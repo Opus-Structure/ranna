@@ -19,16 +19,24 @@ export function OrderTicket({
   token,
   topic,
   initial,
+  fastPoll = false,
   children,
 }: {
   token: string;
   topic: string;
   initial: CustomerOrderStatus;
+  /** Check every second (the demo café, whose orders advance when the page asks). */
+  fastPoll?: boolean;
   /** Server-rendered details (items, total) shown under the live part. */
   children?: React.ReactNode;
 }) {
   const t = useTranslations("order.status");
-  const { status, setStatus, live, ringAt } = useOrderLive(token, topic, initial);
+  const { status, setStatus, live, ringAt } = useOrderLive(
+    token,
+    topic,
+    initial,
+    fastPoll ? 1000 : undefined,
+  );
   const stage = status.stage;
   const ringing = stage === "ready" && !status.acknowledgedAt;
 

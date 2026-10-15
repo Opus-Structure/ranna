@@ -38,7 +38,7 @@ npm run dev
 
 Open http://localhost:3000. Create a shop at `/signup`, or sign in as the demo café's owner (`SEED_DEMO_EMAIL` / `SEED_DEMO_PASSWORD`) or the platform admin (`SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`), all in your `.env.local`. Local emails (magic links, confirmations, staff invitations) land in Mailpit at http://127.0.0.1:54324, or in the server log when `MAILER=log`.
 
-**Try the whole loop in two windows:** order from the demo café at http://localhost:3000/s/demo on your phone or a narrow window and tap "Ring my phone"; on the board at http://localhost:3000/dashboard/orders (as the demo owner) tap Start, then Ready. The customer page takes over in green and rings. Demo-café orders also move to Ready by themselves after about a minute.
+**Try the whole loop in two windows:** order from the demo café at http://localhost:3000/s/demo on your phone or a narrow window and tap "Ring my phone"; on the board at http://localhost:3000/dashboard/orders (as the demo owner) tap Start, then Ready. The customer page takes over in green and rings. Demo-café orders also move to Ready by themselves a few seconds after ordering.
 
 ## Scripts
 

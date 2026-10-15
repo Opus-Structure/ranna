@@ -10,7 +10,12 @@ export type LiveState = "live" | "connecting" | "offline";
  * plus polling every 15 s and on focus/visibility/online, because cheap phones and patchy 4G
  * drop sockets (D5). Realtime is loaded after hydration so it never delays the first paint.
  */
-export function useOrderLive(token: string, topic: string, initial: CustomerOrderStatus) {
+export function useOrderLive(
+  token: string,
+  topic: string,
+  initial: CustomerOrderStatus,
+  pollMs = 15_000,
+) {
   const [status, setStatus] = useState(initial);
   const [live, setLive] = useState<LiveState>("connecting");
   /** Set when staff tap "Ring again": restarts the alarm even after "I'm coming". */
@@ -66,7 +71,7 @@ export function useOrderLive(token: string, topic: string, initial: CustomerOrde
         inFlight = false;
       }
     };
-    const timer = window.setInterval(poll, 15_000);
+    const timer = window.setInterval(poll, pollMs);
     const onVisible = () => document.visibilityState === "visible" && void poll();
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("online", poll);

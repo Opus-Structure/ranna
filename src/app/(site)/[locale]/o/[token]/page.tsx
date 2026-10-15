@@ -73,7 +73,12 @@ export default async function OrderStatusPage({ params }: { params: Params }) {
       </header>
 
       <main id="main" className="mx-auto flex max-w-lg flex-col gap-8 px-4 pt-6 pb-16">
-        <OrderTicket token={token} topic={order.topic} initial={statusPayload(order)}>
+        <OrderTicket
+          token={token}
+          topic={order.topic}
+          initial={statusPayload(order)}
+          fastPoll={order.isDemo}
+        >
           <section
             aria-labelledby="order-items"
             className="rounded-3xl bg-[var(--shop-card)] p-5 shadow-[0_10px_30px_-22px_rgb(31_26_23/0.35)]"

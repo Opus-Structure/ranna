@@ -3,6 +3,7 @@
 import { ChevronRight, Loader2, Trash2, Wallet } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { unlockAlarm } from "@/lib/orders/alerts";
 import { placeOrderAction } from "@/app/(site)/[locale]/s/[slug]/actions";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -130,6 +131,9 @@ export function Ticket({
     }
     // One id per attempt, kept across retries so a resend never creates a second order.
     requestId.current ??= crypto.randomUUID();
+    // This tap is the user gesture browsers require before a page may make sound; the order page
+    // is a soft navigation away, so the unlocked audio context carries over to the ring.
+    void unlockAlarm();
     setPlacing(true);
     try {
       const result = await placeOrderAction({

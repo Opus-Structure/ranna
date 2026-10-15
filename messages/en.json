@@ -179,9 +179,9 @@
       "steps": {
         "scan": "Scan this code with your phone’s camera.",
         "order": "Order a coffee from the demo café and tap “Ring my phone”.",
-        "wait": "Put the phone down. In about a minute, it rings."
+        "wait": "Put the phone down. In a few seconds, it rings."
       },
-      "note": "The demo café is a sample shop with a made-up menu: nothing is cooked or charged. With no staff there, its orders move to Ready by themselves so you can feel the ring.",
+      "note": "The demo café is a sample shop with a made-up menu: nothing is cooked or charged. With no staff there, its orders move to Ready by themselves within seconds so you can feel the ring.",
       "open": "Open the demo café"
     },
     "alerts": {

@@ -7,15 +7,15 @@ import { setOrderStatus } from "./service";
 import { hashToken, TOKEN_PATTERN } from "./token";
 
 /** Seconds after placing when a demo order moves on by itself. */
-export const DEMO_PREPARING_AFTER_S = 20;
-export const DEMO_READY_AFTER_S = 50;
+export const DEMO_PREPARING_AFTER_S = 1;
+export const DEMO_READY_AFTER_S = 4;
 /** Older demo orders (the seeded board) are left alone. */
 const DEMO_WINDOW_S = 10 * 60;
 
 /**
  * The demo café has no staff, so a visitor who orders there would never be rung. Its orders
  * advance on their own, triggered by the customer's own status polling (no background timers on
- * serverless): Preparing after 20 s, Ready after 50 s, through the real status service, so the
+ * serverless): Preparing after 1 s, Ready after 4 s, through the real status service, so the
  * visitor gets the real ring. Only the shop flagged `is_demo` is ever touched.
  */
 export async function advanceDemoOrder(token: string, now = new Date()): Promise<void> {
