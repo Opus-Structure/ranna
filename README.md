@@ -139,7 +139,7 @@ The steps below describe how it was set up and how to repeat it for another envi
 
    This applies every migration in `supabase/migrations` (schema, RLS, grants, storage buckets, realtime publication). In **Authentication → URL configuration**, set the Site URL to your domain and add `https://<your-domain>/**` to the redirect URLs. In **Authentication → Email templates**, paste `supabase/templates/confirmation.html` and `supabase/templates/magic-link.html` (they link to `/auth/confirm` with a `token_hash`, so links work across devices). Configure a custom SMTP sender for production volume.
 
-2. **Vercel project.** Import the GitHub repository (framework: Next.js; `vercel.json` already sets the Paris region `cdg1` and the daily cron). Add the environment variables from the table above for Production:
+2. **Vercel project.** Import the GitHub repository (framework: Next.js; `vercel.json` already sets the region `iad1` (next to the Supabase database in us-east-1; move both together) and the daily cron). Add the environment variables from the table above for Production:
    - `NEXT_PUBLIC_APP_URL` = your domain (QR codes print this URL: set it before printing).
    - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` from **Project settings → API**.
    - `DATABASE_URL` = the **transaction pooler** connection string (port 6543) from **Project settings → Database**.
