@@ -215,21 +215,25 @@
         "year": "/ an"
       },
       "trial": "{days} jours offerts",
-      "start": "Essayer gratuitement {plan}",
+      "start": "Essayer gratuitement : {plan}",
       "payment": "Réglez l’abonnement par carte EDAHABIA ou CIB via Chargily, ou par BaridiMob ou virement avec le reçu déposé dans votre tableau de bord. Aucune commission sur vos commandes.",
       "billedYear": "Abonnement pour une année complète",
       "billedMonth": "Abonnement au mois",
-      "items": "Jusqu’à {count} plats sur votre menu",
-      "itemsUnlimited": "Catégories et plats illimités",
-      "tables": "{count} QR codes pour vos tables",
-      "tablesUnlimited": "QR codes de tables illimités",
-      "staff": "{count} comptes équipe pour le tableau des commandes",
       "orders": "Jusqu’à {count} commandes en ligne par mois",
       "ordersUnlimited": "Commandes en ligne illimitées",
       "common": {
         "ring": "Le téléphone du client sonne quand la commande est prête",
         "board": "Tableau des commandes en direct et écran d’appel",
         "languages": "Arabe, français et anglais"
+      },
+      "popular": "Le plus choisi",
+      "popularHint": "Recommandé pour les restaurants et cafés",
+      "includedTitle": "Dans chaque pack",
+      "unlimited": "Illimité",
+      "rows": {
+        "items": "Plats",
+        "tables": "QR codes de table",
+        "staff": "Comptes équipe"
       }
     },
     "faq": {

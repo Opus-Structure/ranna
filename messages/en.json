@@ -215,21 +215,25 @@
         "year": "/ year"
       },
       "trial": "{days} days free",
-      "start": "Start free with {plan}",
+      "start": "Start free: {plan}",
       "payment": "Pay your subscription by EDAHABIA or CIB card through Chargily, or by BaridiMob or bank transfer with the receipt uploaded in your dashboard. No commission on your orders.",
       "billedYear": "Subscription for a full year",
       "billedMonth": "Subscription by the month",
-      "items": "Up to {count} dishes on your menu",
-      "itemsUnlimited": "Unlimited categories and dishes",
-      "tables": "{count} QR codes for your tables",
-      "tablesUnlimited": "Unlimited QR codes for your tables",
-      "staff": "{count} staff accounts for the order board",
       "orders": "Up to {count} online orders a month",
       "ordersUnlimited": "Unlimited online orders",
       "common": {
         "ring": "Customers’ phones ring when the order is ready",
         "board": "Live order board and call-out screen",
         "languages": "Arabic, French and English"
+      },
+      "popular": "Most popular",
+      "popularHint": "Recommended for restaurants and cafés",
+      "includedTitle": "In every pack",
+      "unlimited": "Unlimited",
+      "rows": {
+        "items": "Dishes",
+        "tables": "Table QR codes",
+        "staff": "Staff accounts"
       }
     },
     "faq": {
