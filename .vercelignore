@@ -1,0 +1,6 @@
+.scratch
+.env.local
+.env*.local
+.impeccable/review
+test-results
+playwright-report

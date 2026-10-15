@@ -123,6 +123,10 @@ public/sw.js                 Service worker: push notifications only, no caching
 
 ## Deployment (Vercel + Supabase)
 
+**Live:** https://ranna-delta.vercel.app (Vercel project `ranna`; every push to `master` deploys). **One manual step remains:** in the Supabase dashboard (Vercel → Integrations → Supabase → Open, or supabase.com) go to **Authentication → URL Configuration**, set **Site URL** to `https://ranna-delta.vercel.app` and add `https://ranna-delta.vercel.app/**` to the redirect URLs; then paste `supabase/templates/confirmation.html` and `magic-link.html` under **Email templates**, and configure a custom SMTP sender (the built-in one allows only a few emails an hour). Until then sign-up confirmation links point at localhost.
+
+The steps below describe how it was set up and how to repeat it for another environment.
+
 1. **Supabase project.** Create a project (region near your customers, e.g. Frankfurt or Paris for Algeria). Then from this folder:
 
    ```bash
