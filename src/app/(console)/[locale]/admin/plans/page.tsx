@@ -28,6 +28,7 @@ export default async function AdminPlansPage({ params }: { params: Promise<{ loc
               maxItems: p.limits.maxItems,
               maxStaff: p.limits.maxStaff,
               maxMonthlyOrders: p.limits.maxMonthlyOrders,
+              maxTables: p.limits.maxTables ?? null,
               isActive: p.isActive,
             }}
           />

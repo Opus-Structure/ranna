@@ -214,7 +214,7 @@ function stableId(key: string) {
 }
 
 export async function seedDemoShop(ownerId: string) {
-  const [business] = await serviceDb.select().from(plans).where(eq(plans.code, "business"));
+  const [business] = await serviceDb.select().from(plans).where(eq(plans.code, "pro"));
   if (!business) throw new Error("seed plans first");
   const periodEnd = new Date("2099-12-31T00:00:00Z");
 

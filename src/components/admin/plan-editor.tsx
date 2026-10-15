@@ -22,6 +22,7 @@ export type EditablePlan = {
   maxItems: number;
   maxStaff: number;
   maxMonthlyOrders: number | null;
+  maxTables: number | null;
   isActive: boolean;
 };
 
@@ -35,6 +36,7 @@ export function PlanEditor({ plan }: { plan: EditablePlan }) {
     const f = new FormData(event.currentTarget);
     const num = (k: string) => Number(String(f.get(k) ?? "").replace(",", "."));
     const orders = String(f.get("maxMonthlyOrders") ?? "").trim();
+    const tables = String(f.get("maxTables") ?? "").trim();
     startTransition(async () => {
       const result = await updatePlanAction(plan.id, {
         priceMinor: Math.round(num("price") * 10 ** plan.exponent),
@@ -42,6 +44,7 @@ export function PlanEditor({ plan }: { plan: EditablePlan }) {
         maxItems: num("maxItems"),
         maxStaff: num("maxStaff"),
         maxMonthlyOrders: orders === "" ? null : Number(orders),
+        maxTables: tables === "" ? null : Number(tables),
         isActive: f.get("isActive") === "on",
       });
       if (!result.ok) {
@@ -105,7 +108,17 @@ export function PlanEditor({ plan }: { plan: EditablePlan }) {
             dir="ltr"
           />
         </Field>
-        <Field id={id("maxMonthlyOrders")} label={t("plans.maxOrders")} className="sm:col-span-2">
+        <Field id={id("maxTables")} label={t("plans.maxTables")}>
+          <Input
+            id={id("maxTables")}
+            name="maxTables"
+            type="number"
+            min={1}
+            defaultValue={plan.maxTables ?? ""}
+            dir="ltr"
+          />
+        </Field>
+        <Field id={id("maxMonthlyOrders")} label={t("plans.maxOrders")}>
           <Input
             id={id("maxMonthlyOrders")}
             name="maxMonthlyOrders"

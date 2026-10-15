@@ -11,7 +11,7 @@ import { config } from "dotenv";
 config({ path: ".env.local", quiet: true });
 
 import { randomBytes } from "node:crypto";
-import { eq, sql } from "drizzle-orm";
+import { eq, notInArray, sql } from "drizzle-orm";
 import { planSeeds } from "@/config/plans";
 import { closeDb, serviceDb } from "@/lib/db/client";
 import { plans, profiles } from "@/lib/db/schema";
@@ -39,6 +39,16 @@ async function seedPlans() {
         },
       });
   }
+  // Plans that are no longer sold stay readable for shops on them, but can't be chosen.
+  await serviceDb
+    .update(plans)
+    .set({ isActive: false })
+    .where(
+      notInArray(
+        plans.code,
+        planSeeds.map((p) => p.code),
+      ),
+    );
   console.info(`plans: ${planSeeds.map((p) => p.code).join(", ")}`);
 }
 

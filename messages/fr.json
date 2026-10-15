@@ -209,26 +209,28 @@
     },
     "pricing": {
       "title": "Tarifs",
-      "body": "Un prix mensuel par boutique, en dinars. Le paiement des repas reste entre vous et vos clients, au comptoir.",
-      "cols": {
-        "plan": "Formule",
-        "price": "Prix",
-        "items": "Plats au menu",
-        "staff": "Comptes équipe",
-        "orders": "Commandes en ligne",
-        "start": "Commencer"
-      },
+      "body": "Un prix annuel par boutique, en dinars, avec les 90 premiers jours offerts. Le paiement des repas reste entre vous et vos clients, au comptoir.",
       "per": {
         "month": "/ mois",
         "year": "/ an"
       },
-      "trial": "Essai gratuit de {days} jours",
-      "noTrial": "Sans essai gratuit",
-      "unlimited": "Illimitées",
-      "perMonth": "{count, number} par mois",
-      "start": "Commencer avec {plan}",
+      "trial": "{days} jours offerts",
+      "start": "Essayer gratuitement {plan}",
       "payment": "Réglez l’abonnement par carte EDAHABIA ou CIB via Chargily, ou par BaridiMob ou virement avec le reçu déposé dans votre tableau de bord. Aucune commission sur vos commandes.",
-      "provisional": "Prix de lancement : ils peuvent évoluer avant l’ouverture générale. Vous voyez toujours le prix en vigueur avant de payer."
+      "billedYear": "Abonnement pour une année complète",
+      "billedMonth": "Abonnement au mois",
+      "items": "Jusqu’à {count} plats sur votre menu",
+      "itemsUnlimited": "Catégories et plats illimités",
+      "tables": "{count} QR codes pour vos tables",
+      "tablesUnlimited": "QR codes de tables illimités",
+      "staff": "{count} comptes équipe pour le tableau des commandes",
+      "orders": "Jusqu’à {count} commandes en ligne par mois",
+      "ordersUnlimited": "Commandes en ligne illimitées",
+      "common": {
+        "ring": "Le téléphone du client sonne quand la commande est prête",
+        "board": "Tableau des commandes en direct et écran d’appel",
+        "languages": "Arabe, français et anglais"
+      }
     },
     "faq": {
       "title": "Questions",
@@ -481,7 +483,8 @@
       "maxOrders": "Commandes par mois (vide = illimité)",
       "active": "Proposée aux commerçants",
       "save": "Enregistrer",
-      "saved": "Formule enregistrée"
+      "saved": "Formule enregistrée",
+      "maxTables": "QR codes de table (vide = illimité)"
     },
     "metrics": {
       "title": "Indicateurs",
@@ -525,7 +528,10 @@
       "ordersUnlimited": "Commandes illimitées",
       "trial": "Essai gratuit de {days} jours",
       "current": "Formule actuelle",
-      "next": "Prochaine formule"
+      "next": "Prochaine formule",
+      "itemsUnlimited": "Plats illimités",
+      "tables": "{count} QR codes de table",
+      "tablesUnlimited": "QR codes de table illimités"
     },
     "pay": {
       "heading": "Payer la formule {plan}",
@@ -933,7 +939,8 @@
       "not_found": "Ce code a été supprimé entre-temps.",
       "invalid": "Certaines valeurs ne sont pas valides.",
       "generic": "Un problème est survenu de notre côté. Réessayez dans un instant.",
-      "pdf": "Ce navigateur n’a pas pu créer le PDF. Essayez un autre navigateur ou téléchargez le PNG."
+      "pdf": "Ce navigateur n’a pas pu créer le PDF. Essayez un autre navigateur ou téléchargez le PNG.",
+      "plan_limit": "La limite de QR codes de table de votre formule est atteinte. Changez de formule pour en ajouter."
     }
   },
   "order": {
@@ -1291,46 +1298,53 @@
     }
   },
   "legal": {
-    "draft": "Projet à relire : ces conditions ont été rédigées pour le produit tel qu’il est construit et doivent être complétées avec les informations légales de l’exploitant et relues par un juriste avant le lancement.",
+    "draft": "Projet à relire par un juriste. Ces textes suivent le droit algérien tel que nous le comprenons (loi 18-07 sur les données personnelles, modifiée par la loi 25-11 ; loi 18-05 sur le commerce électronique ; loi 09-03 sur la protection du consommateur). Les éléments entre crochets sont les informations et formalités propres à l’exploitant. Un avocat algérien doit les vérifier avant le lancement.",
     "updated": "Dernière mise à jour : {date}",
     "contents": "Sur cette page",
     "other": "Lisez aussi : <link>{other}</link>.",
     "terms": {
       "title": "Conditions d’utilisation",
-      "intro": "Ces conditions régissent l’utilisation de {brand}, un service qui permet aux commerces de restauration de prendre des commandes par QR code et d’appeler les clients quand leur commande est prête. En créant une boutique, vous les acceptez au nom de votre commerce.",
+      "intro": "Ces conditions régissent l’utilisation de {brand}, un service qui permet aux restaurants, cafés et commerces de restauration en Algérie de prendre des commandes par QR code et d’appeler les clients quand leur commande est prête. En créant une boutique, vous les acceptez au nom de votre commerce.",
       "sections": [
         {
           "h": "Qui nous sommes",
           "p": [
-            "{brand} est exploité par [raison sociale de l’exploitant], [adresse du siège], [numéro d’immatriculation] (« nous »). Vous pouvez nous joindre à l’adresse de support indiquée dans l’application."
+            "{brand} est exploité par [raison sociale de l’exploitant], [forme juridique], immatriculée au registre du commerce sous le n° [numéro RC], numéro d’identification fiscale (NIF) [NIF], numéro d’identification statistique (NIS) [NIS], article d’imposition (AI) [AI], dont le siège est situé à [adresse], Algérie. Vous pouvez nous joindre à [e-mail de support] ou au [téléphone]."
           ]
         },
         {
-          "h": "Le service",
+          "h": "Le service et son public",
           "p": [
-            "Nous fournissons une page boutique et un menu pour votre commerce, des QR codes à imprimer, un tableau des commandes, des alertes qui préviennent les clients que leur commande est prête, et le tableau de bord associé. Le paiement des repas entre vous et vos clients se fait en dehors du service.",
+            "{brand} fournit une page boutique et un menu, des QR codes à imprimer, un tableau des commandes, des alertes qui préviennent les clients que leur commande est prête, et le tableau de bord associé. C’est un service professionnel destiné aux commerces de restauration. Ce n’est pas une place de marché : les commandes sont passées auprès de votre boutique et les repas se paient à votre comptoir, en dehors du service.",
             "Les alertes dépendent du téléphone, du navigateur et des réglages de chaque client. Nous décrivons leurs limites dans le produit et ne garantissons pas que chaque alerte atteigne chaque client."
           ]
         },
         {
           "h": "Votre compte",
           "p": [
-            "Vous devez fournir des informations exactes et protéger votre mot de passe. Vous êtes responsable de ce qui se passe sous votre compte, y compris des membres d’équipe que vous invitez.",
-            "Vous devez être habilité à agir pour le commerce que vous inscrivez et à vendre ce que propose votre menu."
+            "Vous devez fournir des informations exactes et protéger votre mot de passe. Vous êtes responsable de ce qui se passe sous votre compte, y compris des comptes équipe que vous créez.",
+            "Vous confirmez être habilité à agir pour le commerce que vous inscrivez et que celui-ci peut légalement vendre ce que propose votre menu."
           ]
         },
         {
-          "h": "Abonnement et paiement",
+          "h": "Prix, abonnement et factures",
           "p": [
-            "Les formules, prix et limites figurent sur la page tarifs et dans votre tableau de bord. Une période d’abonnement commence à la confirmation de votre paiement. Les paiements se font par période ; rien n’est prélevé automatiquement.",
-            "Si une période se termine sans paiement, votre boutique entre en période de grâce puis est suspendue jusqu’au paiement. Vous pouvez résilier à tout moment ; la boutique reste active jusqu’à la fin de la période déjà payée. Les périodes payées ne sont pas remboursées, sauf obligation légale."
+            "Les packs, prix et limites figurent sur la page tarifs et dans votre tableau de bord, en dinars algériens. Un pack commence par une période gratuite ; la période d’abonnement court ensuite à compter de la confirmation de votre paiement pour la durée indiquée (par exemple un an). Rien n’est prélevé automatiquement.",
+            "Nous émettons une facture pour chaque paiement, avec les mentions exigées par la loi algérienne. Si une période se termine sans paiement, votre boutique entre en période de grâce puis est suspendue jusqu’au paiement ; vos données sont conservées. Vous pouvez résilier à tout moment : la boutique reste active jusqu’à la fin de la période payée. Les périodes payées ne sont pas remboursées, sauf obligation légale."
           ]
         },
         {
-          "h": "Votre contenu et vos clients",
+          "h": "Vos obligations de vendeur",
           "p": [
-            "Vous conservez tous les droits sur votre menu, vos photos, votre logo et vos autres contenus. Vous nous autorisez à les héberger et à les afficher pour fournir le service.",
-            "Vous êtes responsable de votre menu, de vos prix, des informations sur les produits et allergènes, et des repas que vous vendez. Vous traitez les données de commande de vos clients au moyen du service ; notre politique de confidentialité explique comment nous les traitons pour votre compte."
+            "Vous êtes le vendeur de vos clients. Vous êtes responsable de votre menu, de vos prix (affichés en dinars, taxes comprises le cas échéant), des informations sur vos produits, y compris allergènes et ingrédients, de l’hygiène et de la sécurité alimentaire, et du respect des lois applicables à vos ventes, notamment la loi 18-05 sur le commerce électronique et la loi 09-03 sur la protection du consommateur.",
+            "Vous ne devez pas vendre par le service ce que la loi interdit de vendre en ligne."
+          ]
+        },
+        {
+          "h": "Votre contenu et les données de vos clients",
+          "p": [
+            "Vous conservez tous les droits sur votre menu, vos photos, votre logo et vos autres contenus, et nous autorisez à les héberger et à les afficher pour fournir le service.",
+            "Pour les données de commande de vos clients, vous êtes responsable du traitement et nous les traitons pour votre compte. Notre politique de confidentialité l’explique, ainsi que l’exercice des droits."
           ]
         },
         {
@@ -1342,80 +1356,94 @@
         {
           "h": "Disponibilité et responsabilité",
           "p": [
-            "Nous faisons en sorte que le service reste disponible sans promettre qu’il sera ininterrompu. Dans la mesure permise par la loi, notre responsabilité est limitée au montant que vous nous avez payé dans les trois mois précédant le fait générateur, et nous ne répondons pas des pertes indirectes comme le manque à gagner."
+            "Nous faisons en sorte que le service reste disponible sans promettre qu’il sera ininterrompu. Dans la mesure permise par la loi, notre responsabilité est limitée au montant que vous nous avez payé dans les douze mois précédant le fait générateur, et nous ne répondons pas des pertes indirectes comme le manque à gagner. Rien ici ne limite une responsabilité que la loi ne permet pas de limiter."
           ]
         },
         {
           "h": "Modifications et résiliation",
           "p": [
-            "Nous pouvons modifier ces conditions ; nous vous prévenons à l’avance de tout changement important. Vous pouvez fermer votre compte à tout moment. Nous pouvons mettre fin au service d’un compte qui enfreint ces conditions, après préavis quand c’est possible."
+            "Nous pouvons modifier ces conditions et vous prévenons à l’avance de tout changement important. Vous pouvez fermer votre compte à tout moment. Nous pouvons mettre fin au service d’un compte qui enfreint ces conditions, après préavis quand c’est possible. Après la fermeture, nous conservons les factures pour la durée légale et supprimons le reste."
           ]
         },
         {
-          "h": "Droit applicable",
+          "h": "Langue, droit applicable et litiges",
           "p": [
-            "Ces conditions sont régies par le droit de [pays]. Les litiges relèvent des tribunaux compétents de [ville], sauf disposition légale contraire."
+            "Ces conditions sont disponibles en arabe, en français et en anglais ; la version arabe prévaut en cas de divergence.",
+            "Elles sont régies par le droit algérien. Les litiges relèvent des tribunaux compétents de [ville], Algérie, après une tentative de règlement amiable."
           ]
         }
       ]
     },
     "privacy": {
       "title": "Politique de confidentialité",
-      "intro": "Cette politique explique quelles données personnelles {brand} traite, pourquoi et pour combien de temps. Elle concerne les propriétaires et équipes des boutiques, et les clients qui commandent auprès des boutiques utilisant {brand}.",
+      "intro": "Cette politique explique quelles données personnelles {brand} traite, pourquoi et pour combien de temps, au regard de la loi algérienne n° 18-07 relative à la protection des personnes physiques dans le traitement des données à caractère personnel (modifiée et complétée, notamment par la loi n° 25-11). Elle concerne les propriétaires et équipes des boutiques, et les clients qui commandent auprès des boutiques utilisant {brand}.",
       "sections": [
         {
           "h": "Qui est responsable",
           "p": [
-            "Pour les comptes boutique, [raison sociale de l’exploitant] est responsable du traitement. Pour les commandes des clients, la boutique est responsable du traitement et nous traitons les données pour son compte afin de faire fonctionner le service."
+            "Pour les comptes boutique (propriétaires et équipes), [raison sociale de l’exploitant] (voir les Conditions) est responsable du traitement.",
+            "Pour les commandes des clients, la boutique est responsable du traitement et [raison sociale de l’exploitant] traite les données pour son compte, uniquement pour faire fonctionner le service."
           ]
         },
         {
-          "h": "Données des clients",
+          "h": "Ce que nous collectons",
           "p": [
-            "Quand vous commandez : le prénom ou surnom que vous donnez, votre commande, l’heure, et la table si vous avez scanné un code de table. En option, un numéro de téléphone, utilisé seulement pour vous prévenir si une notification ne peut pas vous atteindre.",
-            "Si vous autorisez les notifications, votre navigateur nous transmet une adresse d’envoi pour cette commande. Elle est supprimée un jour après la clôture de la commande. Les numéros de téléphone sont effacés automatiquement après la durée choisie par la boutique (30 jours par défaut, un an au maximum)."
+            "Clients : le prénom ou surnom saisi, la commande, son heure et son numéro, la table si vous avez scanné un code de table et, seulement si vous le donnez, un numéro de téléphone. Si vous autorisez les notifications, votre navigateur nous transmet une adresse d’envoi pour cette commande.",
+            "Propriétaires et équipes : e-mail, mot de passe (conservé uniquement sous forme de hachage sécurisé par notre prestataire d’authentification), informations de la boutique, menu, invitations d’équipe, factures, paiements et reçus déposés.",
+            "Nous ne collectons ni numéros de pièce d’identité, ni numéros de carte bancaire (le paiement par carte des abonnements se fait sur la page du prestataire de paiement), ni localisation, ni donnée sensible."
           ]
         },
         {
-          "h": "Données des propriétaires et des équipes",
+          "h": "Pourquoi et sur quelle base",
           "p": [
-            "Votre e-mail, votre mot de passe (conservé uniquement sous forme de hachage sécurisé par notre prestataire d’authentification), les informations de la boutique, le menu, les invitations d’équipe, les factures et paiements, et les reçus déposés pour les paiements manuels."
+            "Pour prendre et afficher les commandes et vous prévenir quand la vôtre est prête (nécessaire à l’exécution de la commande que vous passez) ; pour gérer les comptes et la facturation (exécution du contrat d’abonnement et obligations légales) ; pour sécuriser le service, par exemple en limitant les tentatives répétées de connexion ou de commande (intérêt légitime).",
+            "Votre numéro de téléphone et votre autorisation de notifications reposent sur votre consentement. Ils sont facultatifs et vous pouvez retirer votre consentement à tout moment : ne pas redonner le numéro, bloquer les notifications dans votre navigateur, ou contacter la boutique ou nous.",
+            "Nous ne vendons aucune donnée, ne l’utilisons pas pour la publicité et ne profilons pas les clients."
           ]
         },
         {
-          "h": "Pourquoi nous les utilisons",
+          "h": "Déclaration auprès de l’autorité",
           "p": [
-            "Pour prendre et afficher les commandes, prévenir les clients que leur commande est prête, gérer votre compte et votre facturation, sécuriser le service (par exemple en limitant les tentatives de connexion et de commande) et respecter nos obligations légales. Nous ne vendons aucune donnée, ne faisons pas de publicité et ne profilons pas les clients."
+            "Les traitements décrits ici sont déclarés à l’Autorité nationale de protection des données à caractère personnel (ANPDP) au titre de la loi 18-07 : [référence du récépissé ou de l’autorisation ANPDP]. Le site de l’autorité est anpdp.dz."
           ]
         },
         {
-          "h": "Cookies",
+          "h": "Hébergement et transferts hors d’Algérie",
           "p": [
-            "Nous n’utilisons que ce dont le service a besoin : un cookie de connexion pour les propriétaires et les équipes, une préférence de langue, et un stockage sur l’appareil du client qui retient son ticket et ses commandes récentes. Aucun cookie publicitaire ni de mesure d’audience."
-          ]
-        },
-        {
-          "h": "Qui d’autre les traite",
-          "p": [
-            "L’hébergement et la base de données (Supabase, Vercel), le paiement par carte des abonnements (Chargily Pay), l’envoi des e-mails et, si la boutique l’active, un prestataire SMS ou WhatsApp pour les alertes de secours. Chacun ne traite les données que pour assurer sa part du service."
+            "Le service est hébergé chez Supabase (base de données, authentification, stockage) et Vercel (serveurs d’application), dont les serveurs sont situés hors d’Algérie : [région, par ex. Paris, France]. Le paiement des abonnements est assuré par Chargily Pay ; les e-mails sont envoyés par [prestataire e-mail] ; si une boutique active les alertes de secours par SMS ou WhatsApp, par [prestataire de messagerie].",
+            "Selon la loi 18-07, un transfert de données personnelles à l’étranger requiert l’autorisation de l’ANPDP et un niveau de protection adéquat dans le pays destinataire. [Référence de l’autorisation]. Chaque prestataire ne traite les données que pour assurer sa part du service, avec des engagements contractuels de confidentialité et de sécurité."
           ]
         },
         {
           "h": "Durée de conservation",
           "p": [
-            "Les commandes sont conservées pour l’historique et la comptabilité de la boutique. Les numéros de téléphone et adresses d’envoi sont supprimés comme décrit plus haut. Les données de compte sont conservées tant que le compte est actif, puis pendant la durée légale applicable aux factures."
+            "Les données ne sont conservées que le temps nécessaire à leur finalité. Les numéros de téléphone des clients sont effacés automatiquement après la durée fixée par la boutique (30 jours par défaut, un an au maximum). Les adresses d’envoi des notifications sont supprimées un jour après la clôture de la commande. Les commandes sont conservées pour l’historique et la comptabilité de la boutique.",
+            "Les données de compte sont conservées tant que le compte est actif. Les factures et pièces comptables sont conservées pendant la durée légale ([10 ans] selon le Code de commerce, à confirmer par votre comptable)."
           ]
         },
         {
           "h": "Vos droits",
           "p": [
-            "Vous pouvez demander l’accès à vos données, leur rectification ou leur suppression, ou vous opposer à leur utilisation, en contactant la boutique auprès de laquelle vous avez commandé ou notre adresse de support. Lorsque la loi algérienne n° 18-07 relative à la protection des données personnelles s’applique, vous disposez des droits qu’elle prévoit."
+            "Selon la loi 18-07, vous avez le droit d’être informé, d’accéder à vos données, de les faire rectifier et de vous opposer à leur traitement pour des motifs légitimes. Adressez-vous à la boutique auprès de laquelle vous avez commandé, ou à nous à [e-mail confidentialité] ; nous répondons sous un mois.",
+            "Si vous n’êtes pas satisfait, vous pouvez saisir l’ANPDP (anpdp.dz)."
           ]
         },
         {
-          "h": "Sécurité",
+          "h": "Sécurité et violations",
           "p": [
-            "Les données sont chiffrées en transit, les données de chaque boutique sont isolées de celles des autres, les équipes ne voient que les commandes, et les liens de commande utilisent de longs codes aléatoires. Aucun système n’est parfaitement sûr ; nous informerons les personnes concernées et les autorités en cas de violation, comme la loi l’exige."
+            "Les données sont chiffrées en transit, celles de chaque boutique sont isolées de celles des autres, les équipes ne voient que les commandes, les liens de commande utilisent de longs codes aléatoires, et la connexion et la commande sont limitées en fréquence. Aucun système n’est parfaitement sûr : nous informerons l’autorité et les personnes concernées d’une violation dans le délai fixé par la loi."
+          ]
+        },
+        {
+          "h": "Enfants",
+          "p": [
+            "Le service ne s’adresse pas aux enfants. Lorsqu’un mineur commande, le consentement d’un parent ou représentant légal est requis pour les données facultatives (numéro de téléphone, notifications)."
+          ]
+        },
+        {
+          "h": "Cookies et stockage local",
+          "p": [
+            "Nous n’utilisons que ce dont le service a besoin : un cookie de connexion pour les propriétaires et les équipes, une préférence de langue, et un stockage sur l’appareil du client qui retient son ticket et ses commandes récentes. Aucun cookie publicitaire ni de suivi."
           ]
         }
       ]

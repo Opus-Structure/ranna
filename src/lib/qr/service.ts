@@ -1,9 +1,9 @@
 import "server-only";
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, count, eq } from "drizzle-orm";
 import { z } from "zod";
 import { AccountLockedError, assertCanEdit } from "@/lib/billing/access";
 import { serviceDb, withRls } from "@/lib/db/client";
-import { qrCodes } from "@/lib/db/schema";
+import { merchants, plans, qrCodes } from "@/lib/db/schema";
 import type { MerchantContext } from "@/lib/merchants/context";
 import { cleanText } from "@/lib/validation/text";
 import { TABLE_CODE } from "./matrix";
@@ -47,6 +47,24 @@ async function guarded(ctx: MerchantContext, run: () => Promise<QrResult>): Prom
   }
 }
 
+/** Table codes this shop may have (null = unlimited) and how many it has. */
+async function tableAllowance(merchantId: string): Promise<{ limit: number | null; used: number }> {
+  const [plan] = await serviceDb
+    .select({ limits: plans.limits })
+    .from(merchants)
+    .leftJoin(plans, eq(plans.id, merchants.planId))
+    .where(eq(merchants.id, merchantId));
+  const [row] = await serviceDb
+    .select({ n: count() })
+    .from(qrCodes)
+    .where(eq(qrCodes.merchantId, merchantId));
+  return { limit: plan?.limits?.maxTables ?? null, used: Number(row?.n ?? 0) };
+}
+
+export async function tableUsage(ctx: MerchantContext) {
+  return tableAllowance(ctx.merchant.id);
+}
+
 export async function listTableQrs(ctx: MerchantContext): Promise<TableQr[]> {
   const rows = await withRls(ctx.user.id, (tx) =>
     tx
@@ -65,6 +83,8 @@ export async function addTableQr(ctx: MerchantContext, input: unknown): Promise<
       const issue = parsed.error.issues[0];
       return { ok: false, error: issue?.message ?? "invalid", field: issue?.path.join(".") };
     }
+    const { limit, used } = await tableAllowance(ctx.merchant.id);
+    if (limit !== null && used + 1 > limit) return { ok: false, error: "plan_limit" };
     await withRls(ctx.user.id, (tx) =>
       tx.insert(qrCodes).values({ merchantId: ctx.merchant.id, ...parsed.data }),
     );
@@ -86,6 +106,8 @@ export async function addTableRange(ctx: MerchantContext, input: unknown): Promi
       label: `${prefix} ${from + i}`,
       tableCode: String(from + i),
     }));
+    const { limit, used } = await tableAllowance(ctx.merchant.id);
+    if (limit !== null && used + values.length > limit) return { ok: false, error: "plan_limit" };
     await withRls(ctx.user.id, (tx) => tx.insert(qrCodes).values(values).onConflictDoNothing());
     return { ok: true };
   });

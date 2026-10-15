@@ -10,6 +10,8 @@ export type PlanLimits = {
   maxStaff: number;
   /** `null` = unlimited */
   maxMonthlyOrders: number | null;
+  /** Table QR codes. `null` or missing = unlimited. */
+  maxTables?: number | null;
 };
 
 export type ShopLayout = "list" | "grid";

@@ -1,19 +1,24 @@
+import { Check } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { isUnlimitedItems } from "@/config/plans";
 import type { AppLocale } from "@/i18n/routing";
+import { localizedPath } from "@/lib/auth/paths";
 import { getPublicPlans } from "@/lib/billing/public-plans";
 import { pickText } from "@/lib/i18n/pick";
 import { formatMoney } from "@/lib/money";
-import { localizedPath } from "@/lib/auth/paths";
+import { cn } from "@/lib/utils";
 
 /**
- * Prices as the platform admin configured them, set as a ledger (one row per plan, the same
- * columns for each) so plans compare at a glance; no "most popular" badge, which we can't back.
+ * The packs, as configured by the platform admin: one price per pack, the free period up front,
+ * then exactly what the pack includes. Everything listed is a real limit or feature of the
+ * product (no "coming soon" lines); the top pack is the clay plate.
  */
 export async function Pricing({ locale }: { locale: AppLocale }) {
   const t = await getTranslations("site.pricing");
   const plans = await getPublicPlans();
   if (plans.length === 0) return null;
   const signup = localizedPath("/signup", locale);
+  const top = plans.length - 1;
   return (
     <section
       id="pricing"
@@ -25,80 +30,101 @@ export async function Pricing({ locale }: { locale: AppLocale }) {
       </h2>
       <p className="mt-3 max-w-[60ch] text-lg text-muted-foreground">{t("body")}</p>
 
-      <table className="mt-10 w-full border-collapse text-start">
-        <caption className="sr-only">{t("title")}</caption>
-        <thead className="text-sm text-muted-foreground max-md:sr-only">
-          <tr className="border-b-2 border-foreground">
-            <th scope="col" className="py-3 pe-4 text-start font-medium">
-              {t("cols.plan")}
-            </th>
-            <th scope="col" className="py-3 pe-4 text-start font-medium">
-              {t("cols.price")}
-            </th>
-            <th scope="col" className="py-3 pe-4 text-start font-medium">
-              {t("cols.items")}
-            </th>
-            <th scope="col" className="py-3 pe-4 text-start font-medium">
-              {t("cols.staff")}
-            </th>
-            <th scope="col" className="py-3 pe-4 text-start font-medium">
-              {t("cols.orders")}
-            </th>
-            <th scope="col" className="py-3 text-start font-medium">
-              <span className="sr-only">{t("cols.start")}</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {plans.map((p) => {
-            const name = pickText(p.name, p.nameI18n, locale);
-            return (
-              <tr
-                key={p.code}
-                className="border-b align-middle max-md:grid max-md:grid-cols-2 max-md:gap-x-4 max-md:gap-y-1 max-md:py-5"
-              >
-                <th scope="row" className="py-6 pe-4 text-start max-md:col-span-2 max-md:py-0">
-                  <span className="font-display text-2xl font-bold">{name}</span>
-                  <span className="block text-sm font-normal text-muted-foreground">
-                    {p.trialDays > 0 ? t("trial", { days: p.trialDays }) : t("noTrial")}
-                  </span>
-                </th>
-                <td className="py-6 pe-4 max-md:col-span-2 max-md:py-1">
-                  <span className="font-display text-3xl font-bold tabular-nums">
+      <ul className="mt-10 grid items-start gap-6 md:grid-cols-3">
+        {plans.map((p, i) => {
+          const name = pickText(p.name, p.nameI18n, locale);
+          const featured = i === top;
+          const features = [
+            p.trialDays > 0 ? { text: t("trial", { days: p.trialDays }), strong: true } : null,
+            { text: t(p.interval === "year" ? "billedYear" : "billedMonth"), strong: true },
+            {
+              text: isUnlimitedItems(p.limits.maxItems)
+                ? t("itemsUnlimited")
+                : t("items", { count: p.limits.maxItems }),
+              strong: isUnlimitedItems(p.limits.maxItems),
+            },
+            {
+              text:
+                p.limits.maxTables == null
+                  ? t("tablesUnlimited")
+                  : t("tables", { count: p.limits.maxTables }),
+              strong: false,
+            },
+            { text: t("staff", { count: p.limits.maxStaff }), strong: false },
+            {
+              text:
+                p.limits.maxMonthlyOrders === null
+                  ? t("ordersUnlimited")
+                  : t("orders", { count: p.limits.maxMonthlyOrders }),
+              strong: false,
+            },
+            { text: t("common.ring"), strong: false },
+            { text: t("common.board"), strong: false },
+            { text: t("common.languages"), strong: false },
+          ].filter((f): f is { text: string; strong: boolean } => f !== null);
+          return (
+            <li
+              key={p.code}
+              className={cn(
+                "flex flex-col overflow-hidden rounded-2xl border",
+                featured ? "border-transparent bg-clay text-clay-foreground" : "bg-card",
+              )}
+            >
+              <div className="flex flex-col gap-3 px-6 pt-6 pb-4">
+                <h3 className="font-display text-2xl leading-tight font-bold">{name}</h3>
+                <p className="flex flex-wrap items-baseline gap-x-2">
+                  <span className="font-display text-4xl font-bold tabular-nums">
                     {formatMoney(p.priceMinor, p.currency, locale)}
                   </span>
-                  <span className="text-muted-foreground"> {t(`per.${p.interval}`)}</span>
-                </td>
-                <td className="py-6 pe-4 tabular-nums max-md:py-0">
-                  <span className="text-muted-foreground md:hidden">{t("cols.items")}: </span>
-                  {p.limits.maxItems}
-                </td>
-                <td className="py-6 pe-4 tabular-nums max-md:py-0">
-                  <span className="text-muted-foreground md:hidden">{t("cols.staff")}: </span>
-                  {p.limits.maxStaff}
-                </td>
-                <td className="py-6 pe-4 tabular-nums max-md:col-span-2 max-md:py-0">
-                  <span className="text-muted-foreground md:hidden">{t("cols.orders")}: </span>
-                  {p.limits.maxMonthlyOrders === null
-                    ? t("unlimited")
-                    : t("perMonth", { count: p.limits.maxMonthlyOrders })}
-                </td>
-                <td className="py-6 text-end max-md:col-span-2 max-md:pt-3 max-md:text-start">
-                  <a
-                    href={signup}
-                    className="inline-flex h-11 items-center rounded-xl border-2 border-foreground px-4 text-sm font-bold whitespace-nowrap transition-colors hover:bg-foreground hover:text-background focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-primary"
+                  <span
+                    className={cn(
+                      "text-sm",
+                      featured ? "text-clay-muted" : "text-muted-foreground",
+                    )}
                   >
-                    {t("start", { plan: name })}
-                  </a>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                    {t(`per.${p.interval}`)}
+                  </span>
+                </p>
+              </div>
+              <span
+                aria-hidden
+                className={cn(
+                  "mx-6 lattice",
+                  featured ? "text-clay-foreground" : "text-foreground",
+                )}
+              />
+              <ul className="flex flex-1 flex-col gap-2.5 px-6 py-5">
+                {features.map((f) => (
+                  <li key={f.text} className="flex items-start gap-2.5">
+                    <Check
+                      className={cn(
+                        "mt-1 size-4 shrink-0",
+                        featured ? "text-clay-foreground" : "text-state-ready",
+                      )}
+                      aria-hidden
+                    />
+                    <span className={cn(f.strong && "font-bold")}>{f.text}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="px-6 pb-6">
+                <a
+                  href={signup}
+                  className={cn(
+                    "inline-flex h-12 w-full items-center justify-center rounded-xl px-4 text-base font-bold transition-colors focus-visible:outline-3 focus-visible:outline-offset-3",
+                    featured
+                      ? "bg-clay-foreground text-clay hover:bg-white focus-visible:outline-clay-foreground"
+                      : "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-primary",
+                  )}
+                >
+                  {t("start", { plan: name })}
+                </a>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
       <p className="mt-6 max-w-[70ch] text-sm text-muted-foreground">{t("payment")}</p>
-      {/* Prices are not final yet (PRODUCT.md): say so where they are shown. */}
-      <p className="mt-2 max-w-[70ch] text-sm font-semibold">{t("provisional")}</p>
     </section>
   );
 }

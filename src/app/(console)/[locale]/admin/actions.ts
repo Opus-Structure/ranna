@@ -81,9 +81,10 @@ export async function rejectPaymentAction(
 const planSchema = z.object({
   priceMinor: z.number().int().min(0).max(100_000_000),
   trialDays: z.number().int().min(0).max(90),
-  maxItems: z.number().int().min(1).max(5000),
+  maxItems: z.number().int().min(1).max(100_000),
   maxStaff: z.number().int().min(0).max(500),
   maxMonthlyOrders: z.number().int().min(1).max(10_000_000).nullable(),
+  maxTables: z.number().int().min(1).max(10_000).nullable(),
   isActive: z.boolean(),
 });
 
@@ -102,7 +103,12 @@ export async function updatePlanAction(
       priceMinor: v.priceMinor,
       trialDays: v.trialDays,
       isActive: v.isActive,
-      limits: { maxItems: v.maxItems, maxStaff: v.maxStaff, maxMonthlyOrders: v.maxMonthlyOrders },
+      limits: {
+        maxItems: v.maxItems,
+        maxStaff: v.maxStaff,
+        maxMonthlyOrders: v.maxMonthlyOrders,
+        maxTables: v.maxTables,
+      },
     })
     .where(eq(plans.id, planId))
     .returning({ code: plans.code });

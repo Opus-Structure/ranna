@@ -1,6 +1,7 @@
 import { CheckCircle2, Clock, XCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { isUnlimitedItems } from "@/config/plans";
 import { PlanCheckout, type PlanOption } from "@/components/billing/plan-checkout";
 import { SubscriptionActions } from "@/components/billing/subscription-actions";
 import { MerchantStatusBadge } from "@/components/console/merchant-status-badge";
@@ -67,7 +68,12 @@ export default async function BillingPage({
     isCurrent: p.id === currentPlanId && merchant.status !== "pending_payment",
     isNext: p.id === sub?.pendingPlanId,
     features: [
-      t("plans.items", { count: p.limits.maxItems }),
+      isUnlimitedItems(p.limits.maxItems)
+        ? t("plans.itemsUnlimited")
+        : t("plans.items", { count: p.limits.maxItems }),
+      p.limits.maxTables == null
+        ? t("plans.tablesUnlimited")
+        : t("plans.tables", { count: p.limits.maxTables }),
       t("plans.staff", { count: p.limits.maxStaff }),
       p.limits.maxMonthlyOrders === null
         ? t("plans.ordersUnlimited")

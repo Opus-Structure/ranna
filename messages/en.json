@@ -209,26 +209,28 @@
     },
     "pricing": {
       "title": "Pricing",
-      "body": "One monthly price per shop, in dinars. Payment for food stays between you and your customers, at the counter.",
-      "cols": {
-        "plan": "Plan",
-        "price": "Price",
-        "items": "Menu items",
-        "staff": "Staff accounts",
-        "orders": "Online orders",
-        "start": "Start"
-      },
+      "body": "One yearly price per shop, in dinars, with the first 90 days free. Payment for food stays between you and your customers, at the counter.",
       "per": {
         "month": "/ month",
         "year": "/ year"
       },
-      "trial": "{days}-day free trial",
-      "noTrial": "No free trial",
-      "unlimited": "Unlimited",
-      "perMonth": "{count, number} a month",
-      "start": "Start with {plan}",
+      "trial": "{days} days free",
+      "start": "Start free with {plan}",
       "payment": "Pay your subscription by EDAHABIA or CIB card through Chargily, or by BaridiMob or bank transfer with the receipt uploaded in your dashboard. No commission on your orders.",
-      "provisional": "Introductory prices: they may change before general launch. You always see the current price before you pay."
+      "billedYear": "Subscription for a full year",
+      "billedMonth": "Subscription by the month",
+      "items": "Up to {count} dishes on your menu",
+      "itemsUnlimited": "Unlimited categories and dishes",
+      "tables": "{count} QR codes for your tables",
+      "tablesUnlimited": "Unlimited QR codes for your tables",
+      "staff": "{count} staff accounts for the order board",
+      "orders": "Up to {count} online orders a month",
+      "ordersUnlimited": "Unlimited online orders",
+      "common": {
+        "ring": "Customers’ phones ring when the order is ready",
+        "board": "Live order board and call-out screen",
+        "languages": "Arabic, French and English"
+      }
     },
     "faq": {
       "title": "Questions",
@@ -481,7 +483,8 @@
       "maxOrders": "Orders a month (empty = unlimited)",
       "active": "Offered to merchants",
       "save": "Save",
-      "saved": "Plan saved"
+      "saved": "Plan saved",
+      "maxTables": "Table QR codes (empty = unlimited)"
     },
     "metrics": {
       "title": "Metrics",
@@ -525,7 +528,10 @@
       "ordersUnlimited": "Unlimited orders",
       "trial": "{days}-day free trial",
       "current": "Current plan",
-      "next": "Next plan"
+      "next": "Next plan",
+      "itemsUnlimited": "Unlimited menu items",
+      "tables": "{count} table QR codes",
+      "tablesUnlimited": "Unlimited table QR codes"
     },
     "pay": {
       "heading": "Pay for {plan}",
@@ -933,7 +939,8 @@
       "not_found": "This code was deleted in the meantime.",
       "invalid": "Some values are not valid.",
       "generic": "Something went wrong on our side. Try again in a moment.",
-      "pdf": "This browser couldn’t create the PDF. Try another browser, or download the PNG."
+      "pdf": "This browser couldn’t create the PDF. Try another browser, or download the PNG.",
+      "plan_limit": "Your plan’s table QR code limit is reached. Change plan to add more."
     }
   },
   "order": {
@@ -1291,46 +1298,53 @@
     }
   },
   "legal": {
-    "draft": "Draft for review: these terms were written for the product as built and must be completed with the operator’s legal details and reviewed by a lawyer before launch.",
+    "draft": "Draft for legal review. These texts follow Algerian law as we understand it (Law 18-07 on personal data, as amended by Law 25-11; Law 18-05 on electronic commerce; Law 09-03 on consumer protection). The bracketed items are the operator’s own details and filings. An Algerian lawyer must check them before launch.",
     "updated": "Last updated {date}",
     "contents": "On this page",
     "other": "Also read the <link>{other}</link>.",
     "terms": {
       "title": "Terms of service",
-      "intro": "These terms govern the use of {brand}, a service that lets food businesses take orders through QR codes and call customers when their order is ready. By creating a shop you accept them on behalf of your business.",
+      "intro": "These terms govern the use of {brand}, a service that lets restaurants, cafés and food businesses in Algeria take orders through QR codes and call customers when their order is ready. By creating a shop you accept them on behalf of your business.",
       "sections": [
         {
           "h": "Who we are",
           "p": [
-            "{brand} is operated by [operator legal name], [registered address], [registration number] (“we”). You can reach us at the support address shown in the app."
+            "{brand} is operated by [operator legal name], [legal form], registered in the commercial register under n° [RC number], tax identification number (NIF) [NIF], statistical number (NIS) [NIS], article of taxation (AI) [AI], whose registered office is at [address], Algeria. You can reach us at [support email] or [phone]."
           ]
         },
         {
-          "h": "The service",
+          "h": "The service and who it is for",
           "p": [
-            "We provide a shop page and menu for your business, QR codes to print, an order board, alerts that tell customers their order is ready, and the related dashboard. Payment for food between you and your customers happens outside the service.",
+            "{brand} provides a shop page and menu, QR codes to print, an order board, alerts that tell customers their order is ready, and the related dashboard. It is a business service for food businesses. It is not a marketplace: orders are placed with your shop, and food is paid for at your counter, outside the service.",
             "Alerts depend on each customer’s phone, browser and settings. We describe their limits in the product and do not guarantee that every alert reaches every customer."
           ]
         },
         {
           "h": "Your account",
           "p": [
-            "You must give accurate information and keep your password safe. You are responsible for what happens under your account, including the staff you invite.",
-            "You must be authorised to act for the business you register and to sell what your menu offers."
+            "You must give accurate information and keep your password safe. You are responsible for what happens under your account, including the staff accounts you create.",
+            "You confirm that you are authorised to act for the business you register and that it may lawfully sell what your menu offers."
           ]
         },
         {
-          "h": "Subscription and payment",
+          "h": "Prices, subscription and invoices",
           "p": [
-            "Plans, prices and limits are shown on the pricing page and in your dashboard. A subscription period starts when your payment is confirmed. Payments are made per period; nothing is charged automatically.",
-            "If a period ends unpaid, your shop enters a grace period and is then suspended until you pay. You can cancel at any time; the shop stays active until the end of the period already paid. Paid periods are not refunded except where the law requires it."
+            "Packs, prices and allowances are shown on the pricing page and in your dashboard, in Algerian dinars. A pack starts with a free period; the subscription period then runs from your confirmed payment for the length stated (for example one year). Nothing is charged automatically.",
+            "We issue an invoice for each payment with the mentions required by Algerian law. If a period ends unpaid, your shop enters a grace period and is then suspended until you pay; your data is kept. You can cancel at any time: the shop stays active until the end of the period you paid for. Paid periods are not refunded except where the law requires it."
           ]
         },
         {
-          "h": "Your content and your customers",
+          "h": "Your obligations as a seller",
           "p": [
-            "You keep all rights to your menu, photos, logo and other content. You allow us to host and display them to provide the service.",
-            "You are responsible for your menu, prices, allergen and product information, and for the food you sell. You process your customers’ order data through the service; our Privacy notice explains how we handle it on your behalf."
+            "You are the seller to your customers. You are responsible for your menu, your prices (displayed in dinars, taxes included where applicable), the information you give about your food, including allergens and ingredients, hygiene and food safety, and for complying with the laws that apply to your sales, in particular Law 18-05 on electronic commerce and Law 09-03 on consumer protection.",
+            "You must not sell through the service anything that the law prohibits from being sold online."
+          ]
+        },
+        {
+          "h": "Your content and your customers’ data",
+          "p": [
+            "You keep all rights to your menu, photos, logo and other content, and allow us to host and display them to provide the service.",
+            "For your customers’ order data you are the data controller and we process it on your behalf. Our Privacy notice explains this and how to exercise rights."
           ]
         },
         {
@@ -1342,80 +1356,94 @@
         {
           "h": "Availability and liability",
           "p": [
-            "We work to keep the service available but do not promise it will be uninterrupted. To the extent the law allows, our liability is limited to the amount you paid us in the three months before the event giving rise to the claim, and we are not liable for indirect losses such as lost profits."
+            "We work to keep the service available but do not promise it will be uninterrupted. To the extent the law allows, our liability is limited to the amount you paid us in the twelve months before the event giving rise to the claim, and we are not liable for indirect losses such as lost profits. Nothing here limits liability that cannot be limited by law."
           ]
         },
         {
           "h": "Changes and termination",
           "p": [
-            "We may update these terms; we will tell you in advance of material changes. You may close your account at any time. We may end the service for an account that breaches these terms, after notice when possible."
+            "We may update these terms and will tell you in advance of material changes. You may close your account at any time. We may end the service for an account that breaches these terms, after notice when possible. After closure, we keep invoices for the period the law requires and delete the rest."
           ]
         },
         {
-          "h": "Governing law",
+          "h": "Language, governing law and disputes",
           "p": [
-            "These terms are governed by the laws of [country]. Disputes go to the competent courts of [city], unless the law provides otherwise."
+            "These terms are available in Arabic, French and English; the Arabic version prevails if they differ.",
+            "They are governed by Algerian law. Disputes are brought before the competent courts of [city], Algeria, after an attempt to settle them amicably."
           ]
         }
       ]
     },
     "privacy": {
       "title": "Privacy notice",
-      "intro": "This notice explains what personal data {brand} handles, why, and for how long. It covers shop owners and staff, and the customers who order from shops using {brand}.",
+      "intro": "This notice explains what personal data {brand} handles, why, and for how long, under Algerian Law n° 18-07 on the protection of natural persons in the processing of personal data (as amended and supplemented, notably by Law n° 25-11). It covers shop owners and staff, and customers who order from shops using {brand}.",
       "sections": [
         {
           "h": "Who is responsible",
           "p": [
-            "For shop accounts, [operator legal name] is the controller. For customer orders, the shop is the controller and we process the data on its behalf to run the service."
+            "For shop accounts (owners and staff), [operator legal name] (see the Terms) is the data controller.",
+            "For customers’ orders, the shop is the data controller and [operator legal name] processes the data on the shop’s behalf, only to run the service."
           ]
         },
         {
-          "h": "Data about customers",
+          "h": "What we collect",
           "p": [
-            "When you order: the name or nickname you give, your order, the time, and the table if you scanned a table code. Optionally a phone number, used only to alert you if a notification can’t reach you.",
-            "If you allow notifications, your browser gives us a push address for this order. It is deleted a day after the order is closed. Phone numbers are erased automatically after the period the shop sets (30 days by default, at most one year)."
+            "Customers: the name or nickname you enter, your order, its time and number, the table if you scanned a table code, and, only if you choose to give it, a phone number. If you allow notifications, your browser gives us a push address for that order.",
+            "Shop owners and staff: email, password (stored only as a secure hash by our authentication provider), shop details, menu, staff invitations, invoices, payments and uploaded receipts.",
+            "We do not collect national ID numbers, payment card numbers (card payments for subscriptions happen on the payment provider’s page), location, or any sensitive data."
           ]
         },
         {
-          "h": "Data about shop owners and staff",
+          "h": "Why, and on what basis",
           "p": [
-            "Your email, password (stored only as a secure hash by our authentication provider), shop details, menu, staff invitations, invoices and payment records, and receipts you upload for manual payments."
+            "To take and show orders and to tell you when your order is ready (necessary to perform the order you place); to run accounts and billing (performance of the subscription contract and legal obligations); to keep the service secure, for example by limiting repeated sign-in or order attempts (legitimate interest).",
+            "Your phone number and your notification permission rest on your consent. They are optional, and you can withdraw consent at any time by clearing the phone number from your order next time, blocking notifications in your browser, or contacting the shop or us.",
+            "We do not sell data, use it for advertising, or profile customers."
           ]
         },
         {
-          "h": "Why we use it",
+          "h": "Declaration to the authority",
           "p": [
-            "To take and show orders, to tell customers their order is ready, to run your account and billing, to keep the service secure (for example rate limits on sign-in and ordering), and to meet legal obligations. We do not sell data, use it for advertising, or profile customers."
+            "The processing described here is declared to the National Authority for the Protection of Personal Data (ANPDP) under Law 18-07: [ANPDP receipt or authorisation reference]. The authority’s site is anpdp.dz."
           ]
         },
         {
-          "h": "Cookies",
+          "h": "Hosting and transfers outside Algeria",
           "p": [
-            "We use only what the service needs: a sign-in cookie for shop owners and staff, a language preference, and storage on the customer’s own device that remembers their ticket and recent orders. No advertising or analytics cookies."
-          ]
-        },
-        {
-          "h": "Who else handles it",
-          "p": [
-            "Hosting and database (Supabase, Vercel), card payments for subscriptions (Chargily Pay), email delivery, and, if the shop enables it, an SMS or WhatsApp provider for fallback alerts. Each processes data only to provide its part of the service."
+            "The service is hosted with Supabase (database, authentication, storage) and Vercel (application servers), whose servers are located outside Algeria: [region, e.g. Paris, France]. Payment for subscriptions is handled by Chargily Pay; email is sent through [email provider]; if a shop enables SMS or WhatsApp fallback alerts, through [messaging provider].",
+            "Under Law 18-07, a transfer of personal data abroad requires the authorisation of the ANPDP and an adequate level of protection in the receiving country. [Authorisation reference]. Each provider processes data only to deliver its part of the service and under contractual confidentiality and security commitments."
           ]
         },
         {
           "h": "How long we keep it",
           "p": [
-            "Orders are kept for the shop’s history and accounting. Customer phone numbers and push addresses are deleted as described above. Account data is kept while the account is active and then for the period the law requires for invoices."
+            "Data is kept no longer than needed for its purpose. Customer phone numbers are erased automatically after the period the shop sets (30 days by default, at most one year). Push addresses are deleted a day after the order is closed. Orders are kept for the shop’s history and accounting.",
+            "Account data is kept while the account is active. Invoices and accounting records are kept for the period the law requires ([10 years] under the Commercial Code, to be confirmed by your accountant)."
           ]
         },
         {
           "h": "Your rights",
           "p": [
-            "You can ask to access, correct or delete your data, or object to its use, by contacting the shop you ordered from or our support address. Where Algerian Law No. 18-07 on the protection of personal data applies, you have the rights it grants."
+            "Under Law 18-07 you have the right to be informed, to access your data, to have it corrected, and to object to its processing for legitimate reasons. Contact the shop you ordered from, or us at [privacy contact email]; we answer within one month.",
+            "If you are not satisfied, you may complain to the ANPDP (anpdp.dz)."
           ]
         },
         {
-          "h": "Security",
+          "h": "Security and breaches",
           "p": [
-            "Data is encrypted in transit, each shop’s data is isolated from every other shop’s, staff see only orders, and order links use long random codes. No system is perfectly secure; we will tell affected users and authorities about breaches as the law requires."
+            "Data is encrypted in transit, each shop’s data is isolated from every other shop’s, staff see only orders, order links use long random codes, and sign-in and ordering are rate-limited. No system is perfectly secure: we will notify the authority and the people concerned of a breach within the period the law sets."
+          ]
+        },
+        {
+          "h": "Children",
+          "p": [
+            "The service is not aimed at children. Where a minor orders, the consent of a parent or legal representative is required for the optional data (phone number, notifications)."
+          ]
+        },
+        {
+          "h": "Cookies and local storage",
+          "p": [
+            "We use only what the service needs: a sign-in cookie for shop owners and staff, a language preference, and storage on the customer’s own device that remembers their ticket and recent orders. No advertising or tracking cookies."
           ]
         }
       ]
