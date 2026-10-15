@@ -21,6 +21,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  // Always put <title>/<meta> in the <head> (not streamed into the body): every crawler and
+  // link preview sees them, and our metadata resolves fast enough not to delay the first byte.
+  htmlLimitedBots: /.*/,
   experimental: {
     // Compressed images (≤ 2 MB) and receipts (≤ 5 MB) pass through Server Actions.
     serverActions: { bodySizeLimit: "6mb" },

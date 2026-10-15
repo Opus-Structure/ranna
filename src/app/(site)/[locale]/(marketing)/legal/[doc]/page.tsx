@@ -9,15 +9,13 @@ const DOCS = ["terms", "privacy"] as const;
 type Doc = (typeof DOCS)[number];
 type Section = { h: string; p: string[] };
 
+// Rendered per request like every page: the CSP nonce comes from request headers (D31).
+
 /** Last substantive change to either document (shown to readers). */
 const UPDATED = "2026-10-14";
 
 function isDoc(v: string): v is Doc {
   return (DOCS as readonly string[]).includes(v);
-}
-
-export function generateStaticParams() {
-  return DOCS.map((doc) => ({ doc }));
 }
 
 export async function generateMetadata({

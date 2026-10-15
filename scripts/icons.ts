@@ -36,6 +36,8 @@ const pngs: [string, number, number, boolean][] = [
   ["apple-touch-icon.png", 180, 0.2, false],
 ];
 for (const [name, size, inset, rounded] of pngs) {
-  await sharp(Buffer.from(svg(size, inset, rounded))).png().toFile(`${out}/${name}`);
+  await sharp(Buffer.from(svg(size, inset, rounded)))
+    .png()
+    .toFile(`${out}/${name}`);
 }
 console.info(`icons written to ${out}`);

@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import type { NextRequest, NextResponse } from "next/server";
-import { supabasePublicConfig } from "./config";
+import { sessionCookieOptions, supabasePublicConfig } from "./config";
 
 type CookieToSet = {
   name: string;
@@ -18,6 +18,7 @@ export async function refreshSession(request: NextRequest): Promise<CookieToSet[
   const { url, anonKey } = supabasePublicConfig();
   const pending: CookieToSet[] = [];
   const supabase = createServerClient(url, anonKey, {
+    cookieOptions: sessionCookieOptions,
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll: (toSet) => {

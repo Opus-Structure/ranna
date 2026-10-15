@@ -88,7 +88,9 @@ async function seedDemo() {
 async function main() {
   await seedPlans();
   await seedAdmin();
-  await seedDemo();
+  // Production: SEED_DEMO=false seeds plans and the admin only.
+  if (process.env.SEED_DEMO === "false") console.info("demo shop: skipped (SEED_DEMO=false)");
+  else await seedDemo();
 }
 
 main()

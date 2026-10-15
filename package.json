@@ -27,6 +27,7 @@
     "vapid": "tsx scripts/vapid.ts",
     "icons": "tsx scripts/icons.ts",
     "setup:env": "tsx scripts/setup-env.ts",
+    "lighthouse": "node scripts/lighthouse.mjs",
     "check": "npm run lint && npm run typecheck && npm run test:all",
     "test:all": "vitest run"
   },
@@ -73,6 +74,7 @@
     "drizzle-kit": "^0.31.11",
     "eslint": "^9.39.0",
     "eslint-config-next": "15.5.27",
+    "lighthouse": "12.8.2",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "supabase": "^2.120.0",

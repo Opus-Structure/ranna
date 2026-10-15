@@ -1,0 +1,836 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T21:07:00.297Z",
+  "title": "Design System: Ranna",
+  "extensions": {
+    "colorMeta": {
+      "red-ochre": {
+        "role": "primary",
+        "displayName": "Red Ochre",
+        "canonical": "oklch(0.53 0.15 38)",
+        "purpose": "Action, focus, lateness past target. Dark counterpart: night-ochre.",
+        "tonalRamp": [
+          "oklch(0.150 0.090 38.0)",
+          "oklch(0.264 0.150 38.0)",
+          "oklch(0.379 0.150 38.0)",
+          "oklch(0.493 0.150 38.0)",
+          "oklch(0.607 0.150 38.0)",
+          "oklch(0.721 0.150 38.0)",
+          "oklch(0.836 0.099 38.0)",
+          "oklch(0.950 0.030 38.0)"
+        ]
+      },
+      "red-ochre-ink": {
+        "role": "primary",
+        "displayName": "Label on Ochre",
+        "canonical": "oklch(1 0 0)",
+        "purpose": "White label on ochre and on the white-labelled state fills.",
+        "tonalRamp": [
+          "oklch(0.150 0.000 0.0)",
+          "oklch(0.264 0.000 0.0)",
+          "oklch(0.379 0.000 0.0)",
+          "oklch(0.493 0.000 0.0)",
+          "oklch(0.607 0.000 0.0)",
+          "oklch(0.721 0.000 0.0)",
+          "oklch(0.836 0.000 0.0)",
+          "oklch(0.950 0.000 0.0)"
+        ]
+      },
+      "fired-clay": {
+        "role": "primary",
+        "displayName": "Fired Clay",
+        "canonical": "oklch(0.38 0.105 30)",
+        "purpose": "Whole fields: rail, before half, closing plate, auth aside, one reversed console plate, app icon plate.",
+        "tonalRamp": [
+          "oklch(0.150 0.063 30.0)",
+          "oklch(0.264 0.105 30.0)",
+          "oklch(0.379 0.105 30.0)",
+          "oklch(0.493 0.105 30.0)",
+          "oklch(0.607 0.105 30.0)",
+          "oklch(0.721 0.105 30.0)",
+          "oklch(0.836 0.069 30.0)",
+          "oklch(0.950 0.021 30.0)"
+        ]
+      },
+      "clay-slip": {
+        "role": "primary",
+        "displayName": "Clay Slip",
+        "canonical": "oklch(0.965 0.012 70)",
+        "purpose": "Text and marks on clay.",
+        "tonalRamp": [
+          "oklch(0.150 0.007 70.0)",
+          "oklch(0.264 0.012 70.0)",
+          "oklch(0.379 0.012 70.0)",
+          "oklch(0.493 0.012 70.0)",
+          "oklch(0.607 0.012 70.0)",
+          "oklch(0.721 0.012 70.0)",
+          "oklch(0.836 0.008 70.0)",
+          "oklch(0.950 0.002 70.0)"
+        ]
+      },
+      "clay-muted": {
+        "role": "primary",
+        "displayName": "Clay Muted",
+        "canonical": "oklch(0.84 0.04 45)",
+        "purpose": "Secondary text and inactive nav on clay.",
+        "tonalRamp": [
+          "oklch(0.150 0.024 45.0)",
+          "oklch(0.264 0.040 45.0)",
+          "oklch(0.379 0.040 45.0)",
+          "oklch(0.493 0.040 45.0)",
+          "oklch(0.607 0.040 45.0)",
+          "oklch(0.721 0.040 45.0)",
+          "oklch(0.836 0.026 45.0)",
+          "oklch(0.950 0.008 45.0)"
+        ]
+      },
+      "clay-line": {
+        "role": "primary",
+        "displayName": "Clay Line",
+        "canonical": "oklch(0.47 0.1 30)",
+        "purpose": "Rules and borders on clay.",
+        "tonalRamp": [
+          "oklch(0.150 0.060 30.0)",
+          "oklch(0.264 0.100 30.0)",
+          "oklch(0.379 0.100 30.0)",
+          "oklch(0.493 0.100 30.0)",
+          "oklch(0.607 0.100 30.0)",
+          "oklch(0.721 0.100 30.0)",
+          "oklch(0.836 0.066 30.0)",
+          "oklch(0.950 0.020 30.0)"
+        ]
+      },
+      "clay-hover": {
+        "role": "primary",
+        "displayName": "Clay Hover",
+        "canonical": "oklch(0.43 0.11 30)",
+        "purpose": "Hover fill on clay.",
+        "tonalRamp": [
+          "oklch(0.150 0.066 30.0)",
+          "oklch(0.264 0.110 30.0)",
+          "oklch(0.379 0.110 30.0)",
+          "oklch(0.493 0.110 30.0)",
+          "oklch(0.607 0.110 30.0)",
+          "oklch(0.721 0.110 30.0)",
+          "oklch(0.836 0.072 30.0)",
+          "oklch(0.950 0.022 30.0)"
+        ]
+      },
+      "cobalt-enamel": {
+        "role": "secondary",
+        "displayName": "Cobalt Enamel",
+        "canonical": "oklch(0.47 0.13 262)",
+        "purpose": "State: new.",
+        "tonalRamp": [
+          "oklch(0.150 0.078 262.0)",
+          "oklch(0.264 0.130 262.0)",
+          "oklch(0.379 0.130 262.0)",
+          "oklch(0.493 0.130 262.0)",
+          "oklch(0.607 0.130 262.0)",
+          "oklch(0.721 0.130 262.0)",
+          "oklch(0.836 0.085 262.0)",
+          "oklch(0.950 0.026 262.0)"
+        ]
+      },
+      "resin-amber": {
+        "role": "secondary",
+        "displayName": "Resin Amber",
+        "canonical": "oklch(0.74 0.13 72)",
+        "purpose": "State: preparing (ink label).",
+        "tonalRamp": [
+          "oklch(0.150 0.078 72.0)",
+          "oklch(0.264 0.130 72.0)",
+          "oklch(0.379 0.130 72.0)",
+          "oklch(0.493 0.130 72.0)",
+          "oklch(0.607 0.130 72.0)",
+          "oklch(0.721 0.130 72.0)",
+          "oklch(0.836 0.085 72.0)",
+          "oklch(0.950 0.026 72.0)"
+        ]
+      },
+      "enamel-green": {
+        "role": "secondary",
+        "displayName": "Enamel Green",
+        "canonical": "oklch(0.5 0.11 162)",
+        "purpose": "State: ready. Nothing else.",
+        "tonalRamp": [
+          "oklch(0.150 0.066 162.0)",
+          "oklch(0.264 0.110 162.0)",
+          "oklch(0.379 0.110 162.0)",
+          "oklch(0.493 0.110 162.0)",
+          "oklch(0.607 0.110 162.0)",
+          "oklch(0.721 0.110 162.0)",
+          "oklch(0.836 0.072 162.0)",
+          "oklch(0.950 0.022 162.0)"
+        ]
+      },
+      "oxblood": {
+        "role": "secondary",
+        "displayName": "Oxblood",
+        "canonical": "oklch(0.45 0.15 22)",
+        "purpose": "State: canceled; destructive actions.",
+        "tonalRamp": [
+          "oklch(0.150 0.090 22.0)",
+          "oklch(0.264 0.150 22.0)",
+          "oklch(0.379 0.150 22.0)",
+          "oklch(0.493 0.150 22.0)",
+          "oklch(0.607 0.150 22.0)",
+          "oklch(0.721 0.150 22.0)",
+          "oklch(0.836 0.099 22.0)",
+          "oklch(0.950 0.030 22.0)"
+        ]
+      },
+      "kaolin-slip": {
+        "role": "neutral",
+        "displayName": "Kaolin Slip",
+        "canonical": "oklch(0.968 0.007 75)",
+        "purpose": "Page ground.",
+        "tonalRamp": [
+          "oklch(0.150 0.004 75.0)",
+          "oklch(0.264 0.007 75.0)",
+          "oklch(0.379 0.007 75.0)",
+          "oklch(0.493 0.007 75.0)",
+          "oklch(0.607 0.007 75.0)",
+          "oklch(0.721 0.007 75.0)",
+          "oklch(0.836 0.005 75.0)",
+          "oklch(0.950 0.001 75.0)"
+        ]
+      },
+      "slip-white": {
+        "role": "neutral",
+        "displayName": "Slip White",
+        "canonical": "oklch(0.992 0.003 75)",
+        "purpose": "Cards, popovers, work surfaces.",
+        "tonalRamp": [
+          "oklch(0.150 0.002 75.0)",
+          "oklch(0.264 0.003 75.0)",
+          "oklch(0.379 0.003 75.0)",
+          "oklch(0.493 0.003 75.0)",
+          "oklch(0.607 0.003 75.0)",
+          "oklch(0.721 0.003 75.0)",
+          "oklch(0.836 0.002 75.0)",
+          "oklch(0.950 0.001 75.0)"
+        ]
+      },
+      "manganese-ink": {
+        "role": "neutral",
+        "displayName": "Manganese Ink",
+        "canonical": "oklch(0.235 0.018 40)",
+        "purpose": "Text and line work.",
+        "tonalRamp": [
+          "oklch(0.150 0.011 40.0)",
+          "oklch(0.264 0.018 40.0)",
+          "oklch(0.379 0.018 40.0)",
+          "oklch(0.493 0.018 40.0)",
+          "oklch(0.607 0.018 40.0)",
+          "oklch(0.721 0.018 40.0)",
+          "oklch(0.836 0.012 40.0)",
+          "oklch(0.950 0.004 40.0)"
+        ]
+      },
+      "worn-ink": {
+        "role": "neutral",
+        "displayName": "Worn Ink",
+        "canonical": "oklch(0.47 0.022 45)",
+        "purpose": "Secondary text; state: done.",
+        "tonalRamp": [
+          "oklch(0.150 0.013 45.0)",
+          "oklch(0.264 0.022 45.0)",
+          "oklch(0.379 0.022 45.0)",
+          "oklch(0.493 0.022 45.0)",
+          "oklch(0.607 0.022 45.0)",
+          "oklch(0.721 0.022 45.0)",
+          "oklch(0.836 0.014 45.0)",
+          "oklch(0.950 0.004 45.0)"
+        ]
+      },
+      "slip-wash": {
+        "role": "neutral",
+        "displayName": "Slip Wash",
+        "canonical": "oklch(0.94 0.01 65)",
+        "purpose": "Muted fills.",
+        "tonalRamp": [
+          "oklch(0.150 0.006 65.0)",
+          "oklch(0.264 0.010 65.0)",
+          "oklch(0.379 0.010 65.0)",
+          "oklch(0.493 0.010 65.0)",
+          "oklch(0.607 0.010 65.0)",
+          "oklch(0.721 0.010 65.0)",
+          "oklch(0.836 0.007 65.0)",
+          "oklch(0.950 0.002 65.0)"
+        ]
+      },
+      "slip-shade": {
+        "role": "neutral",
+        "displayName": "Slip Shade",
+        "canonical": "oklch(0.93 0.014 60)",
+        "purpose": "Secondary button fill.",
+        "tonalRamp": [
+          "oklch(0.150 0.008 60.0)",
+          "oklch(0.264 0.014 60.0)",
+          "oklch(0.379 0.014 60.0)",
+          "oklch(0.493 0.014 60.0)",
+          "oklch(0.607 0.014 60.0)",
+          "oklch(0.721 0.014 60.0)",
+          "oklch(0.836 0.009 60.0)",
+          "oklch(0.950 0.003 60.0)"
+        ]
+      },
+      "slip-blush": {
+        "role": "neutral",
+        "displayName": "Slip Blush",
+        "canonical": "oklch(0.925 0.02 52)",
+        "purpose": "Hover fill.",
+        "tonalRamp": [
+          "oklch(0.150 0.012 52.0)",
+          "oklch(0.264 0.020 52.0)",
+          "oklch(0.379 0.020 52.0)",
+          "oklch(0.493 0.020 52.0)",
+          "oklch(0.607 0.020 52.0)",
+          "oklch(0.721 0.020 52.0)",
+          "oklch(0.836 0.013 52.0)",
+          "oklch(0.950 0.004 52.0)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.885 0.012 60)",
+        "purpose": "Decorative borders and dividers.",
+        "tonalRamp": [
+          "oklch(0.150 0.007 60.0)",
+          "oklch(0.264 0.012 60.0)",
+          "oklch(0.379 0.012 60.0)",
+          "oklch(0.493 0.012 60.0)",
+          "oklch(0.607 0.012 60.0)",
+          "oklch(0.721 0.012 60.0)",
+          "oklch(0.836 0.008 60.0)",
+          "oklch(0.950 0.002 60.0)"
+        ]
+      },
+      "control-line": {
+        "role": "neutral",
+        "displayName": "Control Line",
+        "canonical": "oklch(0.66 0.02 50)",
+        "purpose": "Input and control boundaries, 3:1 on cards.",
+        "tonalRamp": [
+          "oklch(0.150 0.012 50.0)",
+          "oklch(0.264 0.020 50.0)",
+          "oklch(0.379 0.020 50.0)",
+          "oklch(0.493 0.020 50.0)",
+          "oklch(0.607 0.020 50.0)",
+          "oklch(0.721 0.020 50.0)",
+          "oklch(0.836 0.013 50.0)",
+          "oklch(0.950 0.004 50.0)"
+        ]
+      },
+      "band-empty": {
+        "role": "neutral",
+        "displayName": "Band Empty",
+        "canonical": "oklch(0.82 0.015 55)",
+        "purpose": "Unfilled wait-band lozenges.",
+        "tonalRamp": [
+          "oklch(0.150 0.009 55.0)",
+          "oklch(0.264 0.015 55.0)",
+          "oklch(0.379 0.015 55.0)",
+          "oklch(0.493 0.015 55.0)",
+          "oklch(0.607 0.015 55.0)",
+          "oklch(0.721 0.015 55.0)",
+          "oklch(0.836 0.010 55.0)",
+          "oklch(0.950 0.003 55.0)"
+        ]
+      },
+      "night-ground": {
+        "role": "neutral",
+        "displayName": "Night Ground",
+        "canonical": "oklch(0.175 0.012 40)",
+        "purpose": "Dark theme page ground.",
+        "tonalRamp": [
+          "oklch(0.150 0.007 40.0)",
+          "oklch(0.264 0.012 40.0)",
+          "oklch(0.379 0.012 40.0)",
+          "oklch(0.493 0.012 40.0)",
+          "oklch(0.607 0.012 40.0)",
+          "oklch(0.721 0.012 40.0)",
+          "oklch(0.836 0.008 40.0)",
+          "oklch(0.950 0.002 40.0)"
+        ]
+      },
+      "night-card": {
+        "role": "neutral",
+        "displayName": "Night Card",
+        "canonical": "oklch(0.215 0.014 40)",
+        "purpose": "Dark theme cards.",
+        "tonalRamp": [
+          "oklch(0.150 0.008 40.0)",
+          "oklch(0.264 0.014 40.0)",
+          "oklch(0.379 0.014 40.0)",
+          "oklch(0.493 0.014 40.0)",
+          "oklch(0.607 0.014 40.0)",
+          "oklch(0.721 0.014 40.0)",
+          "oklch(0.836 0.009 40.0)",
+          "oklch(0.950 0.003 40.0)"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "oklch(0.94 0.01 75)",
+        "purpose": "Dark theme text.",
+        "tonalRamp": [
+          "oklch(0.150 0.006 75.0)",
+          "oklch(0.264 0.010 75.0)",
+          "oklch(0.379 0.010 75.0)",
+          "oklch(0.493 0.010 75.0)",
+          "oklch(0.607 0.010 75.0)",
+          "oklch(0.721 0.010 75.0)",
+          "oklch(0.836 0.007 75.0)",
+          "oklch(0.950 0.002 75.0)"
+        ]
+      },
+      "night-clay": {
+        "role": "primary",
+        "displayName": "Night Clay",
+        "canonical": "oklch(0.27 0.07 30)",
+        "purpose": "Dark theme rail field.",
+        "tonalRamp": [
+          "oklch(0.150 0.042 30.0)",
+          "oklch(0.264 0.070 30.0)",
+          "oklch(0.379 0.070 30.0)",
+          "oklch(0.493 0.070 30.0)",
+          "oklch(0.607 0.070 30.0)",
+          "oklch(0.721 0.070 30.0)",
+          "oklch(0.836 0.046 30.0)",
+          "oklch(0.950 0.014 30.0)"
+        ]
+      },
+      "night-ochre": {
+        "role": "primary",
+        "displayName": "Night Ochre",
+        "canonical": "oklch(0.7 0.14 45)",
+        "purpose": "Dark theme action, ink label.",
+        "tonalRamp": [
+          "oklch(0.150 0.084 45.0)",
+          "oklch(0.264 0.140 45.0)",
+          "oklch(0.379 0.140 45.0)",
+          "oklch(0.493 0.140 45.0)",
+          "oklch(0.607 0.140 45.0)",
+          "oklch(0.721 0.140 45.0)",
+          "oklch(0.836 0.092 45.0)",
+          "oklch(0.950 0.028 45.0)"
+        ]
+      },
+      "night-enamel-green": {
+        "role": "secondary",
+        "displayName": "Night Enamel Green",
+        "canonical": "oklch(0.72 0.12 162)",
+        "purpose": "Dark theme ready state.",
+        "tonalRamp": [
+          "oklch(0.150 0.072 162.0)",
+          "oklch(0.264 0.120 162.0)",
+          "oklch(0.379 0.120 162.0)",
+          "oklch(0.493 0.120 162.0)",
+          "oklch(0.607 0.120 162.0)",
+          "oklch(0.721 0.120 162.0)",
+          "oklch(0.836 0.079 162.0)",
+          "oklch(0.950 0.024 162.0)"
+        ]
+      },
+      "shop-ground": {
+        "role": "neutral",
+        "displayName": "Shop Ground",
+        "canonical": "#fbfaf8",
+        "purpose": "Customer page ground (SHOP_GROUND).",
+        "tonalRamp": [
+          "oklch(0.150 0.002 84.6)",
+          "oklch(0.264 0.003 84.6)",
+          "oklch(0.379 0.003 84.6)",
+          "oklch(0.493 0.003 84.6)",
+          "oklch(0.607 0.003 84.6)",
+          "oklch(0.721 0.003 84.6)",
+          "oklch(0.836 0.002 84.6)",
+          "oklch(0.950 0.001 84.6)"
+        ],
+        "oklch": "oklch(0.985 0.003 84.6)"
+      },
+      "shop-card": {
+        "role": "neutral",
+        "displayName": "Shop Card",
+        "canonical": "#ffffff",
+        "purpose": "Customer cards and fields.",
+        "tonalRamp": [
+          "oklch(0.150 0.000 89.9)",
+          "oklch(0.264 0.000 89.9)",
+          "oklch(0.379 0.000 89.9)",
+          "oklch(0.493 0.000 89.9)",
+          "oklch(0.607 0.000 89.9)",
+          "oklch(0.721 0.000 89.9)",
+          "oklch(0.836 0.000 89.9)",
+          "oklch(0.950 0.000 89.9)"
+        ],
+        "oklch": "oklch(1.000 0.000 89.9)"
+      },
+      "shop-ink": {
+        "role": "neutral",
+        "displayName": "Shop Ink",
+        "canonical": "#1f1a17",
+        "purpose": "Customer text.",
+        "tonalRamp": [
+          "oklch(0.150 0.006 53.0)",
+          "oklch(0.264 0.010 53.0)",
+          "oklch(0.379 0.010 53.0)",
+          "oklch(0.493 0.010 53.0)",
+          "oklch(0.607 0.010 53.0)",
+          "oklch(0.721 0.010 53.0)",
+          "oklch(0.836 0.006 53.0)",
+          "oklch(0.950 0.002 53.0)"
+        ],
+        "oklch": "oklch(0.223 0.010 53.0)"
+      },
+      "shop-muted": {
+        "role": "neutral",
+        "displayName": "Shop Muted",
+        "canonical": "#625a55",
+        "purpose": "Customer secondary text.",
+        "tonalRamp": [
+          "oklch(0.150 0.008 54.3)",
+          "oklch(0.264 0.013 54.3)",
+          "oklch(0.379 0.013 54.3)",
+          "oklch(0.493 0.013 54.3)",
+          "oklch(0.607 0.013 54.3)",
+          "oklch(0.721 0.013 54.3)",
+          "oklch(0.836 0.009 54.3)",
+          "oklch(0.950 0.003 54.3)"
+        ],
+        "oklch": "oklch(0.474 0.013 54.3)"
+      },
+      "shop-line": {
+        "role": "neutral",
+        "displayName": "Shop Line",
+        "canonical": "#e8e3de",
+        "purpose": "Customer rules; empty wait-band lozenges in the shop.",
+        "tonalRamp": [
+          "oklch(0.150 0.005 67.7)",
+          "oklch(0.264 0.009 67.7)",
+          "oklch(0.379 0.009 67.7)",
+          "oklch(0.493 0.009 67.7)",
+          "oklch(0.607 0.009 67.7)",
+          "oklch(0.721 0.009 67.7)",
+          "oklch(0.836 0.006 67.7)",
+          "oklch(0.950 0.002 67.7)"
+        ],
+        "oklch": "oklch(0.918 0.009 67.7)"
+      },
+      "merchant-default-brand": {
+        "role": "primary",
+        "displayName": "Merchant Default Brand",
+        "canonical": "#b14420",
+        "purpose": "Default --brand until the merchant picks a colour; contrast enforced by shopTheme().",
+        "tonalRamp": [
+          "oklch(0.150 0.090 37.9)",
+          "oklch(0.264 0.150 37.9)",
+          "oklch(0.379 0.150 37.9)",
+          "oklch(0.493 0.150 37.9)",
+          "oklch(0.607 0.150 37.9)",
+          "oklch(0.721 0.150 37.9)",
+          "oklch(0.836 0.099 37.9)",
+          "oklch(0.950 0.030 37.9)"
+        ],
+        "oklch": "oklch(0.530 0.150 37.9)"
+      },
+      "merchant-default-brand-2": {
+        "role": "secondary",
+        "displayName": "Merchant Default Brand 2",
+        "canonical": "#1f4f8f",
+        "purpose": "Default --brand-2 (table pill, letter avatar).",
+        "tonalRamp": [
+          "oklch(0.150 0.071 256.8)",
+          "oklch(0.264 0.118 256.8)",
+          "oklch(0.379 0.118 256.8)",
+          "oklch(0.493 0.118 256.8)",
+          "oklch(0.607 0.118 256.8)",
+          "oklch(0.721 0.118 256.8)",
+          "oklch(0.836 0.077 256.8)",
+          "oklch(0.950 0.024 256.8)"
+        ],
+        "oklch": "oklch(0.431 0.118 256.8)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The landing headline only. Alexandria 700, max ~24ch."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Marketing section titles; 1.875rem on phones, 2.25rem from 640px; closing plate 3rem."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Console page titles; 1.875rem from 640px. Card and setup titles step down to 1.25rem/600."
+      },
+      "order-number": {
+        "displayName": "Order Number",
+        "purpose": "The headline of every order surface. Size by context: 2.25rem board card, 3–4.5rem call-out screen, clamp(5rem,28vw,8.5rem) customer ticket, clamp(7rem,40vw,12rem) ring takeover."
+      },
+      "body": {
+        "displayName": "Body (Latin)",
+        "purpose": "Working text; lead paragraphs 1.125rem relaxed at 56–60ch."
+      },
+      "body-ar": {
+        "displayName": "Body (Arabic)",
+        "purpose": "html:lang(ar) leads with Cairo so digits and Latin fragments share its metrics."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels, pills, waited times. Sentence case, no tracking."
+      }
+    },
+    "merchantFaces": [
+      "Cairo",
+      "Alexandria",
+      "Tajawal",
+      "Readex Pro",
+      "Changa",
+      "El Messiri",
+      "Baloo Bhaijaan 2",
+      "Reem Kufi"
+    ],
+    "shadows": [
+      {
+        "name": "resting-card",
+        "value": "0 1px 2px rgb(31 26 23 / 0.06)",
+        "purpose": "Order cards on the board."
+      },
+      {
+        "name": "lifted-object",
+        "value": "0 10px 30px -18px rgb(31 26 23 / 0.35)",
+        "purpose": "Customer order ticket, marketing interface fragments."
+      },
+      {
+        "name": "held-object",
+        "value": "0 14px 30px -20px rgb(31 26 23 / 0.5)",
+        "purpose": "Phone tickets in the counter band."
+      },
+      {
+        "name": "docked-plate",
+        "value": "0 14px 30px -14px rgb(0 0 0 / 0.55)",
+        "purpose": "The customer's docked ticket over the menu."
+      },
+      {
+        "name": "ready-halo",
+        "value": "0 0 0 0 color-mix(in oklch, var(--state-ready) 45%, transparent) -> 0 0 0 14px color-mix(in oklch, var(--state-ready) 0%, transparent)",
+        "purpose": "Keyframes of ready-halo; the only coloured glow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hover nudges (the reversed plate's arrow)."
+      },
+      {
+        "name": "ready-halo",
+        "value": "ready-halo 2.4s ease-out infinite",
+        "purpose": "Outward halo on whatever is ringing; motion-safe only."
+      },
+      {
+        "name": "ready-flash",
+        "value": "ready-flash 1.2s steps(2, jump-none) infinite",
+        "purpose": "Ring takeover: enamel green alternating with a 72% mix toward black; motion-safe only."
+      },
+      {
+        "name": "restless",
+        "value": "restless 3.2s ease-in-out infinite",
+        "purpose": "The before side's shouted numbers jitter in place, staggered -0.37s each; motion-safe only."
+      },
+      {
+        "name": "counter-entrance",
+        "value": "1400ms, ease-out quart, split 88% -> 50%",
+        "purpose": "The counter band's one authored entrance; skipped under reduced motion and on first touch."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation and transition durations 0.01ms, one iteration",
+        "purpose": "Global collapse under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ],
+    "ornaments": [
+      {
+        "name": "band-rule",
+        "value": "9px high; 9px lozenge tile between two 1px rules; currentColor mask at 0.55 opacity",
+        "purpose": "Dividers, the ticket's perforated edge, ready headings."
+      },
+      {
+        "name": "lattice",
+        "value": "1.5rem high; 24px filled lozenge with sawtooth triangles hanging from two 2px rules; currentColor mask",
+        "purpose": "The counter band's track along both halves."
+      },
+      {
+        "name": "wait-band",
+        "value": "14px band ruled at 45% ink, 8–16 lozenges of 6px, one inked per minute, ochre past target",
+        "purpose": "Under every open order card."
+      }
+    ],
+    "provenance": {
+      "appIcons": "public/icons/{icon.svg, icon-192.png, icon-512.png, maskable-512.png, apple-touch-icon.png} are generated by scripts/icons.ts (npm run icons) from the brand mark in src/components/brand/brand-mark.tsx: clay slip #f6efe6 on a fired-clay plate #76291d. Generated, not drawn.",
+      "contrast": "Token contrast pairs asserted in tests/unit/tokens.test.ts; merchant colours corrected at runtime by shopTheme() in src/lib/branding/theme.ts."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-board",
+      "description": "Red ochre action at the order board's 48px size; the default console size is 36px.",
+      "html": "<button class=\"ds-btn-primary\">Mark ready</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border: 0; border-radius: 10px; background: var(--primary, oklch(0.53 0.15 38)); color: var(--primary-foreground, oklch(1 0 0)); font-family: var(--font-ui, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color .15s, transform .15s; } .ds-btn-primary:hover { background: color-mix(in oklch, var(--primary, oklch(0.53 0.15 38)) 90%, transparent); } .ds-btn-primary:focus-visible { outline: 0; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring, oklch(0.53 0.15 38)) 50%, transparent); } .ds-btn-primary:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action on the slip ground.",
+      "html": "<button class=\"ds-btn-outline\">Cancel order</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border: 1px solid var(--border, oklch(0.885 0.012 60)); border-radius: 10px; background: var(--background, oklch(0.968 0.007 75)); color: var(--foreground, oklch(0.235 0.018 40)); font-family: var(--font-ui, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); font-size: .875rem; font-weight: 500; box-shadow: 0 1px 2px rgb(31 26 23 / .05); cursor: pointer; transition: background-color .15s; } .ds-btn-outline:hover { background: var(--accent, oklch(0.925 0.02 52)); } .ds-btn-outline:focus-visible { outline: 0; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring, oklch(0.53 0.15 38)) 50%, transparent); }"
+    },
+    {
+      "name": "Start Form",
+      "kind": "input",
+      "refersTo": "start-input",
+      "description": "Marketing's one action in working form: name the shop, continue to sign-up.",
+      "html": "<form class=\"ds-start\" onsubmit=\"return false\"><label class=\"ds-start-label\" for=\"ds-shop\">Your shop's name</label><div class=\"ds-start-row\"><input id=\"ds-shop\" class=\"ds-start-input\" placeholder=\"Café du Port\"><button class=\"ds-start-btn\">Create my shop <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button></div></form>",
+      "css": ".ds-start { display: flex; flex-direction: column; gap: 8px; max-width: 42rem; font-family: var(--font-ui, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); color: var(--foreground, oklch(0.235 0.018 40)); } .ds-start-label { font-size: .875rem; font-weight: 600; } .ds-start-row { display: flex; gap: 8px; flex-wrap: wrap; } .ds-start-input { flex: 1; min-width: 12rem; height: 56px; padding: 0 16px; border: 1px solid var(--input, oklch(0.66 0.02 50)); border-radius: 16px; background: var(--card, oklch(0.992 0.003 75)); color: var(--foreground, oklch(0.235 0.018 40)); font-size: 1rem; outline: none; transition: border-color .15s, box-shadow .15s; } .ds-start-input:focus-visible { border-color: var(--primary, oklch(0.53 0.15 38)); box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary, oklch(0.53 0.15 38)) 20%, transparent); } .ds-start-btn { display: inline-flex; align-items: center; gap: 8px; height: 56px; padding: 0 24px; border: 0; border-radius: 16px; background: var(--primary, oklch(0.53 0.15 38)); color: var(--primary-foreground, oklch(1 0 0)); font-size: 1rem; font-weight: 700; cursor: pointer; transition: background-color .15s, transform .15s; } .ds-start-btn:hover { background: color-mix(in oklch, var(--primary, oklch(0.53 0.15 38)) 90%, transparent); } .ds-start-btn:focus-visible { outline: 3px solid var(--primary, oklch(0.53 0.15 38)); outline-offset: 3px; } .ds-start-btn:active { transform: scale(.98); }"
+    },
+    {
+      "name": "Console Rail Navigation",
+      "kind": "nav",
+      "refersTo": "rail-nav-item",
+      "description": "Clay rail nav: band-rule separator, lozenge active marker, cobalt live count.",
+      "html": "<nav class=\"ds-rail\"><span class=\"ds-band-rule\"></span><a class=\"ds-rail-item is-active\" href=\"#\"><span class=\"ds-rail-mark\"></span><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 2h4M5 2v2\"/><path d=\"M2 21h20\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/><path d=\"M12 13v0\"/></svg><span class=\"ds-rail-label\">Orders</span><span class=\"ds-rail-count\">3</span></a><a class=\"ds-rail-item\" href=\"#\"><span class=\"ds-rail-mark\"></span><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 7v14\"/><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"/></svg><span class=\"ds-rail-label\">Menu</span></a><a class=\"ds-rail-item\" href=\"#\"><span class=\"ds-rail-mark\"></span><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 9 5 3h14l2 6\"/><path d=\"M4 9v12h16V9\"/><path d=\"M9 21v-6h6v6\"/></svg><span class=\"ds-rail-label\">Shop page</span></a></nav>",
+      "css": ".ds-rail { display: flex; flex-direction: column; gap: 2px; width: 236px; padding: 20px 12px; background: var(--clay, oklch(0.38 0.105 30)); color: var(--clay-foreground, oklch(0.965 0.012 70)); font-family: var(--font-ui, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); } .ds-band-rule { display: block; height: 9px; margin: 0 8px 12px; background-color: var(--clay-muted, oklch(0.84 0.04 45)); opacity: .55; mask-image: linear-gradient(#000,#000), linear-gradient(#000,#000), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 2 7 4.5 4.5 7 2 4.5Z'/%3E%3C/svg%3E\"); mask-size: 100% 1px, 100% 1px, 9px 9px; mask-position: 0 0, 0 100%, 0 0; mask-repeat: no-repeat, no-repeat, repeat-x; } .ds-rail-item { position: relative; display: flex; align-items: center; gap: 12px; height: 44px; padding-inline: 14px 12px; border-radius: 12px; color: var(--clay-muted, oklch(0.84 0.04 45)); font-size: .9375rem; text-decoration: none; transition: background-color .15s, color .15s; } .ds-rail-item:hover { background: var(--clay-hover, oklch(0.43 0.11 30)); color: var(--clay-foreground, oklch(0.965 0.012 70)); } .ds-rail-item:focus-visible { outline: 2px solid var(--clay-foreground, oklch(0.965 0.012 70)); outline-offset: -2px; } .ds-rail-item.is-active { background: color-mix(in oklch, var(--clay-foreground, oklch(0.965 0.012 70)) 13%, transparent); color: var(--clay-foreground, oklch(0.965 0.012 70)); font-weight: 600; } .ds-rail-mark { position: absolute; inset-inline-start: 3px; width: 6px; height: 6px; border-radius: 1px; background: currentColor; transform: rotate(45deg); opacity: 0; } .ds-rail-item.is-active .ds-rail-mark { opacity: 1; } .ds-rail-label { flex: 1; } .ds-rail-count { min-width: 24px; padding: 0 6px; border-radius: 9999px; background: var(--state-new, oklch(0.47 0.13 262)); color: #fff; font-size: .75rem; font-weight: 700; line-height: 24px; text-align: center; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Order Card with Wait Band",
+      "kind": "card",
+      "refersTo": "order-card",
+      "description": "Board card: the number as headline, the wait band inking one lozenge per minute toward the prep target.",
+      "html": "<article class=\"ds-order\"><header class=\"ds-order-head\"><div><h3 class=\"ds-order-num\">112</h3><p class=\"ds-order-name\">Amine</p></div><p class=\"ds-order-wait\">Waited 7 min</p></header><div class=\"ds-wait\"><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell is-inked\"></span><span class=\"ds-wait-cell\"></span><span class=\"ds-wait-cell\"></span><span class=\"ds-wait-cell\"></span><span class=\"ds-wait-cell\"></span><span class=\"ds-wait-cell\"></span><span class=\"ds-wait-target\"></span></div><ul class=\"ds-order-items\"><li><b>2×</b> Msemen with honey</li><li><b>1×</b> Mint tea</li></ul><button class=\"ds-order-next\">Mark ready</button></article>",
+      "css": ".ds-order { display: flex; flex-direction: column; gap: 12px; width: 300px; padding: 16px; border: 1px solid var(--border, oklch(0.885 0.012 60)); border-radius: 16px; background: var(--card, oklch(0.992 0.003 75)); color: var(--foreground, oklch(0.235 0.018 40)); box-shadow: 0 1px 2px rgb(31 26 23 / .06); font-family: var(--font-ui, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); } .ds-order-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; } .ds-order-num { margin: 0; font-family: var(--font-display, Alexandria, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); font-size: 2.25rem; font-weight: 700; line-height: .9; letter-spacing: -.02em; font-variant-numeric: tabular-nums lining-nums; } .ds-order-name { margin: 4px 0 0; font-weight: 600; } .ds-order-wait { margin: 0; font-size: .875rem; font-weight: 600; color: var(--muted-foreground, oklch(0.47 0.022 45)); font-variant-numeric: tabular-nums; } .ds-wait { position: relative; display: flex; align-items: center; justify-content: space-between; height: 14px; padding: 0 3px; border-block: 1px solid color-mix(in oklch, var(--band-ink, var(--foreground, oklch(0.235 0.018 40))) 45%, transparent); } .ds-wait-cell { width: 6px; height: 6px; box-sizing: border-box; border: 1px solid var(--band-empty, oklch(0.82 0.015 55)); border-radius: .5px; transform: rotate(45deg); } .ds-wait-cell.is-inked { background: var(--band-ink, var(--foreground, oklch(0.235 0.018 40))); border-color: var(--band-ink, var(--foreground, oklch(0.235 0.018 40))); } .ds-wait-cell.is-late { background: var(--band-late, var(--primary, oklch(0.53 0.15 38))); border-color: var(--band-late, var(--primary, oklch(0.53 0.15 38))); } .ds-wait-target { position: absolute; top: -3px; bottom: -3px; inset-inline-start: calc(6px + (100% - 12px) * 0.8636 - .75px); width: 1.5px; background: var(--band-late, var(--primary, oklch(0.53 0.15 38))); } .ds-order-items { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; } .ds-order-items b { font-variant-numeric: tabular-nums; } .ds-order-next { height: 48px; border: 0; border-radius: 10px; background: var(--primary, oklch(0.53 0.15 38)); color: var(--primary-foreground, oklch(1 0 0)); font-size: 1rem; font-weight: 600; cursor: pointer; } .ds-order-next:hover { background: color-mix(in oklch, var(--primary, oklch(0.53 0.15 38)) 90%, transparent); } .ds-order-next:focus-visible { outline: 0; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring, oklch(0.53 0.15 38)) 50%, transparent); }"
+    },
+    {
+      "name": "Category Chip",
+      "kind": "chip",
+      "refersTo": "shop-chip",
+      "description": "Customer shop category chip; the active one takes a brand-ink border and text, never a brand fill.",
+      "html": "<div class=\"ds-chips\"><a class=\"ds-chip is-active\" href=\"#\">Breakfast</a><a class=\"ds-chip\" href=\"#\">Sandwiches</a><a class=\"ds-chip\" href=\"#\">Drinks</a></div>",
+      "css": ".ds-chips { display: flex; gap: 6px; padding: 8px 16px; background: #fbfaf8; font-family: Cairo, Inter, system-ui, sans-serif; } .ds-chip { padding: 6px 14px; border: 1px solid transparent; border-radius: 9999px; color: #625a55; font-size: .875rem; font-weight: 600; white-space: nowrap; text-decoration: none; transition: color .15s; } .ds-chip:hover { color: #1f1a17; } .ds-chip:focus-visible { outline: 2px solid var(--brand-ink, #b14420); outline-offset: 2px; } .ds-chip.is-active { border-color: var(--brand-ink, #b14420); color: var(--brand-ink, #b14420); }"
+    },
+    {
+      "name": "Docked Ticket",
+      "kind": "custom",
+      "refersTo": "ticket-dock",
+      "description": "The customer's one brand plate: perforated band-rule edge, item count, tabular total.",
+      "html": "<button class=\"ds-dock\"><span class=\"ds-dock-perf\"></span><span class=\"ds-dock-count\">3 items</span><span class=\"ds-dock-label\">Review order</span><span class=\"ds-dock-total\">1,250 DA</span></button>",
+      "css": ".ds-dock { position: relative; display: flex; align-items: center; gap: 12px; width: 360px; height: 60px; padding: 0 20px; overflow: hidden; border: 0; border-radius: 16px; background: var(--brand, #b14420); color: var(--brand-contrast, #ffffff); font-family: Cairo, Inter, system-ui, sans-serif; font-size: 1rem; box-shadow: 0 14px 30px -14px rgb(0 0 0 / .55); cursor: pointer; transition: transform .15s; } .ds-dock:active { transform: scale(.99); } .ds-dock:focus-visible { outline: 2px solid var(--brand-ink, #b14420); outline-offset: 2px; } .ds-dock-perf { position: absolute; inset-inline: 12px; top: 6px; height: 9px; background-color: currentColor; opacity: .4; mask-image: linear-gradient(#000,#000), linear-gradient(#000,#000), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 2 7 4.5 4.5 7 2 4.5Z'/%3E%3C/svg%3E\"); mask-size: 100% 1px, 100% 1px, 9px 9px; mask-position: 0 0, 0 100%, 0 0; mask-repeat: no-repeat, no-repeat, repeat-x; } .ds-dock-count { padding: 2px 10px; border-radius: 9999px; background: color-mix(in srgb, var(--brand-contrast, #fff) 18%, transparent); font-size: .875rem; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-dock-label { flex: 1; text-align: start; font-weight: 700; } .ds-dock-total { font-weight: 700; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Ready Ticket",
+      "kind": "custom",
+      "refersTo": "ready-takeover",
+      "description": "The order ticket once ready: enamel green, display-scale number, outward halo, the acknowledgement.",
+      "html": "<div class=\"ds-ready\"><span class=\"ds-ready-rule\"></span><p class=\"ds-ready-label\">Your number</p><p class=\"ds-ready-num\">112</p><button class=\"ds-ready-ack\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg> Got it, I'm coming</button></div>",
+      "css": "@keyframes ds-ready-halo { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--state-ready, oklch(0.5 0.11 162)) 45%, transparent); } 50% { box-shadow: 0 0 0 14px color-mix(in oklch, var(--state-ready, oklch(0.5 0.11 162)) 0%, transparent); } } .ds-ready { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 320px; padding: 32px 24px 24px; border-radius: 24px; background: var(--state-ready, oklch(0.5 0.11 162)); color: #fff; text-align: center; font-family: var(--font-ui, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); animation: ds-ready-halo 2.4s ease-out infinite; } .ds-ready-rule { display: block; width: 160px; height: 9px; background-color: currentColor; opacity: .7; mask-image: linear-gradient(#000,#000), linear-gradient(#000,#000), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 2 7 4.5 4.5 7 2 4.5Z'/%3E%3C/svg%3E\"); mask-size: 100% 1px, 100% 1px, 9px 9px; mask-position: 0 0, 0 100%, 0 0; mask-repeat: no-repeat, no-repeat, repeat-x; } .ds-ready-label { margin: 0; font-size: .875rem; font-weight: 600; opacity: .9; } .ds-ready-num { margin: 0; font-family: var(--font-display, Alexandria, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); font-size: 8rem; font-weight: 700; line-height: .9; letter-spacing: -.02em; font-variant-numeric: tabular-nums lining-nums; } .ds-ready-ack { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 64px; margin-top: 8px; border: 0; border-radius: 16px; background: #fff; color: #123d2a; font-size: 1.125rem; font-weight: 700; box-shadow: 0 12px 30px -12px rgb(0 0 0 / .45); cursor: pointer; } .ds-ready-ack:focus-visible { outline: 4px solid #fff; outline-offset: 4px; } .ds-ready-ack:active { transform: scale(.99); } @media (prefers-reduced-motion: reduce) { .ds-ready { animation: none; } }"
+    },
+    {
+      "name": "Clay Plate with Lattice",
+      "kind": "custom",
+      "refersTo": "clay-plate",
+      "description": "A whole fired-clay field carrying the 45° lattice band, as on the landing's counter band; the console's one reversed action uses the same plate.",
+      "html": "<a class=\"ds-plate\" href=\"#\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg><span class=\"ds-plate-title\">Open the order board</span><span class=\"ds-lattice\"></span></a>",
+      "css": ".ds-plate { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: 320px; padding: 24px 24px 56px; background: var(--clay, oklch(0.38 0.105 30)); color: var(--clay-foreground, oklch(0.965 0.012 70)); text-decoration: none; transition: background-color .15s; } .ds-plate:hover { background: var(--clay-hover, oklch(0.43 0.11 30)); } .ds-plate:focus-visible { outline: 2px solid var(--primary, oklch(0.53 0.15 38)); outline-offset: -4px; } .ds-plate-title { font-family: var(--font-display, Alexandria, Inter, Cairo, ui-sans-serif, system-ui, sans-serif); font-size: 1.25rem; font-weight: 600; line-height: 1.375; letter-spacing: -.01em; } .ds-lattice { position: absolute; inset-inline: 0; bottom: 12px; height: 1.5rem; background-color: currentColor; mask-image: linear-gradient(#000,#000), linear-gradient(#000,#000), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 6 18 12 12 18 6 12Z'/%3E%3Cpath d='M-3 2H3L0 6ZM21 2H27L24 6ZM-3 22H3L0 18ZM21 22H27L24 18Z'/%3E%3C/svg%3E\"); mask-size: 100% 2px, 100% 2px, 24px 24px; mask-position: 0 0, 0 100%, 0 0; mask-repeat: no-repeat, no-repeat, repeat-x; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Kabyle Painted Pottery",
+    "overview": "Ranna is painted the way Amazigh ware is painted: a kaolin-slip ground, manganese brown-black line work, and fired-clay red laid down as whole fields rather than accents. Red ochre is the colour of anything you can press. The glaze colours (cobalt, resin amber, enamel green, oxblood) are kept off the decoration entirely and only ever carry state, first and foremost the state of an order. The one ornament is the pot's shoulder band: a 45° lattice of lozenges between two rules. It appears only where it does a job: a divider, the ticket's perforated edge, the wait band that inks one lozenge per minute, the track of the landing page's sweep handle.\n\nThe system serves three surfaces with one grammar. The merchant console is a counter seen at arm's length: a clay rail on the start side, a slip work ground, and the order number as the only headline. The customer shop is the merchant's world: their colour, logo and chosen face on a quiet warm-white ground, with our structure (rhythm, lattice band, display numerals, enforced contrast) underneath. The marketing site is the counter before and after: whole clay and slip fields, never cards on a neutral page.\n\nDensity is generous and touch-first. Targets are 44px in navigation, 48px on the order board, 56px on the start form and 64px on the \"I'm coming\" acknowledgement. Arabic is the default and the layout is built from logical properties, so every surface mirrors in RTL without separate styling.",
+    "keyCharacteristics": [
+      "Fired-clay fields (rail, bands, closing plates) against a kaolin-slip ground; manganese ink for type and 1px rules.",
+      "Red ochre only for action, focus, and lateness past the prep target.",
+      "Four enamel and resin colours that only ever carry state, never decoration.",
+      "Alexandria display numerals and titles; Inter for Latin text, Cairo for Arabic.",
+      "A single 45° lozenge lattice as the only ornament; status dots and active markers are lozenges too.",
+      "Flat surfaces, hairline borders, soft ink-tinted shadows only on lifted objects.",
+      "Contrast is enforced in code: token pairs are unit-tested, and merchant colours are corrected before use."
+    ],
+    "rules": [
+      {
+        "name": "The Glaze Means State Rule",
+        "body": "Cobalt, resin amber, enamel green, oxblood and worn ink name order states (new, preparing, ready, canceled, done). Beyond orders they may only carry the matching kind of state (green for settled-good, amber for caution, oxblood for destructive). They never decorate a section, a background, or a marketing illustration. On customer and order surfaces, full enamel-green fill means \"ready\" and nothing else.",
+        "section": "colors"
+      },
+      {
+        "name": "The Clay Field Rule",
+        "body": "Fired clay is laid down as a whole field (a rail, a band half, a plate edge to edge). It is never a small accent, a border colour on slip, or a text colour on the slip ground. A console screen gets at most one reversed clay plate: its single most urgent action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Merchant Plate Rule",
+        "body": "On customer pages the merchant's brand fill appears in exactly two places: the header band and the single primary action (the docked ticket). Brand-coloured text always goes through `--brand-ink`, never raw `--brand`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Number Is the Headline Rule",
+        "body": "On any order surface the order number, set as above, is the largest thing in its container and needs no badge or box to rank it. Orders, tickets and tables are addressed by number first.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Anything that counts (board numbers, prices, totals, waited minutes, tables) is set in tabular figures, through `data-numeric`, `tabular-nums` or the order-number style, so columns line up at arm's length.",
+        "section": "typography"
+      },
+      {
+        "name": "The Halo Not Flicker Rule",
+        "body": "\"Ready\" is shown with an outward halo or a two-step background alternation between enamel green and a deeper mix of it, never by fading the number. The number stays fully legible at every frame, and under reduced motion every animation collapses to a single still state.",
+        "section": "elevation"
+      },
+      {
+        "name": "The 45° Lattice Rule",
+        "body": "Ornament is drawn only on the 45°/90° lattice: lozenges, rules, sawtooth. There are no curves, flourishes or illustrations in the ornament system, and the lattice only appears where it does a job (divide, perforate, measure, or carry a handle).",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** take every colour from a token: platform variables in `globals.css`, shop variables from `shopTheme()` and `ShopRoot`. Add a contrast assertion to `tests/unit/tokens.test.ts` for any new text/ground pair.",
+      "**Do** set order numbers with the order-number style (Alexandria 700, tabular lining figures, line-height 0.9) and make them the largest element on order surfaces.",
+      "**Do** use the band rule or lattice, painted in `currentColor`, when a surface needs a divider, a perforated edge or a progress measure.",
+      "**Do** draw status dots and markers as 45° lozenges (6–12px, 1px corner radius), not circles.",
+      "**Do** keep touch targets at 44px minimum, 48px on the order board and 56px or more for the page's primary action on phones.",
+      "**Do** build with logical properties so every surface mirrors in Arabic, and flip directional icons in RTL.",
+      "**Do** regenerate `public/icons` with `npm run icons` (`scripts/icons.ts`) after changing the brand mark or the clay colour. The icons are generated from the mark, not drawn."
+    ],
+    "donts": [
+      "**Don't** use cobalt, resin amber, enamel green or oxblood as decoration or section colour. They carry state only, and a full enamel-green fill always means an order is ready.",
+      "**Don't** put fired clay in small doses (borders, text, icons on slip). It is a field or nothing.",
+      "**Don't** fill anything with the merchant's brand colour on customer pages except the header band and the primary action, and don't set brand-coloured text without `--brand-ink`.",
+      "**Don't** add curved or illustrative ornament, or use the lattice purely as decoration.",
+      "**Don't** use hard offset or grey drop shadows. Shadows are soft, negatively spread and ink-tinted, and only on lifted objects.",
+      "**Don't** signal \"ready\" by fading or strobing the number's opacity. Use the halo or the green alternation, and respect reduced motion.",
+      "**Don't** add uppercase tracked labels above headings. Labels are sentence case at 0.875rem/600."
+    ]
+  }
+}

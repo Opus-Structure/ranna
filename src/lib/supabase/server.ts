@@ -1,13 +1,14 @@
 import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { supabasePublicConfig } from "./config";
+import { sessionCookieOptions, supabasePublicConfig } from "./config";
 
 /** Request-scoped Supabase client acting as the signed-in user (cookie session). */
 export async function createSupabaseServerClient() {
   const { url, anonKey } = supabasePublicConfig();
   const cookieStore = await cookies();
   return createServerClient(url, anonKey, {
+    cookieOptions: sessionCookieOptions,
     cookies: {
       getAll: () => cookieStore.getAll(),
       setAll: (toSet) => {
