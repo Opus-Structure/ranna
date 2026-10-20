@@ -5,14 +5,14 @@ import { brandName } from "@/config/brand";
 import { Link } from "@/i18n/navigation";
 import { initLocale } from "@/i18n/server";
 
-const DOCS = ["terms", "privacy"] as const;
+const DOCS = ["terms", "privacy", "cookies", "refunds"] as const;
 type Doc = (typeof DOCS)[number];
 type Section = { h: string; p: string[] };
 
 // Rendered per request like every page: the CSP nonce comes from request headers (D31).
 
-/** Last substantive change to either document (shown to readers). */
-const UPDATED = "2026-10-15";
+/** Last substantive change to any of the documents (shown to readers). */
+const UPDATED = "2026-10-20";
 
 function isDoc(v: string): v is Doc {
   return (DOCS as readonly string[]).includes(v);
@@ -29,7 +29,7 @@ export async function generateMetadata({
   return { title: t("title") };
 }
 
-/** Terms and Privacy: a reading page, one column at a comfortable measure, sections linkable. */
+/** Terms, Privacy, Cookies and Refunds: a reading page, one column at a comfortable measure, sections linkable. */
 export default async function LegalPage({
   params,
 }: {
@@ -93,19 +93,21 @@ export default async function LegalPage({
         ))}
       </div>
 
-      <p className="mt-12 text-sm text-muted-foreground">
-        {t.rich("other", {
-          other: t(`${doc === "terms" ? "privacy" : "terms"}.title`),
-          link: (chunks) => (
-            <Link
-              href={`/legal/${doc === "terms" ? "privacy" : "terms"}`}
-              className="font-semibold text-foreground underline underline-offset-4"
-            >
-              {chunks}
-            </Link>
-          ),
-        })}
-      </p>
+      <nav aria-label={t("related")} className="mt-12 border-t pt-6 text-sm">
+        <h2 className="font-semibold">{t("related")}</h2>
+        <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
+          {DOCS.filter((d) => d !== doc).map((d) => (
+            <li key={d}>
+              <Link
+                href={`/legal/${d}`}
+                className="font-semibold text-foreground underline underline-offset-4"
+              >
+                {t(`${d}.title`)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </main>
   );
 }

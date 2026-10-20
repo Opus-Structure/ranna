@@ -63,6 +63,17 @@ export async function ShopFooter({
           ))}
         </nav>
       ) : null}
+      <nav aria-label={t("legal.label")} className="flex flex-wrap gap-x-5">
+        {(["privacy", "cookies", "refunds"] as const).map((doc) => (
+          <Link
+            key={doc}
+            href={`/legal/${doc}`}
+            className="inline-flex min-h-11 items-center underline underline-offset-4"
+          >
+            {t(`legal.${doc}`)}
+          </Link>
+        ))}
+      </nav>
       <p className="text-xs">{t("poweredBy", { brand: brandName(locale) })}</p>
     </footer>
   );

@@ -50,19 +50,16 @@ export default async function MarketingLayout({ children }: { children: ReactNod
             brand: brandName(await getLocale()),
           })}
         </span>
-        <nav className="flex gap-5">
-          <Link
-            href="/legal/terms"
-            className="underline-offset-4 hover:text-foreground hover:underline"
-          >
-            {t("footer.terms")}
-          </Link>
-          <Link
-            href="/legal/privacy"
-            className="underline-offset-4 hover:text-foreground hover:underline"
-          >
-            {t("footer.privacy")}
-          </Link>
+        <nav aria-label={t("footer.legal")} className="flex flex-wrap gap-x-5 gap-y-2">
+          {(["terms", "privacy", "cookies", "refunds"] as const).map((doc) => (
+            <Link
+              key={doc}
+              href={`/legal/${doc}`}
+              className="underline-offset-4 hover:text-foreground hover:underline"
+            >
+              {t(`footer.${doc}`)}
+            </Link>
+          ))}
         </nav>
       </footer>
     </NextIntlClientProvider>

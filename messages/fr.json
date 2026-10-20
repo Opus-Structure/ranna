@@ -30,7 +30,8 @@
       "skipToContent": "Aller au contenu",
       "openMenu": "Ouvrir le menu",
       "closeMenu": "Fermer le menu",
-      "loading": "Chargement"
+      "loading": "Chargement",
+      "newTab": "(s’ouvre dans un nouvel onglet)"
     },
     "errors": {
       "generic": "Un problème est survenu de notre côté. Réessayez dans un instant.",
@@ -64,7 +65,10 @@
     "footer": {
       "terms": "Conditions",
       "privacy": "Confidentialité",
-      "rights": "© {year} {brand}"
+      "rights": "© {year} {brand}",
+      "cookies": "Cookies",
+      "refunds": "Remboursements",
+      "legal": "Informations légales"
     },
     "meta": {
       "title": "Ranna : la commande par QR code qui fait sonner le téléphone du client",
@@ -729,7 +733,13 @@
     "call": "Appeler la boutique",
     "language": "Langue",
     "poweredBy": "Commandes par {brand}",
-    "demo": "Boutique de démonstration : un menu d’exemple pour essayer la commande. Ce n’est pas un vrai commerce."
+    "demo": "Boutique de démonstration : un menu d’exemple pour essayer la commande. Ce n’est pas un vrai commerce.",
+    "legal": {
+      "label": "Mentions légales",
+      "privacy": "Confidentialité",
+      "cookies": "Cookies",
+      "refunds": "Remboursements"
+    }
   },
   "shopEditor": {
     "title": "Page boutique",
@@ -1026,7 +1036,8 @@
       "phoneHint": "Utilisé seulement pour un SMS si votre téléphone ne peut pas recevoir l’alerte.",
       "note": "Note pour la boutique (facultatif)",
       "place": "Commander · {total}",
-      "placing": "Envoi…"
+      "placing": "Envoi…",
+      "legalNote": "Nous n’utilisons votre prénom que pour traiter et appeler votre commande. Lisez la <link>notice de confidentialité</link>."
     },
     "closed": "Les commandes sont fermées pour le moment",
     "recent": "Votre commande {number}",
@@ -1380,7 +1391,6 @@
     "draft": "Projet à relire par un juriste. Ces textes suivent le droit algérien tel que nous le comprenons (loi 18-07 sur les données personnelles, modifiée par la loi 25-11 ; loi 18-05 sur le commerce électronique ; loi 09-03 sur la protection du consommateur). Les éléments entre crochets sont les informations et formalités propres à l’exploitant. Un avocat algérien doit les vérifier avant le lancement.",
     "updated": "Dernière mise à jour : {date}",
     "contents": "Sur cette page",
-    "other": "Lisez aussi : <link>{other}</link>.",
     "terms": {
       "title": "Conditions d’utilisation",
       "intro": "Ces conditions régissent l’utilisation de {brand}, un service qui permet aux restaurants, cafés et commerces de restauration en Algérie de prendre des commandes par QR code et d’appeler les clients quand leur commande est prête. En créant une boutique, vous les acceptez au nom de votre commerce.",
@@ -1409,7 +1419,7 @@
           "h": "Prix, abonnement et factures",
           "p": [
             "Les packs, prix et limites figurent sur la page tarifs et dans votre tableau de bord, en dinars algériens. Un pack commence par une période gratuite ; la période d’abonnement court ensuite à compter de la confirmation de votre paiement pour la durée indiquée (par exemple un an). Rien n’est prélevé automatiquement.",
-            "Nous émettons une facture pour chaque paiement, avec les mentions exigées par la loi algérienne. Si une période se termine sans paiement, votre boutique entre en période de grâce puis est suspendue jusqu’au paiement ; vos données sont conservées. Vous pouvez résilier à tout moment : la boutique reste active jusqu’à la fin de la période payée. Les périodes payées ne sont pas remboursées, sauf obligation légale."
+            "Nous émettons une facture pour chaque paiement, avec les mentions exigées par le droit algérien. Si une période se termine impayée, votre boutique entre en période de grâce puis est suspendue jusqu’au paiement ; vos données sont conservées. Vous pouvez résilier à tout moment : la boutique reste active jusqu’à la fin de la période payée. Les périodes payées ne sont pas remboursées, sauf dans les cas prévus par la politique de remboursement ou lorsque la loi l’exige."
           ]
         },
         {
@@ -1489,7 +1499,7 @@
         {
           "h": "Hébergement et transferts hors d’Algérie",
           "p": [
-            "Le service est hébergé chez Supabase (base de données, authentification, stockage) et Vercel (serveurs d’application), dont les serveurs sont situés hors d’Algérie : [région, par ex. Paris, France]. Le paiement des abonnements est assuré par Chargily Pay ; les e-mails sont envoyés par [prestataire e-mail] ; si une boutique active les alertes de secours par SMS ou WhatsApp, par [prestataire de messagerie].",
+            "Le service est hébergé chez Neon (base de données, authentification, stockage de fichiers et mises à jour en direct) et Vercel (serveurs d’application). Leurs serveurs sont situés hors d’Algérie : États-Unis (Virginie). Le paiement des abonnements est assuré par Chargily Pay, ou par virement bancaire ou postal avec un justificatif de paiement que vous téléversez ; les e-mails sont envoyés par Resend ; si une boutique active les alertes de secours par SMS ou WhatsApp, par [prestataire de messagerie]. Si vous autorisez les notifications, c’est le service push de votre navigateur (Google, Apple ou Mozilla, selon votre appareil) qui les achemine.",
             "Selon la loi 18-07, un transfert de données personnelles à l’étranger requiert l’autorisation de l’ANPDP et un niveau de protection adéquat dans le pays destinataire. [Référence de l’autorisation]. Chaque prestataire ne traite les données que pour assurer sa part du service, avec des engagements contractuels de confidentialité et de sécurité."
           ]
         },
@@ -1522,7 +1532,103 @@
         {
           "h": "Cookies et stockage local",
           "p": [
-            "Nous n’utilisons que ce dont le service a besoin : un cookie de connexion pour les propriétaires et les équipes, une préférence de langue, et un stockage sur l’appareil du client qui retient son ticket et ses commandes récentes. Aucun cookie publicitaire ni de suivi."
+            "Nous n’utilisons que ce dont le service a besoin : un cookie de connexion pour les propriétaires et les équipes, une préférence de langue, et un stockage sur l’appareil du client qui retient son ticket et ses commandes récentes. Aucun cookie publicitaire ni de suivi, aucune statistique. La politique de cookies détaille chaque élément."
+          ]
+        }
+      ]
+    },
+    "related": "Autres documents juridiques",
+    "cookies": {
+      "title": "Politique de cookies",
+      "intro": "Cette politique explique les cookies et le stockage de navigateur similaire que {brand} utilise. Nous n’utilisons que ce dont le service a besoin pour fonctionner. Nous n’utilisons aucun cookie de statistiques, de publicité ou de suivi, et nous ne chargeons aucun script tiers, traceur ou contenu intégré.",
+      "sections": [
+        {
+          "h": "Cookies et stockage local",
+          "p": [
+            "Un cookie est un petit fichier texte qu’un site enregistre dans votre navigateur. Le stockage local joue le même rôle mais reste sur votre appareil et n’est pas envoyé à nos serveurs à chaque requête. Ci-dessous, nous disons « cookies » pour les deux, sauf quand la différence compte."
+          ]
+        },
+        {
+          "h": "Ce que nous utilisons",
+          "p": [
+            "Langue (NEXT_LOCALE) : retient la langue choisie. Cookie propre à notre site, conservé un an.",
+            "Session de connexion : uniquement pour les propriétaires, les équipes et les administrateurs de la plateforme. Elle vous garde connecté et disparaît à la déconnexion ou à la fin de la session. Un client qui ne fait que commander ne la reçoit jamais.",
+            "Ticket, prénom et commandes récentes (stockage local, sur l’appareil du client) : retient les plats de votre ticket, le prénom saisi à la commande et les liens de vos commandes récentes pour rouvrir leur suivi. Cela reste sur votre appareil.",
+            "Réglages (stockage local, sur l’appareil où vous les faites) : le choix d’alerte d’une commande et, pour les équipes, le son du tableau de commandes, le choix de l’imprimante et la liste des tickets imprimés.",
+            "Notifications (seulement si vous les autorisez) : votre navigateur enregistre un service worker et un abonnement push pour que votre téléphone sonne quand votre commande est prête. Vous pouvez le retirer à tout moment dans les réglages du navigateur."
+          ]
+        },
+        {
+          "h": "Consentement",
+          "p": [
+            "Les éléments ci-dessus sont strictement nécessaires pour vous rendre le service demandé : afficher la page dans votre langue, vous garder connecté, retenir votre ticket et vous prévenir quand votre commande est prête. Ils sont donc déposés sans bannière. Tout ce qui est facultatif demande d’abord : les notifications passent par la demande d’autorisation propre à votre navigateur et rien n’est activé avant que vous touchiez.",
+            "Si nous ajoutons un jour un élément qui n’est pas strictement nécessaire, nous demanderons votre consentement avant de le déposer et nous mettrons d’abord cette page à jour."
+          ]
+        },
+        {
+          "h": "Ce que nous n’utilisons pas",
+          "p": [
+            "Aucun outil d’analyse ou de statistiques, aucun pixel publicitaire ou de réseau social, aucun cookie de suivi, aucune empreinte de navigateur, et aucun contenu tiers intégré comme des cartes, vidéos ou widgets de discussion. Nos polices sont servies depuis notre propre domaine.",
+            "Les photos d’une boutique sont chargées depuis les serveurs de notre prestataire de stockage de fichiers (voir la notice de confidentialité). Comme tout serveur web, il voit votre adresse IP et les détails techniques de la requête."
+          ]
+        },
+        {
+          "h": "Gérer les cookies",
+          "p": [
+            "Vous pouvez supprimer ou bloquer les cookies et vider le stockage local dans les réglages de votre navigateur. Si vous bloquez le cookie de langue ou de connexion, le site fonctionne mais peut ne pas retenir votre langue, et vous ne pourrez pas vous connecter. Vider le stockage local efface le ticket et la liste des commandes récentes sur cet appareil."
+          ]
+        },
+        {
+          "h": "Questions",
+          "p": [
+            "Écrivez à [e-mail de contact confidentialité]. Pour le traitement des données personnelles en général, lisez la notice de confidentialité."
+          ]
+        }
+      ]
+    },
+    "refunds": {
+      "title": "Politique de remboursement",
+      "intro": "Cette politique couvre deux choses différentes : l’abonnement qu’une boutique paie à {brand}, et les commandes que les clients passent auprès d’une boutique. Elle ne limite aucun droit que vous tenez du droit algérien.",
+      "sections": [
+        {
+          "h": "Ce que cela couvre",
+          "p": [
+            "Les paiements d’abonnement : ce qu’un propriétaire de boutique paie à {brand} pour une formule. Ils sont décrits ci-dessous.",
+            "Les commandes des clients : les clients ne paient pas via {brand}. Ils paient la boutique à son comptoir, c’est donc la boutique qui gère tout remboursement (voir « Commandes passées auprès d’une boutique »)."
+          ]
+        },
+        {
+          "h": "Période gratuite et résiliation",
+          "p": [
+            "Une formule commence par une période gratuite indiquée sur la page des tarifs. Vous ne devez rien pendant celle-ci et rien n’est prélevé automatiquement ensuite : vous ne payez que si vous le décidez.",
+            "Vous pouvez résilier à tout moment depuis votre tableau de bord. Votre boutique reste active jusqu’à la fin de la période payée."
+          ]
+        },
+        {
+          "h": "Quand nous remboursons un paiement d’abonnement",
+          "p": [
+            "Une période payée et commencée n’est pas remboursée, sauf dans ces cas : vous avez été débité deux fois pour la même période ; le montant débité diffère de celui qui vous a été indiqué ; vous avez payé mais nous n’avons pas activé votre formule ; ou le service a été indisponible plus de [nombre] jours consécutifs de notre fait. Dans ce dernier cas, nous pouvons, si vous le préférez, prolonger votre période de la durée perdue.",
+            "Lorsque la loi vous donne droit à un remboursement, nous l’honorons."
+          ]
+        },
+        {
+          "h": "Comment demander et comment vous êtes remboursé",
+          "p": [
+            "Écrivez à [e-mail du support] dans les [30] jours suivant le paiement, avec le numéro de facture et le motif. Nous répondons sous [10] jours ouvrables.",
+            "Un remboursement accepté est versé en dinars par le même moyen que celui utilisé (le prestataire de paiement pour les paiements par carte, ou un virement bancaire ou postal sur le compte que vous nous indiquez), dans les [14] jours suivant l’accord. Les frais prélevés par un prestataire de paiement ou une banque ne sont remboursés que si l’erreur est de notre fait."
+          ]
+        },
+        {
+          "h": "Commandes passées auprès d’une boutique",
+          "p": [
+            "La commande d’un client est une vente entre le client et la boutique. {brand} n’encaisse rien et ne peut pas la rembourser. Si une commande est erronée, en retard, indisponible ou non conforme, adressez-vous d’abord à la boutique : elle est responsable des remboursements, remplacements et réclamations, comme l’exigent la loi 09-03 sur la protection du consommateur et la loi 18-05 sur le commerce électronique.",
+            "Une boutique peut annuler une commande qu’elle ne peut pas préparer ; le client ne doit alors rien. Si vous ne parvenez pas à régler un problème avec une boutique, écrivez-nous à [e-mail du support] et nous vous aiderons à la joindre."
+          ]
+        },
+        {
+          "h": "Contact",
+          "p": [
+            "[Raison sociale de l’exploitant], [adresse], Algérie. E-mail [e-mail du support], téléphone [téléphone]."
           ]
         }
       ]

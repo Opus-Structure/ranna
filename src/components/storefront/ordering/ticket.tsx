@@ -53,6 +53,7 @@ export function Ticket({
   table: { code: string; label: string } | null;
 }) {
   const t = useTranslations("order");
+  const tc = useTranslations("common.a11y");
   const locale = useLocale() as AppLocale;
   const theme = useShopTheme();
   const router = useRouter();
@@ -381,6 +382,21 @@ export function Ticket({
                   />
                   {fieldMessage("note")}
                 </label>
+                <p className="text-sm text-[var(--shop-muted)]">
+                  {t.rich("checkout.legalNote", {
+                    link: (chunks) => (
+                      <Link
+                        href="/legal/privacy"
+                        target="_blank"
+                        rel="noopener"
+                        className="font-semibold text-[var(--brand-ink)] underline underline-offset-4"
+                      >
+                        {chunks}
+                        <span className="sr-only"> {tc("newTab")}</span>
+                      </Link>
+                    ),
+                  })}
+                </p>
                 {/* Honeypot: invisible to people and screen readers, tempting to form-filling bots. */}
                 <div aria-hidden className="absolute -start-[10000px] h-px w-px overflow-hidden">
                   <label>

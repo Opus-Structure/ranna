@@ -30,7 +30,8 @@
       "skipToContent": "Skip to content",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
-      "loading": "Loading"
+      "loading": "Loading",
+      "newTab": "(opens in a new tab)"
     },
     "errors": {
       "generic": "Something went wrong on our side. Try again in a moment.",
@@ -64,7 +65,10 @@
     "footer": {
       "terms": "Terms",
       "privacy": "Privacy",
-      "rights": "© {year} {brand}"
+      "rights": "© {year} {brand}",
+      "cookies": "Cookies",
+      "refunds": "Refunds",
+      "legal": "Legal"
     },
     "meta": {
       "title": "Ranna: QR ordering that rings your customer’s phone",
@@ -729,7 +733,13 @@
     "call": "Call the shop",
     "language": "Language",
     "poweredBy": "Ordering by {brand}",
-    "demo": "Demo shop: a sample menu to try ordering. Nothing here is a real business."
+    "demo": "Demo shop: a sample menu to try ordering. Nothing here is a real business.",
+    "legal": {
+      "label": "Legal",
+      "privacy": "Privacy",
+      "cookies": "Cookies",
+      "refunds": "Refunds"
+    }
   },
   "shopEditor": {
     "title": "Shop page",
@@ -1026,7 +1036,8 @@
       "phoneHint": "Only used to text you if your phone can’t receive the alert.",
       "note": "Note for the shop (optional)",
       "place": "Place order · {total}",
-      "placing": "Sending…"
+      "placing": "Sending…",
+      "legalNote": "We use your name only to run and call your order. Read the <link>Privacy notice</link>."
     },
     "closed": "Ordering is closed right now",
     "recent": "Your order {number}",
@@ -1380,7 +1391,6 @@
     "draft": "Draft for legal review. These texts follow Algerian law as we understand it (Law 18-07 on personal data, as amended by Law 25-11; Law 18-05 on electronic commerce; Law 09-03 on consumer protection). The bracketed items are the operator’s own details and filings. An Algerian lawyer must check them before launch.",
     "updated": "Last updated {date}",
     "contents": "On this page",
-    "other": "Also read the <link>{other}</link>.",
     "terms": {
       "title": "Terms of service",
       "intro": "These terms govern the use of {brand}, a service that lets restaurants, cafés and food businesses in Algeria take orders through QR codes and call customers when their order is ready. By creating a shop you accept them on behalf of your business.",
@@ -1409,7 +1419,7 @@
           "h": "Prices, subscription and invoices",
           "p": [
             "Packs, prices and allowances are shown on the pricing page and in your dashboard, in Algerian dinars. A pack starts with a free period; the subscription period then runs from your confirmed payment for the length stated (for example one year). Nothing is charged automatically.",
-            "We issue an invoice for each payment with the mentions required by Algerian law. If a period ends unpaid, your shop enters a grace period and is then suspended until you pay; your data is kept. You can cancel at any time: the shop stays active until the end of the period you paid for. Paid periods are not refunded except where the law requires it."
+            "We issue an invoice for each payment with the mentions required by Algerian law. If a period ends unpaid, your shop enters a grace period and is then suspended until you pay; your data is kept. You can cancel at any time: the shop stays active until the end of the period you paid for. Paid periods are not refunded, except in the cases listed in the Refund policy or where the law requires it."
           ]
         },
         {
@@ -1489,7 +1499,7 @@
         {
           "h": "Hosting and transfers outside Algeria",
           "p": [
-            "The service is hosted with Supabase (database, authentication, storage) and Vercel (application servers), whose servers are located outside Algeria: [region, e.g. Paris, France]. Payment for subscriptions is handled by Chargily Pay; email is sent through [email provider]; if a shop enables SMS or WhatsApp fallback alerts, through [messaging provider].",
+            "The service is hosted with Neon (database, authentication, file storage and live updates) and Vercel (application servers). Their servers are located outside Algeria: United States (Virginia). Payment for subscriptions is handled by Chargily Pay, or by bank or postal transfer with a proof of payment that you upload; email is sent through Resend; if a shop enables SMS or WhatsApp fallback alerts, through [messaging provider]. If you allow notifications, your browser’s push service (Google, Apple or Mozilla, depending on your device) delivers them.",
             "Under Law 18-07, a transfer of personal data abroad requires the authorisation of the ANPDP and an adequate level of protection in the receiving country. [Authorisation reference]. Each provider processes data only to deliver its part of the service and under contractual confidentiality and security commitments."
           ]
         },
@@ -1522,8 +1532,102 @@
         {
           "h": "Cookies and local storage",
           "p": [
-            "We use only what the service needs: a sign-in cookie for shop owners and staff, a language preference, and storage on the customer’s own device that remembers their ticket and recent orders. No advertising or tracking cookies."
+            "We use only what the service needs: a sign-in cookie for shop owners and staff, a language preference, and storage on the customer’s own device that remembers their ticket and recent orders. No advertising or tracking cookies, no analytics. The Cookie policy lists each item."
           ]
+        }
+      ]
+    },
+    "related": "Other legal documents",
+    "cookies": {
+      "title": "Cookie policy",
+      "intro": "This policy explains the cookies and similar browser storage that {brand} uses. We use only what the service needs to work. We use no analytics, advertising or tracking cookies, and we load no third-party scripts, trackers or embedded content.",
+      "sections": [
+        {
+          "h": "Cookies and local storage",
+          "p": [
+            "A cookie is a small text file that a website stores in your browser. Local storage does the same job but stays on your device and is not sent to our servers with every request. We call both “cookies” below unless the difference matters."
+          ]
+        },
+        {
+          "h": "What we use",
+          "p": [
+            "Language (NEXT_LOCALE): remembers the language you chose. A first-party cookie, kept for one year.",
+            "Sign-in session: for shop owners, staff and platform administrators only. It keeps you signed in and is removed when you sign out or the session ends. A customer who only orders never receives it.",
+            "Ticket, name and recent orders (local storage, on the customer’s device): holds the dishes in your ticket, the name you typed at checkout and the links of your recent orders so you can reopen their status. It stays on your device.",
+            "Settings (local storage, on the device where you set them): the alert choice for an order, and, for shop staff, the order-board sound, the printer choice and the list of printed tickets.",
+            "Notifications (only if you allow them): your browser registers a service worker and a push subscription so your phone can ring when your order is ready. You can withdraw this at any time in your browser settings."
+          ]
+        },
+        {
+          "h": "Consent",
+          "p": [
+            "The items above are strictly necessary to give you the service you ask for: showing the page in your language, keeping you signed in, holding your ticket and telling you when your order is ready. They are therefore set without a banner. Anything optional asks first: notifications use your browser’s own permission prompt and nothing is switched on until you tap.",
+            "If we ever add something that is not strictly necessary, we will ask for your consent before setting it and update this page first."
+          ]
+        },
+        {
+          "h": "What we do not use",
+          "p": [
+            "No analytics or statistics tool, no advertising or social-network pixel, no tracking cookie, no fingerprinting, and no embedded third-party content such as maps, videos or chat widgets. Our fonts are served from our own domain.",
+            "Photos on a shop page are loaded from our file-storage provider’s servers (see the Privacy notice). Like any web server, it sees your IP address and technical request details."
+          ]
+        },
+        {
+          "h": "Managing cookies",
+          "p": [
+            "You can delete or block cookies and clear local storage in your browser settings. If you block the language or sign-in cookie, the site still works but may not remember your language, and you will not be able to sign in. Clearing local storage empties the ticket and the recent-orders list on that device."
+          ]
+        },
+        {
+          "h": "Questions",
+          "p": [
+            "Write to [privacy contact email]. For how we handle personal data more generally, read the Privacy notice."
+          ]
+        }
+      ]
+    },
+    "refunds": {
+      "title": "Refund policy",
+      "intro": "This policy covers two different things: the subscription that a shop pays to {brand}, and the orders that customers place with a shop. It does not limit any right you have under Algerian law.",
+      "sections": [
+        {
+          "h": "What this covers",
+          "p": [
+            "Subscription payments: what a shop owner pays {brand} for a pack. These are described below.",
+            "Customer orders: customers do not pay through {brand}. They pay the shop at its counter, so the shop handles any refund (see “Orders placed with a shop”)."
+          ]
+        },
+        {
+          "h": "Free period and cancellation",
+          "p": [
+            "A pack starts with a free period stated on the pricing page. You owe nothing during it and nothing is charged automatically afterwards: you pay only when you choose to.",
+            "You can cancel at any time from your dashboard. Your shop stays active until the end of the period you paid for."
+          ]
+        },
+        {
+          "h": "When we refund a subscription payment",
+          "p": [
+            "A paid period that has started is not refunded, except in these cases: you were charged twice for the same period; the amount charged differs from the amount shown to you; you paid but we did not activate your pack; or the service was unavailable for more than [number] consecutive days through our fault. In the last case we may instead extend your period by the time lost, if you prefer.",
+            "Where the law gives you a right to a refund, we honour it."
+          ]
+        },
+        {
+          "h": "How to ask and how you are paid back",
+          "p": [
+            "Write to [support email] within [30] days of the payment, with the invoice number and the reason. We reply within [10] working days.",
+            "An approved refund is paid in dinars by the same means you used (the payment provider for card payments, or a bank or postal transfer to the account you give us), within [14] days of approval. Fees charged by a payment provider or a bank are refunded only if the error was ours."
+          ]
+        },
+        {
+          "h": "Orders placed with a shop",
+          "p": [
+            "A customer’s order is a sale between the customer and the shop. {brand} takes no payment for it and cannot refund it. If an order is wrong, late, unavailable or not as described, speak to the shop first; it is responsible for refunds, replacements and complaints, as Law 09-03 on consumer protection and Law 18-05 on electronic commerce require.",
+            "A shop may cancel an order that it cannot prepare; the customer then owes nothing. If you cannot resolve a problem with a shop, write to us at [support email] and we will help you reach it."
+          ]
+        },
+        {
+          "h": "Contact",
+          "p": ["[Operator legal name], [address], Algeria. Email [support email], phone [phone]."]
         }
       ]
     }
