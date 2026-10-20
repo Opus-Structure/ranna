@@ -42,7 +42,8 @@ export function ItemSheet({
         // field (the note), the keyboard rises and covers the sheet. Focus the sheet itself.
         onOpenAutoFocus={(e) => {
           e.preventDefault();
-          e.currentTarget instanceof HTMLElement && e.currentTarget.focus({ preventScroll: true });
+          if (e.currentTarget instanceof HTMLElement)
+            e.currentTarget.focus({ preventScroll: true });
         }}
         className={cn(
           theme.fontClass,

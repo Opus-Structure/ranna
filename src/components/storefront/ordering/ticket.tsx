@@ -231,6 +231,8 @@ export function Ticket({
           className={cn(
             theme.fontClass,
             "mx-auto flex max-h-[94dvh] w-full max-w-2xl flex-col gap-0 overflow-hidden rounded-t-3xl border-0 bg-[var(--shop-ground)] p-0 text-[var(--shop-ink)]",
+            // A filled close button, so lines scrolling beneath it (the keyboard shortens the sheet) stay legible.
+            "[&>button]:end-3 [&>button]:top-3 [&>button]:grid [&>button]:size-10 [&>button]:place-items-center [&>button]:rounded-full [&>button]:bg-[var(--shop-card)] [&>button]:opacity-100",
           )}
         >
           <div className="flex-1 overflow-y-auto px-5 pt-6 pb-4">
