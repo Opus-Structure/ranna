@@ -4,6 +4,7 @@ import {
   BadgeCheck,
   BookOpenText,
   ChartLine,
+  ChefHat,
   ConciergeBell,
   CreditCard,
   Layers,
@@ -21,6 +22,7 @@ import { cn } from "@/lib/utils";
 const icons = {
   overview: LayoutGrid,
   orders: ConciergeBell,
+  kitchen: ChefHat,
   menu: BookOpenText,
   shop: Store,
   qr: QrCode,
@@ -62,7 +64,7 @@ export function ConsoleNav({ items, label }: { items: NavItem[]; label: string }
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group relative flex h-11 items-center gap-3 rounded-lg ps-3.5 pe-3 text-[0.9375rem] transition-colors",
+                  "group relative flex h-11 items-center gap-3 rounded-lg ps-3.5 pe-3 text-ui transition-colors",
                   "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-clay-foreground",
                   active
                     ? "bg-[color-mix(in_oklch,var(--clay-foreground)_13%,transparent)] font-semibold text-clay-foreground"

@@ -38,6 +38,12 @@ export function ItemSheet({
       <SheetContent
         side="bottom"
         style={theme.style}
+        // Opening a dish must not pop the keyboard: without this the browser focuses the first
+        // field (the note), the keyboard rises and covers the sheet. Focus the sheet itself.
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          e.currentTarget instanceof HTMLElement && e.currentTarget.focus({ preventScroll: true });
+        }}
         className={cn(
           theme.fontClass,
           "mx-auto flex max-h-[92dvh] w-full max-w-2xl flex-col gap-0 overflow-hidden rounded-t-3xl border-0 bg-[var(--shop-ground)] p-0 text-[var(--shop-ink)]",
@@ -137,7 +143,7 @@ function ItemForm({
             {name}
           </SheetTitle>
           {description ? (
-            <SheetDescription className="text-[0.9375rem] leading-relaxed text-[var(--shop-muted)]">
+            <SheetDescription className="text-ui leading-relaxed text-[var(--shop-muted)]">
               {description}
             </SheetDescription>
           ) : (

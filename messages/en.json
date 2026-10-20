@@ -209,7 +209,7 @@
     },
     "pricing": {
       "title": "Pricing",
-      "body": "One yearly price per shop, in dinars, with the first 90 days free. Payment for food stays between you and your customers, at the counter.",
+      "body": "One yearly price per shop, in dinars, with the first 15 days free. Payment for food stays between you and your customers, at the counter.",
       "per": {
         "month": "/ month",
         "year": "/ year"
@@ -288,7 +288,7 @@
     },
     "signup": {
       "title": "Create your shop",
-      "body": "Your page is ready to set up as soon as your plan is active.",
+      "body": "Next: hand in your commercial register to start your free 15-day trial. No payment needed.",
       "submit": "Create account",
       "haveAccount": "Already have an account?",
       "logIn": "Log in",
@@ -318,6 +318,7 @@
     },
     "errors": {
       "invalidCredentials": "That email and password don't match.",
+      "emailLinkUnavailable": "Email links aren’t available right now. Choose Password instead.",
       "emailTaken": "An account with this email already exists. Log in instead.",
       "weakPassword": "Choose a longer password: at least 8 characters.",
       "linkExpired": "This link has expired or was already used. Request a new one.",
@@ -339,7 +340,8 @@
       "staff": "Staff",
       "billing": "Billing",
       "settings": "Settings",
-      "admin": "Platform admin"
+      "admin": "Platform admin",
+      "kitchen": "Kitchen"
     },
     "shell": {
       "open": "Open",
@@ -404,6 +406,29 @@
     "pending": {
       "title": "Coming in the next build phase",
       "body": "This section is planned and its data model is already in place."
+    },
+    "verify": {
+      "title": "Verify your business",
+      "description": "Hand in your commercial register to start your free trial.",
+      "pointTrial": "Your 15-day free trial starts as soon as you submit. Nothing to pay.",
+      "pointOnce": "One trial per commercial register, so one business can’t open several accounts.",
+      "pointPrivate": "Your copy is private: only our team can open it, only to check it.",
+      "number": "Commercial register number",
+      "numberHint": "As printed on your registre de commerce, for example 16/00-0123456 B 20.",
+      "file": "Copy of your commercial register",
+      "fileHint": "A photo or PDF, up to 5 MB.",
+      "submit": "Submit and start my free trial",
+      "errors": {
+        "forbidden": "Only the shop owner can do this.",
+        "already_submitted": "Your register was already submitted.",
+        "number_invalid": "Enter the register number as printed (6 to 30 letters and digits).",
+        "number_taken": "This commercial register already has an account, so the free trial can’t start again. Log in to that account or contact us.",
+        "file_missing": "Add a copy of your commercial register.",
+        "file_too_large": "The file is too large. Use one under 5 MB.",
+        "file_bad_type": "Use a JPG, PNG, WebP or PDF file.",
+        "rate_limited": "Too many attempts. Try again in a few minutes.",
+        "generic": "Something went wrong on our side. Try again in a moment."
+      }
     }
   },
   "admin": {
@@ -618,6 +643,7 @@
       "receipt_missing": "Attach the receipt first.",
       "receipt_too_large": "The receipt is larger than 5 MB. Send a smaller photo or PDF.",
       "receipt_bad_type": "Send the receipt as a JPG, PNG, WebP photo or a PDF.",
+      "receipt_duplicate": "This receipt was already submitted for another payment. Send the receipt of this transfer.",
       "reference_too_long": "Keep the reference under 120 characters.",
       "already_pending": "A receipt is already waiting for review.",
       "rate_limited": "Too many uploads. Try again in an hour.",
@@ -887,6 +913,30 @@
       "locked": "Read-only until your plan is active.",
       "forbidden": "Only the shop owner can change settings.",
       "generic": "Something went wrong on our side. Try again in a moment."
+    },
+    "kitchen": {
+      "title": "Kitchen",
+      "intro": "Where a new order goes besides the order board.",
+      "modes": {
+        "none": {
+          "label": "Nowhere",
+          "hint": "The order board is all your team uses."
+        },
+        "print": {
+          "label": "Print a ticket",
+          "hint": "The board device prints a slip for each new order. Turn printing on from the order board on that device."
+        },
+        "screen": {
+          "label": "Kitchen screen",
+          "hint": "A second tablet in the kitchen shows new orders as large cards, with a chime."
+        },
+        "both": {
+          "label": "Ticket and kitchen screen",
+          "hint": "Print a slip and show the order on the kitchen tablet."
+        }
+      },
+      "width": "Ticket paper width",
+      "widthHint": "58 mm or 80 mm receipt paper. Match the paper in your printer."
     }
   },
   "qr": {
@@ -1213,6 +1263,31 @@
       "items": "Items",
       "total": "Total ({currency})",
       "cancelReason": "Cancel reason"
+    },
+    "kitchen": {
+      "title": "Kitchen",
+      "description": "New and preparing orders for the kitchen. Tap Preparing when you start, Done when it’s ready: Done tells the customer.",
+      "offTitle": "The kitchen screen is off",
+      "offOwner": "Turn on “Kitchen screen” in Settings to use a second tablet in the kitchen.",
+      "offStaff": "Ask the shop owner to turn on the kitchen screen.",
+      "openSettings": "Open settings",
+      "printHereOn": "Printing tickets here",
+      "printHereOff": "Print tickets on this device",
+      "printTicket": "Print kitchen ticket",
+      "awake": "Screen stays on",
+      "mayDim": "Screen may dim",
+      "fullscreen": "Full screen",
+      "exitFullscreen": "Exit full screen",
+      "emptyTitle": "Nothing to make",
+      "emptyBody": "New orders appear here by themselves, with a chime.",
+      "start": "Preparing",
+      "done": "Done",
+      "ticket": {
+        "kitchen": "KITCHEN",
+        "table": "Table",
+        "note": "Note",
+        "items": "{count, plural, one {# item} other {# items}}"
+      }
     }
   },
   "staff": {

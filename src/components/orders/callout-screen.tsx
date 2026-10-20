@@ -152,8 +152,7 @@ export function CalloutScreen({
                     key={o.id}
                     className={cn(
                       "rounded-2xl py-3 text-center order-number text-7xl lg:text-8xl",
-                      fresh &&
-                        "bg-white/15 ring-4 ring-white/70 motion-safe:animate-[ready-halo_2.4s_ease-out_infinite]",
+                      fresh && "ready-halo bg-white/15 ring-4 ring-white/70",
                     )}
                   >
                     {o.number}

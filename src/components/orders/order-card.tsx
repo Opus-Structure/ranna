@@ -1,6 +1,13 @@
 "use client";
 
-import { BellRing, Loader2, MessageSquareText, MoreHorizontal, PersonStanding } from "lucide-react";
+import {
+  BellRing,
+  Loader2,
+  MessageSquareText,
+  MoreHorizontal,
+  PersonStanding,
+  Printer,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { WaitBand } from "@/components/brand/wait-band";
 import { Button } from "@/components/ui/button";
@@ -49,14 +56,17 @@ export function OrderCard({
   onMove,
   onCancel,
   onRing,
+  onPrint,
 }: {
   order: BoardOrder;
   now: number;
   prepTargetMinutes: number;
   pending: boolean;
   onMove: (order: BoardOrder, to: OrderStatus) => void;
-  onCancel: (order: BoardOrder) => void;
+  onCancel?: (order: BoardOrder) => void;
   onRing: (order: BoardOrder) => void;
+  /** Present when the shop prints kitchen tickets: reprint this order's slip. */
+  onPrint?: (order: BoardOrder) => void;
 }) {
   const t = useTranslations("orders");
   const waited = Math.max(0, Math.floor((now - Date.parse(order.statusAt)) / 60_000));
@@ -168,6 +178,12 @@ export function OrderCard({
                   {t("actions.ringAgain")}
                 </DropdownMenuItem>
               ) : null}
+              {onPrint ? (
+                <DropdownMenuItem onSelect={() => onPrint(order)}>
+                  <Printer aria-hidden />
+                  {t("kitchen.printTicket")}
+                </DropdownMenuItem>
+              ) : null}
               {extra ? (
                 <>
                   <DropdownMenuItem onSelect={() => onMove(order, extra.to)}>
@@ -176,9 +192,11 @@ export function OrderCard({
                   <DropdownMenuSeparator />
                 </>
               ) : null}
-              <DropdownMenuItem variant="destructive" onSelect={() => onCancel(order)}>
-                {t("actions.cancel")}
-              </DropdownMenuItem>
+              {onCancel ? (
+                <DropdownMenuItem variant="destructive" onSelect={() => onCancel(order)}>
+                  {t("actions.cancel")}
+                </DropdownMenuItem>
+              ) : null}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

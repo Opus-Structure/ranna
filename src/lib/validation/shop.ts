@@ -90,6 +90,9 @@ export const orderingSettingsSchema = z.object({
   askPhone: z.boolean(),
   phoneRetentionDays: z.number().int().min(1).max(90),
   fallbackMessaging: z.boolean(),
+  // Optional so a client that omits them leaves the stored values alone.
+  kitchenRouting: z.enum(["none", "print", "screen", "both"]).optional(),
+  ticketWidthMm: z.union([z.literal(58), z.literal(80)]).optional(),
 });
 
 export const DEFAULT_SETTINGS = {
@@ -97,6 +100,8 @@ export const DEFAULT_SETTINGS = {
   askPhone: true,
   phoneRetentionDays: 30,
   fallbackMessaging: false,
+  kitchenRouting: "none",
+  ticketWidthMm: 80,
 } as const;
 
 export const DEFAULT_HOURS = Array.from({ length: 7 }, (_, day) => ({

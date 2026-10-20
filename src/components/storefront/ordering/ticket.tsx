@@ -110,7 +110,7 @@ export function Ticket({
     undefined;
   const fieldMessage = (field: Field) =>
     fieldError?.field === field ? (
-      <span id={`${field}-error`} className="text-sm font-semibold text-[#8a1f12]">
+      <span id={`${field}-error`} className="text-sm font-semibold text-shop-error">
         {fieldError.message}
       </span>
     ) : null;
@@ -297,7 +297,7 @@ export function Ticket({
                           type="button"
                           onClick={() => ticket.remove(line.key)}
                           aria-label={t("ticket.remove", { name })}
-                          className="grid size-10 place-items-center rounded-full text-[var(--shop-muted)] hover:bg-[var(--shop-line)] focus-visible:outline-2 focus-visible:outline-[var(--brand-ink)]"
+                          className="grid size-11 place-items-center rounded-full text-[var(--shop-muted)] hover:bg-[var(--shop-line)] focus-visible:outline-2 focus-visible:outline-[var(--brand-ink)]"
                         >
                           <Trash2 className="size-4" aria-hidden />
                         </button>
@@ -390,7 +390,7 @@ export function Ticket({
                   <p
                     ref={alertRef}
                     role="alert"
-                    className="rounded-xl bg-[#fde8e4] px-4 py-3 text-sm font-semibold text-[#8a1f12]"
+                    className="rounded-xl bg-shop-error-wash px-4 py-3 text-sm font-semibold text-shop-error"
                   >
                     {error}
                   </p>

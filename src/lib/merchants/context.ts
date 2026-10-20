@@ -20,6 +20,9 @@ export type ConsoleMerchant = {
   timezone: string;
   defaultLocale: string;
   setupCompletedAt: Date | null;
+  /** Null until the owner submits the commercial register (required before the free trial). */
+  registerSubmittedAt: Date | null;
+  isDemo: boolean;
 };
 
 export type MerchantContext = { user: SessionUser; merchant: ConsoleMerchant; role: MemberRole };
@@ -53,6 +56,8 @@ export async function loadMerchantContext(user: SessionUser): Promise<MerchantCo
           timezone: merchants.timezone,
           defaultLocale: merchants.defaultLocale,
           setupCompletedAt: merchants.setupCompletedAt,
+          registerSubmittedAt: merchants.registerSubmittedAt,
+          isDemo: merchants.isDemo,
         },
       })
       .from(merchantMembers)

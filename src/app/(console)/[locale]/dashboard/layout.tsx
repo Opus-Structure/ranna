@@ -7,7 +7,8 @@ import type { NavItem } from "@/components/console/console-nav";
 import { Link } from "@/i18n/navigation";
 import { requireMerchant } from "@/lib/auth/guards";
 import { getProfile } from "@/lib/auth/session";
-import { countNewOrders } from "@/lib/orders/board";
+import { countNewOrders, loadKitchenConfig } from "@/lib/orders/board";
+import { routesToScreen } from "@/lib/orders/kitchen";
 import { cn } from "@/lib/utils";
 import { initLocale } from "@/i18n/server";
 
@@ -23,11 +24,14 @@ export default async function DashboardLayout({
   const profile = await getProfile(ctx.user.id);
   const t = await getTranslations("console");
   const { merchant, role } = ctx;
-  const newOrders = await countNewOrders(ctx);
+  const [newOrders, kitchen] = await Promise.all([countNewOrders(ctx), loadKitchenConfig(ctx)]);
 
   const ownerNav: NavItem[] = [
     { href: "/dashboard", label: t("nav.overview"), icon: "overview", exact: true },
     { href: "/dashboard/orders", label: t("nav.orders"), icon: "orders", badge: newOrders },
+    ...(routesToScreen(kitchen.routing)
+      ? [{ href: "/dashboard/kitchen", label: t("nav.kitchen"), icon: "kitchen" } as const]
+      : []),
     { href: "/dashboard/menu", label: t("nav.menu"), icon: "menu" },
     { href: "/dashboard/shop", label: t("nav.shop"), icon: "shop" },
     { href: "/dashboard/qr", label: t("nav.qr"), icon: "qr" },
@@ -35,7 +39,10 @@ export default async function DashboardLayout({
     { href: "/dashboard/billing", label: t("nav.billing"), icon: "billing" },
     { href: "/dashboard/settings", label: t("nav.settings"), icon: "settings" },
   ];
-  const nav = role === "owner" ? ownerNav : ownerNav.filter((i) => i.icon === "orders");
+  const nav =
+    role === "owner"
+      ? ownerNav
+      : ownerNav.filter((i) => i.icon === "orders" || i.icon === "kitchen");
   const secondaryNav: NavItem[] = profile?.isPlatformAdmin
     ? [{ href: "/admin", label: t("nav.admin"), icon: "admin" }]
     : [];
@@ -52,9 +59,7 @@ export default async function DashboardLayout({
 
   const identity = (
     <div className="flex flex-col gap-1">
-      <p className="truncate font-display text-[1.0625rem] leading-snug font-semibold">
-        {merchant.name}
-      </p>
+      <p className="truncate font-display text-ui-lg leading-snug font-semibold">{merchant.name}</p>
       <p className="flex items-center gap-2 text-sm text-clay-muted">
         <span
           aria-hidden

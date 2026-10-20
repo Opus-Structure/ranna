@@ -55,6 +55,9 @@ export async function requireMerchant(locale: string): Promise<MerchantContext> 
 export async function requireOwner(locale: string): Promise<MerchantContext> {
   const ctx = await requireMerchant(locale);
   if (ctx.role !== "owner") redirect({ href: "/dashboard/orders", locale: asLocale(locale) });
+  // New owners hand in their commercial register first; that also starts the free trial.
+  if (!ctx.merchant.registerSubmittedAt && !ctx.merchant.isDemo)
+    redirect({ href: "/dashboard/verify", locale: asLocale(locale) });
   return ctx;
 }
 

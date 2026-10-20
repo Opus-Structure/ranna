@@ -32,6 +32,8 @@ export async function generateMetadata({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // Chrome: the keyboard resizes the page (so `dvh` and bottom sheets shrink with it).
+  interactiveWidget: "resizes-content",
   themeColor: "#FEFCFA",
 };
 

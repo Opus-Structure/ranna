@@ -12,7 +12,9 @@ import {
 import { Field } from "@/components/forms/field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import { KITCHEN_ROUTING, TICKET_WIDTHS, routesToPrint } from "@/lib/orders/kitchen";
 import { CURRENCIES, TIMEZONES } from "@/lib/validation/shop";
 
 type Values = {
@@ -20,6 +22,8 @@ type Values = {
   askPhone: boolean;
   phoneRetentionDays: number;
   fallbackMessaging: boolean;
+  kitchenRouting: (typeof KITCHEN_ROUTING)[number];
+  ticketWidthMm: (typeof TICKET_WIDTHS)[number];
   currency: (typeof CURRENCIES)[number];
   timezone: (typeof TIMEZONES)[number];
 };
@@ -71,6 +75,8 @@ export function SettingsForm({ initial, readOnly }: { initial: Values; readOnly:
         askPhone: v.askPhone,
         phoneRetentionDays: v.phoneRetentionDays,
         fallbackMessaging: v.fallbackMessaging,
+        kitchenRouting: v.kitchenRouting,
+        ticketWidthMm: v.ticketWidthMm,
       });
       const regional = ordering.ok
         ? await saveRegionalAction({ currency: v.currency, timezone: v.timezone })
@@ -112,6 +118,49 @@ export function SettingsForm({ initial, readOnly }: { initial: Values; readOnly:
           checked={v.fallbackMessaging}
           onChange={(x) => set("fallbackMessaging", x)}
         />
+      </Section>
+      <Section title={t("kitchen.title")}>
+        <p className="-mt-2 text-sm text-muted-foreground">{t("kitchen.intro")}</p>
+        <RadioGroup
+          aria-label={t("kitchen.title")}
+          value={v.kitchenRouting}
+          onValueChange={(x) => set("kitchenRouting", x as Values["kitchenRouting"])}
+          disabled={readOnly}
+        >
+          {KITCHEN_ROUTING.map((mode) => (
+            <label
+              key={mode}
+              htmlFor={`kitchen-${mode}`}
+              className="flex min-h-11 cursor-pointer items-start gap-3 rounded-xl border p-4 has-[[data-state=checked]]:border-foreground"
+            >
+              <RadioGroupItem id={`kitchen-${mode}`} value={mode} className="mt-1 size-5" />
+              <span className="flex flex-col gap-1">
+                <span className="text-sm font-semibold">{t(`kitchen.modes.${mode}.label`)}</span>
+                <span className="text-sm text-muted-foreground">
+                  {t(`kitchen.modes.${mode}.hint`)}
+                </span>
+              </span>
+            </label>
+          ))}
+        </RadioGroup>
+        {routesToPrint(v.kitchenRouting) ? (
+          <Field id="ticket-width" label={t("kitchen.width")} hint={t("kitchen.widthHint")}>
+            <select
+              id="ticket-width"
+              value={v.ticketWidthMm}
+              onChange={(e) =>
+                set("ticketWidthMm", Number(e.target.value) as Values["ticketWidthMm"])
+              }
+              className="h-11 w-40 rounded-md border border-input bg-card px-3 focus-visible:outline-ring"
+            >
+              {TICKET_WIDTHS.map((w) => (
+                <option key={w} value={w}>
+                  {w} mm
+                </option>
+              ))}
+            </select>
+          </Field>
+        ) : null}
       </Section>
       <Section title={t("privacy")}>
         <Field id="retention" label={t("retention")} hint={t("retentionHint")}>

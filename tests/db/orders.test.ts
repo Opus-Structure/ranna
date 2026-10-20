@@ -113,6 +113,8 @@ function staffCtx(s: Shop, userId = s.ownerId): MerchantContext {
       timezone: "Africa/Algiers",
       defaultLocale: "ar",
       setupCompletedAt: null,
+      registerSubmittedAt: new Date(),
+      isDemo: false,
     },
   };
 }

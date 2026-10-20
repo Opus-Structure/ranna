@@ -9,6 +9,7 @@ import { requireOwner } from "@/lib/auth/guards";
 import { merchantAccess } from "@/lib/billing/access";
 import { withRls } from "@/lib/db/client";
 import { merchants } from "@/lib/db/schema";
+import { kitchenConfig } from "@/lib/orders/kitchen";
 import { CURRENCIES, DEFAULT_SETTINGS, TIMEZONES } from "@/lib/validation/shop";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,6 +32,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
       .where(eq(merchants.id, ctx.merchant.id)),
   );
   const s = m?.settings ?? {};
+  const kitchen = kitchenConfig(s);
   const currency = (CURRENCIES as readonly string[]).includes(m?.currency ?? "")
     ? (m!.currency as (typeof CURRENCIES)[number])
     : "DZD";
@@ -48,6 +50,8 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
             askPhone: s.askPhone ?? DEFAULT_SETTINGS.askPhone,
             phoneRetentionDays: s.phoneRetentionDays ?? DEFAULT_SETTINGS.phoneRetentionDays,
             fallbackMessaging: s.fallbackMessaging ?? DEFAULT_SETTINGS.fallbackMessaging,
+            kitchenRouting: kitchen.routing,
+            ticketWidthMm: kitchen.ticketWidthMm,
             currency,
             timezone,
           }}

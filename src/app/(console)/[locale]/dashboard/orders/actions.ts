@@ -26,6 +26,8 @@ export async function changeStatusAction(input: unknown): Promise<StatusChangeRe
   const parsed = changeSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: "not_found" };
   const { orderId, to, cancelReason } = parsed.data;
+  // Staff see orders and ring customers; cancelling stays with the owner.
+  if (to === "canceled" && ctx.role !== "owner") return { ok: false, error: "forbidden" };
   return setOrderStatus(ctx, orderId, to, { cancelReason });
 }
 

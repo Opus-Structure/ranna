@@ -62,7 +62,7 @@ export function ShopHeader({
               {Array.from(name)[0]}
             </span>
           )}
-          <h1 className="text-[1.875rem] leading-[1.1] font-bold text-balance">{name}</h1>
+          <h1 className="text-3xl leading-[1.1] font-bold text-balance">{name}</h1>
           <p
             className={cn(
               "inline-flex items-center gap-2 self-start rounded-full px-3 py-1 text-sm font-semibold",
@@ -77,9 +77,9 @@ export function ShopHeader({
               className={cn(
                 "size-2 rotate-45 rounded-[1px]",
                 status.tone === "open"
-                  ? "bg-[#3ddc97]"
+                  ? "bg-status-open"
                   : status.tone === "paused"
-                    ? "bg-[#ffc857]"
+                    ? "bg-status-paused"
                     : "bg-current opacity-60",
               )}
             />
@@ -88,7 +88,7 @@ export function ShopHeader({
         </div>
       </header>
       {welcome ? (
-        <p className="mx-auto max-w-2xl px-4 pt-4 text-[0.9375rem] leading-relaxed text-[var(--shop-muted)]">
+        <p className="mx-auto max-w-2xl px-4 pt-4 text-ui leading-relaxed text-[var(--shop-muted)]">
           {welcome}
         </p>
       ) : null}

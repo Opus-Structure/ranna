@@ -72,6 +72,16 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
+  ui:
+    fontFamily: "Inter, Cairo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  ui-lg:
+    fontFamily: "Alexandria, Inter, Cairo, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 600
+    lineHeight: 1.5
   label:
     fontFamily: "Inter, Cairo, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
@@ -249,6 +259,8 @@ The shop surface does not use the platform neutrals. It runs on **Shop Ground** 
 - **Title** (700, 1.75rem / 1.875rem from 640px, tight leading): console page titles in the page header. Card and setup titles step down to 1.25rem at 600.
 - **Order Number** (700, tabular and lining numerals, line-height 0.9, -0.02em): the headline of every order surface. 2.25rem on board cards, 3–4.5rem on the call-out screen, clamp(5rem, 28vw, 8.5rem) on the customer's ticket, clamp(7rem, 40vw, 12rem) on the ring takeover.
 - **Body** (400, 1rem, 1.5): all working text. Lead paragraphs run 1.125rem with relaxed leading, capped at 56–60ch (80ch for the one-line hero body).
+- **UI** (400, 0.9375rem, `text-ui`): console nav items, shop descriptions and sheet copy, where 1rem crowds and 0.875rem is too small at arm's length.
+- **UI Large** (600, 1.0625rem, `text-ui-lg`): the console identity line and shop item names. Never below 12px for anything a person must read; 8–11px lettering lives only inside `aria-hidden` mockups.
 - **Label** (600, 0.875rem): form labels, status pills, waited times, nav counts (700, 0.75rem). Sentence case, no tracking.
 
 ### Named Rules

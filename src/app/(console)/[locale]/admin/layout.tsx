@@ -35,7 +35,7 @@ export default async function AdminLayout({
   return (
     <ConsoleFrame
       homeHref="/admin"
-      identity={<p className="font-display text-[1.0625rem] font-semibold">{t("title")}</p>}
+      identity={<p className="font-display text-ui-lg font-semibold">{t("title")}</p>}
       navLabel={t("title")}
       nav={nav}
       secondaryNav={[{ href: "/dashboard", label: t("nav.backToShop"), icon: "shop", exact: true }]}

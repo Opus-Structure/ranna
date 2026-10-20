@@ -68,7 +68,7 @@ export function ReadyAlert({
         ref={button}
         type="button"
         onClick={onAcknowledge}
-        className="mt-2 flex h-16 w-full max-w-sm items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-[#123d2a] shadow-[0_12px_30px_-12px_rgb(0_0_0/0.45)] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-white active:scale-[0.99]"
+        className="mt-2 flex h-16 w-full max-w-sm items-center justify-center gap-2 rounded-2xl bg-white text-lg font-bold text-state-ready shadow-[0_12px_30px_-12px_rgb(0_0_0/0.45)] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-white active:scale-[0.99]"
       >
         <Check className="size-6" aria-hidden />
         {t("acknowledge")}

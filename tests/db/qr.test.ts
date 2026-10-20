@@ -40,6 +40,8 @@ async function owner(label: string): Promise<MerchantContext> {
       timezone: "Africa/Algiers",
       defaultLocale: "ar",
       setupCompletedAt: null,
+      registerSubmittedAt: new Date(),
+      isDemo: false,
     },
   };
 }

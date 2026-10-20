@@ -209,7 +209,7 @@
     },
     "pricing": {
       "title": "Tarifs",
-      "body": "Un prix annuel par boutique, en dinars, avec les 90 premiers jours offerts. Le paiement des repas reste entre vous et vos clients, au comptoir.",
+      "body": "Un prix annuel par boutique, en dinars, avec les 15 premiers jours offerts. Le paiement des repas reste entre vous et vos clients, au comptoir.",
       "per": {
         "month": "/ mois",
         "year": "/ an"
@@ -318,6 +318,7 @@
     },
     "errors": {
       "invalidCredentials": "Cet e-mail et ce mot de passe ne correspondent pas.",
+      "emailLinkUnavailable": "Les liens par e-mail ne sont pas disponibles pour le moment. Choisissez plutôt un mot de passe.",
       "emailTaken": "Un compte existe déjà avec cet e-mail. Connectez-vous plutôt.",
       "weakPassword": "Choisissez un mot de passe plus long : 8 caractères minimum.",
       "linkExpired": "Ce lien a expiré ou a déjà servi. Demandez-en un nouveau.",
@@ -339,7 +340,8 @@
       "staff": "Équipe",
       "billing": "Abonnement",
       "settings": "Paramètres",
-      "admin": "Administration"
+      "admin": "Administration",
+      "kitchen": "Cuisine"
     },
     "shell": {
       "open": "Ouvert",
@@ -404,6 +406,29 @@
     "pending": {
       "title": "Prévu dans la prochaine phase",
       "body": "Cette section est planifiée et son modèle de données est déjà en place."
+    },
+    "verify": {
+      "title": "Vérifiez votre activité",
+      "description": "Transmettez votre registre de commerce pour démarrer l’essai gratuit.",
+      "pointTrial": "Vos 15 jours d’essai gratuit commencent dès l’envoi. Rien à payer.",
+      "pointOnce": "Un seul essai par registre de commerce : une même activité ne peut pas ouvrir plusieurs comptes.",
+      "pointPrivate": "Votre copie reste privée : seule notre équipe peut l’ouvrir, uniquement pour la vérifier.",
+      "number": "Numéro du registre de commerce",
+      "numberHint": "Tel qu’imprimé sur votre registre de commerce, par exemple 16/00-0123456 B 20.",
+      "file": "Copie de votre registre de commerce",
+      "fileHint": "Une photo ou un PDF, 5 Mo maximum.",
+      "submit": "Envoyer et démarrer mon essai gratuit",
+      "errors": {
+        "forbidden": "Seul le propriétaire de la boutique peut faire cela.",
+        "already_submitted": "Votre registre a déjà été envoyé.",
+        "number_invalid": "Saisissez le numéro tel qu’imprimé (6 à 30 lettres et chiffres).",
+        "number_taken": "Ce registre de commerce a déjà un compte, l’essai gratuit ne peut donc pas redémarrer. Connectez-vous à ce compte ou contactez-nous.",
+        "file_missing": "Ajoutez une copie de votre registre de commerce.",
+        "file_too_large": "Le fichier est trop volumineux. Utilisez-en un de moins de 5 Mo.",
+        "file_bad_type": "Utilisez un fichier JPG, PNG, WebP ou PDF.",
+        "rate_limited": "Trop de tentatives. Réessayez dans quelques minutes.",
+        "generic": "Un problème est survenu de notre côté. Réessayez dans un instant."
+      }
     }
   },
   "admin": {
@@ -618,6 +643,7 @@
       "receipt_missing": "Joignez d’abord le reçu.",
       "receipt_too_large": "Le reçu dépasse 5 Mo. Envoyez une photo ou un PDF plus léger.",
       "receipt_bad_type": "Envoyez le reçu en photo JPG, PNG, WebP ou en PDF.",
+      "receipt_duplicate": "Ce reçu a déjà été envoyé pour un autre paiement. Envoyez le reçu de ce virement.",
       "reference_too_long": "La référence doit faire moins de 120 caractères.",
       "already_pending": "Un reçu est déjà en cours de vérification.",
       "rate_limited": "Trop d’envois. Réessayez dans une heure.",
@@ -887,6 +913,30 @@
       "locked": "Lecture seule jusqu’à l’activation de votre abonnement.",
       "forbidden": "Seul le propriétaire peut modifier les paramètres.",
       "generic": "Un problème est survenu de notre côté. Réessayez dans un instant."
+    },
+    "kitchen": {
+      "title": "Cuisine",
+      "intro": "Où va une nouvelle commande en plus du tableau des commandes.",
+      "modes": {
+        "none": {
+          "label": "Nulle part",
+          "hint": "Votre équipe n’utilise que le tableau des commandes."
+        },
+        "print": {
+          "label": "Imprimer un ticket",
+          "hint": "L’appareil du tableau imprime un ticket par nouvelle commande. Activez l’impression depuis le tableau, sur cet appareil."
+        },
+        "screen": {
+          "label": "Écran cuisine",
+          "hint": "Une seconde tablette en cuisine affiche les nouvelles commandes en grandes cartes, avec un signal sonore."
+        },
+        "both": {
+          "label": "Ticket et écran cuisine",
+          "hint": "Imprime un ticket et affiche la commande sur la tablette de la cuisine."
+        }
+      },
+      "width": "Largeur du papier du ticket",
+      "widthHint": "Papier de caisse de 58 mm ou 80 mm. Choisissez celui de votre imprimante."
     }
   },
   "qr": {
@@ -1213,6 +1263,31 @@
       "items": "Articles",
       "total": "Total ({currency})",
       "cancelReason": "Motif d’annulation"
+    },
+    "kitchen": {
+      "title": "Cuisine",
+      "description": "Les commandes nouvelles et en préparation pour la cuisine. Touchez En préparation au début, Terminé quand c’est prêt : Terminé prévient le client.",
+      "offTitle": "L’écran cuisine est désactivé",
+      "offOwner": "Activez « Écran cuisine » dans les réglages pour utiliser une seconde tablette en cuisine.",
+      "offStaff": "Demandez au propriétaire d’activer l’écran cuisine.",
+      "openSettings": "Ouvrir les réglages",
+      "printHereOn": "Impression des tickets ici",
+      "printHereOff": "Imprimer les tickets sur cet appareil",
+      "printTicket": "Imprimer le ticket cuisine",
+      "awake": "L’écran reste allumé",
+      "mayDim": "L’écran peut s’éteindre",
+      "fullscreen": "Plein écran",
+      "exitFullscreen": "Quitter le plein écran",
+      "emptyTitle": "Rien à préparer",
+      "emptyBody": "Les nouvelles commandes s’affichent ici toutes seules, avec un signal sonore.",
+      "start": "En préparation",
+      "done": "Terminé",
+      "ticket": {
+        "kitchen": "CUISINE",
+        "table": "Table",
+        "note": "Note",
+        "items": "{count, plural, one {# article} other {# articles}}"
+      }
     }
   },
   "staff": {

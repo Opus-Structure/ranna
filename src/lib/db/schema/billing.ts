@@ -112,6 +112,8 @@ export const payments = pgTable(
     status: paymentStatus("status").notNull().default("pending"),
     /** Manual payments: object path in the private `receipts` bucket. */
     receiptPath: text("receipt_path"),
+    /** SHA-256 of the receipt file: the same receipt cannot back two payments. */
+    receiptHash: text("receipt_hash"),
     reference: text("reference"),
     reviewedBy: uuid("reviewed_by").references(() => authUsers.id, { onDelete: "set null" }),
     reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
@@ -121,6 +123,9 @@ export const payments = pgTable(
   (t) => [
     index("payments_merchant_idx").on(t.merchantId, t.createdAt),
     index("payments_status_idx").on(t.status),
+    uniqueIndex("payments_receipt_hash_key")
+      .on(t.receiptHash)
+      .where(sql`receipt_hash is not null`),
     uniqueIndex("payments_provider_ref_key")
       .on(t.provider, t.providerRef)
       .where(sql`provider_ref is not null`),

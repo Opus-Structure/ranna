@@ -1,0 +1,18 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "src/lib/qr/print.ts",
+      "src/app/global-error.tsx",
+      "src/components/marketing/counter-sweep.tsx",
+      "src/components/marketing/how-it-works.tsx"
+    ],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "#000",
+        "createdAt": "2026-10-20T17:00:10.643Z"
+      }
+    ]
+  }
+}

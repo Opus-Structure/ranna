@@ -124,6 +124,22 @@
 }
 
 @theme inline {
+  /* Working-text steps between 0.875rem and 1.125rem, documented in DESIGN.md. */
+  --text-ui: 0.9375rem;
+  --text-ui--line-height: 1.5;
+  --text-ui-lg: 1.0625rem;
+  --text-ui-lg--line-height: 1.5;
+  /* Neutral shop ground for loading shells that render before a merchant theme exists. */
+  --color-shop-ground: #fbfaf8;
+  --color-shop-line: #e8e3de;
+  --color-shop-ink: #1f1a17;
+  --color-shop-muted: #625a55;
+  --color-shop-chip: #ece8e3;
+  /* Customer-side error pair (7.8:1 on its wash) and the open/paused status dots. */
+  --color-shop-error: #8a1f12;
+  --color-shop-error-wash: #fde8e4;
+  --color-status-open: #3ddc97;
+  --color-status-paused: #ffc857;
   --font-sans: var(--font-ui);
   --font-display: var(--font-alexandria), var(--font-ui);
 
@@ -242,13 +258,14 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* Reduced motion keeps state changes (a short fade) but stops anything that loops or travels. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-      animation-duration: 0.01ms !important;
+      animation-duration: 0.15s !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+      transition-duration: 0.1s !important;
       scroll-behavior: auto !important;
     }
   }
@@ -287,14 +304,35 @@
   opacity: 0.55;
 }
 
-/* "Ready": a slow outward halo, never an opacity flicker, so the number stays fully legible. */
+/* "Ready": a slow outward halo, never an opacity flicker on the number. The ring is a static
+   shadow on a pseudo-element and only its opacity moves, so it stays on the compositor. */
 @keyframes ready-halo {
   0%,
   100% {
-    box-shadow: 0 0 0 0 color-mix(in oklch, var(--state-ready) 45%, transparent);
+    opacity: 0;
+    transform: scale(0.97);
   }
   50% {
-    box-shadow: 0 0 0 14px color-mix(in oklch, var(--state-ready) 0%, transparent);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@utility ready-halo {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: 0 0 0 0.875rem color-mix(in oklch, var(--state-ready) 45%, transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      animation: ready-halo 2.4s ease-out infinite;
+    }
   }
 }
 

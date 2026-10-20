@@ -120,10 +120,16 @@ export const merchants = pgTable(
     acceptingOrders: boolean("accepting_orders").notNull().default(true),
     isDemo: boolean("is_demo").notNull().default(false),
     setupCompletedAt: timestamp("setup_completed_at", { withTimezone: true }),
+    /** Commercial register (registre de commerce): one number per account stops repeat free trials. */
+    registerNumber: text("register_number"),
+    /** Private object path of the uploaded copy (receipts bucket, `registers/` prefix). */
+    registerPath: text("register_path"),
+    registerSubmittedAt: timestamp("register_submitted_at", { withTimezone: true }),
     ...timestamps(),
   },
   (t) => [
     uniqueIndex("merchants_slug_key").on(t.slug),
+    uniqueIndex("merchants_register_number_key").on(t.registerNumber),
     index("merchants_status_idx").on(t.status),
     pgPolicy("merchants_select_member", {
       for: "select",

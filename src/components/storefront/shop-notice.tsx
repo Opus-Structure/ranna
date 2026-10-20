@@ -16,15 +16,15 @@ export function ShopNotice({
   return (
     <main
       id="main"
-      className="grid min-h-dvh place-items-center bg-[#fbfaf8] px-6 py-16 text-[#1f1a17]"
+      className="grid min-h-dvh place-items-center bg-shop-ground px-6 py-16 text-shop-ink"
     >
       <div className="flex max-w-sm flex-col items-center gap-4 text-center">
-        <span className="grid size-14 place-items-center rounded-full bg-[#ece8e3]">
-          <Store className="size-6 text-[#625a55]" aria-hidden />
+        <span className="grid size-14 place-items-center rounded-full bg-shop-chip">
+          <Store className="size-6 text-shop-muted" aria-hidden />
         </span>
-        {shopName ? <p className="text-sm font-semibold text-[#625a55]">{shopName}</p> : null}
+        {shopName ? <p className="text-sm font-semibold text-shop-muted">{shopName}</p> : null}
         <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="leading-relaxed text-[#625a55]">{body}</p>
+        <p className="leading-relaxed text-shop-muted">{body}</p>
       </div>
     </main>
   );

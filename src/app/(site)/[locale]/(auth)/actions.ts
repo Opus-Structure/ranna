@@ -26,7 +26,13 @@ export type AuthResult =
   | {
       ok: false;
       fieldErrors?: Record<string, string>;
-      formError?: "invalidCredentials" | "emailTaken" | "weakPassword" | "rateLimited" | "generic";
+      formError?:
+        | "invalidCredentials"
+        | "emailLinkUnavailable"
+        | "emailTaken"
+        | "weakPassword"
+        | "rateLimited"
+        | "generic";
       retryAfterSec?: number;
     };
 
@@ -141,8 +147,13 @@ export async function magicLinkAction(
   if (error && isRateLimited(error)) {
     return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
   }
+  if (error?.status === 404) {
+    // The Magic Link plugin is not enabled on the Neon Auth branch (see README): say so and
+    // point to the password method instead of a generic "try again".
+    console.error("magic link unavailable: enable the Magic Link plugin in Neon Auth settings");
+    return { ok: false, formError: "emailLinkUnavailable" };
+  }
   if (error) {
-    // Most often the Magic Link plugin is not enabled on the Neon Auth branch (see README).
     console.error("magic link failed", { code: error.code, status: error.status });
     return { ok: false, formError: "generic" };
   }

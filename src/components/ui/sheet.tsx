@@ -37,6 +37,32 @@ function SheetOverlay({
   );
 }
 
+/**
+ * How far the on-screen keyboard covers the bottom of the page. Chrome can resize the layout
+ * for it (see `interactiveWidget` in the root viewport), but iOS Safari and older Android
+ * browsers only shrink the *visual* viewport, which leaves a bottom sheet hidden behind the
+ * keyboard. Returns the covered height and the visible height, or null while the keyboard is down.
+ */
+function useKeyboardInset(enabled: boolean): { bottom: number; height: number } | null {
+  const [inset, setInset] = React.useState<{ bottom: number; height: number } | null>(null);
+  React.useEffect(() => {
+    const vv = typeof window === "undefined" ? undefined : window.visualViewport;
+    if (!enabled || !vv) return;
+    const update = () => {
+      const bottom = Math.round(window.innerHeight - vv.height - vv.offsetTop);
+      setInset(bottom > 80 ? { bottom, height: Math.round(vv.height) } : null);
+    };
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+    };
+  }, [enabled]);
+  return inset;
+}
+
 function SheetContent({
   className,
   children,
@@ -47,6 +73,11 @@ function SheetContent({
   side?: "top" | "right" | "bottom" | "left";
   showCloseButton?: boolean;
 }) {
+  const keyboard = useKeyboardInset(side === "bottom");
+  // Lift the sheet above the keyboard and cap its height to what is still visible.
+  const lifted: React.CSSProperties | undefined = keyboard
+    ? { bottom: keyboard.bottom, maxHeight: Math.round(keyboard.height * 0.96) }
+    : undefined;
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -65,6 +96,21 @@ function SheetContent({
           className,
         )}
         {...props}
+        style={{ ...props.style, ...lifted }}
+        onFocus={(e) => {
+          props.onFocus?.(e);
+          const el = e.target;
+          if (
+            el instanceof HTMLElement &&
+            el.matches("input, textarea, select, [contenteditable]")
+          ) {
+            // Wait for the keyboard animation, then bring the field into view inside the sheet.
+            window.setTimeout(
+              () => el.scrollIntoView({ block: "center", behavior: "smooth" }),
+              320,
+            );
+          }
+        }}
       >
         {children}
         {showCloseButton && (

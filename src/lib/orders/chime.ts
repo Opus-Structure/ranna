@@ -72,3 +72,41 @@ export function setSoundPreference(on: boolean): void {
     // Not essential.
   }
 }
+
+const PRINT_DEVICE_KEY = "ranna:print-here";
+const PRINTED_KEY = "ranna:printed-tickets";
+
+/** Whether this device (the one next to the printer) prints new orders by itself. */
+export function printDevicePreference(): boolean {
+  try {
+    return localStorage.getItem(PRINT_DEVICE_KEY) === "on";
+  } catch {
+    return false;
+  }
+}
+
+export function setPrintDevicePreference(on: boolean): void {
+  try {
+    localStorage.setItem(PRINT_DEVICE_KEY, on ? "on" : "off");
+  } catch {
+    // Not essential.
+  }
+}
+
+/** Orders this device already printed, so a reload never prints a ticket twice. */
+export function printedIds(): string[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(PRINTED_KEY) ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+export function savePrintedIds(ids: string[]): void {
+  try {
+    localStorage.setItem(PRINTED_KEY, JSON.stringify(ids));
+  } catch {
+    // Not essential.
+  }
+}

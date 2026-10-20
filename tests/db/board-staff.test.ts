@@ -61,6 +61,8 @@ async function ctxFor(
       timezone: "Africa/Algiers",
       defaultLocale: "fr",
       setupCompletedAt: null,
+      registerSubmittedAt: new Date(),
+      isDemo: false,
     },
   };
 }

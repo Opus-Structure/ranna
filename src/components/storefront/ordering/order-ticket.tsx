@@ -58,49 +58,54 @@ export function OrderTicket({
 
   return (
     <section aria-labelledby="order-headline" className="flex flex-col gap-6">
-      <div
-        className={cn(
-          "relative overflow-hidden rounded-3xl px-6 pt-8 pb-6 text-center transition-colors duration-500",
-          ready
-            ? "bg-state-ready text-state-ready-foreground motion-safe:animate-[ready-halo_2.4s_ease-out_infinite]"
-            : "bg-[var(--shop-card)] shadow-[0_10px_30px_-18px_rgb(31_26_23/0.35)]",
-        )}
-      >
-        <span
-          aria-hidden
+      <div className={cn("rounded-3xl", ready && "ready-halo")}>
+        <div
           className={cn(
-            "absolute inset-x-5 top-3 band-rule",
-            ready ? "opacity-70" : "text-[var(--brand-ink)]",
-          )}
-        />
-        <p
-          className={cn("text-sm font-semibold", ready ? "opacity-90" : "text-[var(--shop-muted)]")}
-        >
-          {t("yourNumber")}
-        </p>
-        <p
-          className={cn(
-            "mt-2 order-number text-[clamp(5rem,28vw,8.5rem)]",
-            stage === "canceled" && "text-[var(--shop-muted)] line-through decoration-4",
-          )}
-        >
-          {status.number}
-        </p>
-        <span
-          className={cn(
-            "mt-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold",
-            ready ? "bg-white/20" : "bg-[var(--shop-line)] text-[var(--shop-muted)]",
+            "relative overflow-hidden rounded-3xl px-6 pt-8 pb-6 text-center transition-colors duration-500",
+            ready
+              ? "bg-state-ready text-state-ready-foreground"
+              : "bg-[var(--shop-card)] shadow-[0_10px_30px_-18px_rgb(31_26_23/0.35)]",
           )}
         >
           <span
             aria-hidden
             className={cn(
-              "size-1.5 rotate-45 rounded-[1px] bg-current",
-              live !== "live" && "opacity-40",
+              "absolute inset-x-5 top-3 band-rule",
+              ready ? "opacity-70" : "text-[var(--brand-ink)]",
             )}
           />
-          {live === "live" ? t("live") : t("offline")}
-        </span>
+          <p
+            className={cn(
+              "text-sm font-semibold",
+              ready ? "opacity-90" : "text-[var(--shop-muted)]",
+            )}
+          >
+            {t("yourNumber")}
+          </p>
+          <p
+            className={cn(
+              "mt-2 order-number text-[clamp(5rem,28vw,8.5rem)]",
+              stage === "canceled" && "text-[var(--shop-muted)] line-through decoration-4",
+            )}
+          >
+            {status.number}
+          </p>
+          <span
+            className={cn(
+              "mt-4 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold",
+              ready ? "bg-white/20" : "bg-[var(--shop-line)] text-[var(--shop-muted)]",
+            )}
+          >
+            <span
+              aria-hidden
+              className={cn(
+                "size-1.5 rotate-45 rounded-[1px] bg-current",
+                live !== "live" && "opacity-40",
+              )}
+            />
+            {live === "live" ? t("live") : t("offline")}
+          </span>
+        </div>
       </div>
 
       {stage !== "canceled" ? (

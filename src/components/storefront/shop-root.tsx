@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { shopFontClass } from "@/app/shop-fonts";
+import { SHOP_INK_VARS } from "@/lib/branding/shop-ink";
 import type { ShopTheme } from "@/lib/branding/theme";
 import { cn } from "@/lib/utils";
 
@@ -18,10 +19,7 @@ export function ShopRoot({
 }) {
   const style = {
     ...theme.vars,
-    "--shop-ink": "#1f1a17",
-    "--shop-muted": "#625a55",
-    "--shop-line": "#e8e3de",
-    "--shop-card": "#ffffff",
+    ...SHOP_INK_VARS,
   } as CSSProperties;
   return (
     <div

@@ -3,7 +3,7 @@ import type { I18nText, PlanLimits } from "@/lib/db/schema/types";
 /**
  * Subscription plans, seeded into the `plans` table by `npm run seed` and editable later in
  * /admin/plans. Prices and allowances follow the owner's revised sheet (2026-10-15): one yearly
- * price per pack, 90 days free to start, the middle pack positioned as the main offer. Amounts are minor units: 399900 = 3 999 DZD.
+ * price per pack, 15 days free to start (no card, after the commercial register is submitted), the middle pack positioned as the main offer. Amounts are minor units: 399900 = 3 999 DZD.
  *
  * "Unlimited" menu items is stored as UNLIMITED_ITEMS (a number, so the limit column stays
  * simple) and shown as "unlimited" by `isUnlimitedItems`.
@@ -31,9 +31,9 @@ export const planSeeds: PlanSeed[] = [
     priceMinor: 499900,
     currency: "DZD",
     interval: "year",
-    trialDays: 90,
+    trialDays: 15,
     // The entry pack: deliberately tight, so the middle pack is the natural choice.
-    limits: { maxItems: 30, maxStaff: 1, maxMonthlyOrders: null, maxTables: 5 },
+    limits: { maxItems: 15, maxStaff: 1, maxMonthlyOrders: null, maxTables: 5 },
     sort: 1,
   },
   {
@@ -43,9 +43,9 @@ export const planSeeds: PlanSeed[] = [
     priceMinor: 799900,
     currency: "DZD",
     interval: "year",
-    trialDays: 90,
+    trialDays: 15,
     // The pack most restaurants should take (highlighted on the pricing page).
-    limits: { maxItems: 250, maxStaff: 5, maxMonthlyOrders: null, maxTables: 25 },
+    limits: { maxItems: 50, maxStaff: 5, maxMonthlyOrders: null, maxTables: 25 },
     sort: 2,
   },
   {
@@ -55,7 +55,7 @@ export const planSeeds: PlanSeed[] = [
     priceMinor: 1799900,
     currency: "DZD",
     interval: "year",
-    trialDays: 90,
+    trialDays: 15,
     // Unlimited dishes and table QR codes, a bigger team.
     limits: { maxItems: UNLIMITED_ITEMS, maxStaff: 15, maxMonthlyOrders: null, maxTables: null },
     sort: 3,

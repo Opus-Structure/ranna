@@ -5,6 +5,7 @@ import { withRls, type Tx } from "@/lib/db/client";
 import { merchants, orderItems, orders } from "@/lib/db/schema";
 import type { MerchantContext } from "@/lib/merchants/context";
 import { businessDate } from "@/lib/time";
+import { kitchenConfig, type KitchenConfig } from "./kitchen";
 import { ORDER_STATUSES, type OrderStatus } from "./transitions";
 
 /** What staff see of one order. Names are the shop's own (snapshot at ordering time). */
@@ -30,6 +31,8 @@ export type Board = {
   /** Today's finished orders, most recent first. */
   done: BoardOrder[];
   prepTargetMinutes: number;
+  /** Where new orders are routed for the kitchen (the owner's setting). */
+  kitchen: KitchenConfig;
   generatedAt: string;
 };
 
@@ -152,9 +155,21 @@ export async function loadBoard(ctx: MerchantContext, now = new Date()): Promise
       open: await withItems(tx, open),
       done: await withItems(tx, done),
       prepTargetMinutes: m?.settings.prepTargetMinutes ?? 10,
+      kitchen: kitchenConfig(m?.settings ?? {}),
       generatedAt: now.toISOString(),
     };
   });
+}
+
+/** The shop's kitchen routing alone: the console nav only needs this. */
+export async function loadKitchenConfig(ctx: MerchantContext): Promise<KitchenConfig> {
+  const [m] = await withRls(ctx.user.id, (tx) =>
+    tx
+      .select({ settings: merchants.settings })
+      .from(merchants)
+      .where(eq(merchants.id, ctx.merchant.id)),
+  );
+  return kitchenConfig(m?.settings ?? {});
 }
 
 /** New orders waiting for a first look: the count on the "Orders" nav item. */

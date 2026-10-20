@@ -50,7 +50,12 @@ export default async function OrdersPage({ params }: { params: Promise<{ locale:
           </>
         }
       />
-      <OrderBoard timeZone={ctx.merchant.timezone} initial={board} />
+      <OrderBoard
+        shopName={ctx.merchant.name}
+        timeZone={ctx.merchant.timezone}
+        initial={board}
+        canCancel={ctx.role === "owner"}
+      />
     </>
   );
 }

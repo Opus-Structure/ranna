@@ -6,7 +6,8 @@ import { useTicket } from "@/lib/orders/ticket-store";
 import type { PublicCategory, PublicItem } from "@/lib/shop/public";
 import { ShopMenu } from "../shop-menu";
 import { ItemSheet } from "./item-sheet";
-import { SHOP_INK_VARS, ShopThemeProvider } from "./shop-theme-context";
+import { SHOP_INK_VARS } from "@/lib/branding/shop-ink";
+import { ShopThemeProvider } from "./shop-theme-context";
 import { Ticket } from "./ticket";
 
 /** The interactive part of the shop page: menu → dish sheet → ticket → order. */

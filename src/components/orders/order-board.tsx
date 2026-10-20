@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, BellOff } from "lucide-react";
+import { Bell, BellOff, Printer } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -14,13 +14,19 @@ import {
   playChime,
   setSoundPreference,
   soundPreference,
+  printDevicePreference,
+  printedIds,
+  savePrintedIds,
+  setPrintDevicePreference,
   soundUnlocked,
   unlockSound,
 } from "@/lib/orders/chime";
+import { rememberId, routesToPrint } from "@/lib/orders/kitchen";
 import type { OrderStatus } from "@/lib/orders/transitions";
 import { useBoardLive, useNow } from "@/lib/orders/use-board-live";
 import { cn } from "@/lib/utils";
 import { CancelDialog } from "./cancel-dialog";
+import { useTicketPrinter } from "./kitchen-ticket";
 import { OrderCard, toneFor } from "./order-card";
 
 const lanes = [
@@ -34,7 +40,18 @@ type LaneKey = (typeof lanes)[number]["key"];
  * The live order board: New → Preparing → Ready. Moves show at once (optimistic) and are then
  * confirmed by a fresh read. A new order chimes and puts a count in the tab title.
  */
-export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: Board }) {
+export function OrderBoard({
+  shopName,
+  timeZone,
+  initial,
+  canCancel = true,
+}: {
+  shopName: string;
+  timeZone: string;
+  initial: Board;
+  /** Staff move and ring orders; cancelling is the owner's call. */
+  canCancel?: boolean;
+}) {
   const t = useTranslations("orders");
   const format = useFormatter();
   const { board, setBoard, live, refresh } = useBoardLive(initial);
@@ -45,6 +62,14 @@ export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: B
   const [, startTransition] = useTransition();
   const [sound, setSound] = useState(true);
   const [needsTap, setNeedsTap] = useState(false);
+  const canPrint = routesToPrint(board.kitchen.routing);
+  const [printHere, setPrintHere] = useState(false);
+  const printed = useRef<string[]>([]);
+  const { print, element: ticketElement } = useTicketPrinter({
+    shopName,
+    timeZone,
+    widthMm: board.kitchen.ticketWidthMm,
+  });
   const seen = useRef(new Set(initial.open.filter((o) => o.status === "new").map((o) => o.id)));
 
   // Sound needs one tap on the page before browsers allow it.
@@ -56,6 +81,35 @@ export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: B
     window.addEventListener("pointerdown", unlock, { once: true });
     return () => window.removeEventListener("pointerdown", unlock);
   }, []);
+
+  // Which device prints is a per-device choice: a phone on the counter should not.
+  useEffect(() => {
+    setPrintHere(printDevicePreference());
+    printed.current = printedIds();
+  }, []);
+
+  // Ticket for every new order this device has not printed yet (also ones that came in while
+  // the board was closed). Turning printing on never prints the backlog: that is not news.
+  const printNow = printHere && canPrint;
+  useEffect(() => {
+    if (!printNow) return;
+    for (const o of board.open) {
+      if (o.status !== "new" || printed.current.includes(o.id)) continue;
+      printed.current = rememberId(printed.current, o.id);
+      print(o);
+    }
+    savePrintedIds(printed.current);
+  }, [board.open, printNow, print]);
+
+  function togglePrintHere() {
+    const on = !printHere;
+    if (on) {
+      for (const o of board.open) printed.current = rememberId(printed.current, o.id);
+      savePrintedIds(printed.current);
+    }
+    setPrintHere(on);
+    setPrintDevicePreference(on);
+  }
 
   // Chime for orders not seen before; the tab title carries the count of new orders.
   const newOrders = board.open.filter((o) => o.status === "new");
@@ -135,34 +189,47 @@ export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: B
           />
           {live === "live" ? t("live") : t("offline")}
         </p>
-        {needsTap ? (
+        {canPrint ? (
           <Button
-            variant="outline"
+            variant={printHere ? "default" : "outline"}
             size="sm"
-            onClick={() => void unlockSound().then((ok) => ok && setNeedsTap(false))}
+            aria-pressed={printHere}
+            onClick={togglePrintHere}
           >
-            <Bell className="size-4" aria-hidden />
-            {t("sound.enable")}
+            <Printer className="size-4" aria-hidden />
+            {printHere ? t("kitchen.printHereOn") : t("kitchen.printHereOff")}
           </Button>
-        ) : (
-          <Button
-            variant="ghost"
-            size="sm"
-            aria-pressed={sound}
-            onClick={() => {
-              setSound(!sound);
-              setSoundPreference(!sound);
-              if (!sound) void unlockSound().then(() => playChime());
-            }}
-          >
-            {sound ? (
+        ) : null}
+        <div className="flex flex-wrap items-center gap-2">
+          {needsTap ? (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => void unlockSound().then((ok) => ok && setNeedsTap(false))}
+            >
               <Bell className="size-4" aria-hidden />
-            ) : (
-              <BellOff className="size-4" aria-hidden />
-            )}
-            {sound ? t("sound.on") : t("sound.off")}
-          </Button>
-        )}
+              {t("sound.enable")}
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              aria-pressed={sound}
+              onClick={() => {
+                setSound(!sound);
+                setSoundPreference(!sound);
+                if (!sound) void unlockSound().then(() => playChime());
+              }}
+            >
+              {sound ? (
+                <Bell className="size-4" aria-hidden />
+              ) : (
+                <BellOff className="size-4" aria-hidden />
+              )}
+              {sound ? t("sound.on") : t("sound.off")}
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Phones: one lane at a time. The counts stay visible on the switcher. */}
@@ -238,8 +305,9 @@ export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: B
                     prepTargetMinutes={board.prepTargetMinutes}
                     pending={pending.has(o.id)}
                     onMove={(order, to) => move(order, to)}
-                    onCancel={setCanceling}
+                    onCancel={canCancel ? setCanceling : undefined}
                     onRing={ringAgain}
+                    onPrint={canPrint ? print : undefined}
                   />
                 ))
               )}
@@ -286,6 +354,7 @@ export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: B
         )}
       </details>
 
+      {ticketElement}
       <CancelDialog
         order={canceling}
         onClose={() => setCanceling(null)}

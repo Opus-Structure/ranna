@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { createHash } from "node:crypto";
 import { headers } from "next/headers";
 import { appUrl } from "@/config/brand";
 import { isAppLocale } from "@/i18n/routing";
@@ -30,6 +31,7 @@ export type BillingError =
   | "receipt_missing"
   | "receipt_too_large"
   | "receipt_bad_type"
+  | "receipt_duplicate"
   | "reference_too_long"
   | "already_pending"
   | "rate_limited"
@@ -124,6 +126,15 @@ export async function submitManualPaymentAction(form: FormData): Promise<Billing
   });
   if (!upload.ok) return { ok: false, error: `receipt_${upload.error}` as BillingError };
 
+  // Automatic check: a receipt file that already backs another payment is never accepted again.
+  const receiptHash = createHash("sha256").update(upload.bytes).digest("hex");
+  const [reused] = await serviceDb
+    .select({ id: payments.id })
+    .from(payments)
+    .where(eq(payments.receiptHash, receiptHash))
+    .limit(1);
+  if (reused) return { ok: false, error: "receipt_duplicate" };
+
   const existing = await serviceDb
     .select({ id: payments.id, status: payments.status })
     .from(payments)
@@ -149,7 +160,10 @@ export async function submitManualPaymentAction(form: FormData): Promise<Billing
     console.error("receipt upload failed", { error: err instanceof Error ? err.message : err });
     return { ok: false, error: "generic" };
   }
-  await serviceDb.update(payments).set({ receiptPath: path }).where(eq(payments.id, payment.id));
+  await serviceDb
+    .update(payments)
+    .set({ receiptPath: path, receiptHash })
+    .where(eq(payments.id, payment.id));
   await writeAudit(serviceDb, {
     merchantId: ctx.merchant.id,
     actorUserId: ctx.user.id,

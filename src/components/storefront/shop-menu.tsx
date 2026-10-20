@@ -98,7 +98,7 @@ export function ShopMenu({
       >
         <div className="mx-auto flex h-14 max-w-2xl items-center gap-2 px-4">
           {searching ? (
-            <div className="flex flex-1 items-center gap-2">
+            <div className="flex flex-1 items-center gap-2 rounded-full ps-3 focus-within:outline-2 focus-within:outline-offset-0 focus-within:outline-[var(--brand-ink)]">
               <Search className="size-5 shrink-0 text-[var(--shop-muted)]" aria-hidden />
               <input
                 autoFocus
@@ -270,7 +270,7 @@ function MenuItemCard({
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <span
           className={cn(
-            "text-[1.0625rem] leading-snug font-semibold",
+            "text-ui-lg leading-snug font-semibold",
             !item.isAvailable && "text-[var(--shop-muted)] line-through decoration-1",
           )}
         >

@@ -44,6 +44,10 @@ export type MerchantSettings = {
   /** Customer phone numbers are purged from orders after this many days. */
   phoneRetentionDays?: number;
   askPhone?: boolean;
+  /** Where a new order is sent for the kitchen: nowhere, a printed ticket, a kitchen screen, or both. */
+  kitchenRouting?: "none" | "print" | "screen" | "both";
+  /** Paper width of the kitchen ticket printer, in millimetres. */
+  ticketWidthMm?: 58 | 80;
 };
 
 export type OrderItemOptionSnapshot = {

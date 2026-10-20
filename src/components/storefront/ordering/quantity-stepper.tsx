@@ -24,7 +24,7 @@ export function QuantityStepper({
     "grid place-items-center rounded-full border border-[var(--shop-line)] bg-[var(--shop-card)] transition-colors",
     "hover:border-[var(--brand-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-ink)]",
     "disabled:opacity-40",
-    size === "md" ? "size-11" : "size-9",
+    "size-11",
   );
   return (
     <div role="group" aria-label={label} className="flex items-center gap-2">

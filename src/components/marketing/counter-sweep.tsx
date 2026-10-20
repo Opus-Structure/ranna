@@ -192,7 +192,7 @@ function PhoneTicket({
       className={cn(
         "flex aspect-[10/17] w-[clamp(4.4rem,14vw,8rem)] flex-col items-center justify-center gap-1 rounded-[clamp(0.9rem,2vw,1.6rem)] border-[3px] border-foreground px-1.5 text-center sm:gap-1.5",
         ready
-          ? "bg-state-ready text-state-ready-foreground shadow-[0_0_0_0.6rem_color-mix(in_oklch,var(--state-ready)_28%,transparent)] motion-safe:animate-[ready-halo_2.4s_ease-out_infinite]"
+          ? "ready-halo bg-state-ready text-state-ready-foreground"
           : "bg-card shadow-[0_14px_30px_-20px_rgb(31_26_23/0.5)]",
       )}
     >
