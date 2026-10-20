@@ -10,7 +10,7 @@ web
 
 ## Stack
 
-Pinned by the brief: Next.js 15 (App Router), TypeScript strict, Tailwind CSS, shadcn/ui, Supabase (Postgres, Auth, RLS, Realtime, Storage), Drizzle ORM, Web Push (VAPID) + service worker + PWA manifest, `qrcode`, Zod, React Hook Form, next-intl, Vitest, Playwright. Deploy target: Vercel + Supabase.
+Pinned by the brief: Next.js 15 (App Router), TypeScript strict, Tailwind CSS, shadcn/ui, Neon (Postgres + RLS, Managed Better Auth, Realtime, Object Storage; Supabase until D80), Drizzle ORM, Web Push (VAPID) + service worker + PWA manifest, `qrcode`, Zod, React Hook Form, next-intl, Vitest, Playwright. Deploy target: Vercel + Neon.
 
 ## Users
 

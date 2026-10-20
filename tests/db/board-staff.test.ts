@@ -29,7 +29,7 @@ let b: Tenant;
 
 async function emailOf(userId: string): Promise<string> {
   const rows = await serviceDb.execute<{ email: string }>(
-    sql`select email from auth.users where id = ${userId}`,
+    sql`select email from neon_auth."user" where id = ${userId}`,
   );
   return rows[0]!.email;
 }
@@ -37,7 +37,7 @@ async function emailOf(userId: string): Promise<string> {
 async function user(label: string) {
   const id = await createAuthUser(label);
   users.push(id);
-  return { id, email: await emailOf(id), pendingShopName: null, locale: null };
+  return { id, email: await emailOf(id), emailVerified: true };
 }
 
 async function ctxFor(
@@ -46,7 +46,7 @@ async function ctxFor(
   role: "owner" | "staff" = "owner",
 ): Promise<MerchantContext> {
   return {
-    user: { id: userId, email: await emailOf(userId), pendingShopName: null, locale: null },
+    user: { id: userId, email: await emailOf(userId), emailVerified: true },
     role,
     merchant: {
       id: t.merchantId,

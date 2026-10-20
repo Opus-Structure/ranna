@@ -11,7 +11,7 @@ import {
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
-import { authenticatedRole, authUsers } from "drizzle-orm/supabase";
+import { authenticatedRole, authUsers } from "./_platform";
 import {
   createdAt,
   id,
@@ -25,7 +25,7 @@ import {
 } from "./_shared";
 import type { MerchantBranding, MerchantSettings, PlanLimits, I18nText } from "./types";
 
-/** One row per auth user. Created by the `on_auth_user_created` trigger. */
+/** One row per auth user. Created by the app on a user's first request (getSessionUser). */
 export const profiles = pgTable(
   "profiles",
   {
@@ -52,6 +52,19 @@ export const profiles = pgTable(
     }),
   ],
 );
+
+/**
+ * What a new owner asked for at sign-up (the shop name, the language). Managed Better Auth keeps
+ * no free-form user metadata, and a magic-link sign-up creates its user only when the link is
+ * clicked, so the sign-up action stores it here, keyed by lowercased email, and the console reads
+ * and deletes it on the account's first visit. Service-only: no grants, no policies.
+ */
+export const signupIntents = pgTable("signup_intents", {
+  email: text("email").primaryKey(),
+  shopName: text("shop_name"),
+  locale: text("locale").notNull().default("ar"),
+  createdAt: createdAt(),
+}).enableRLS();
 
 export const plans = pgTable(
   "plans",

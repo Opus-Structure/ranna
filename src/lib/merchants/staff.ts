@@ -1,7 +1,7 @@
 import "server-only";
 import { createHash, randomBytes } from "node:crypto";
 import { and, asc, count, eq, gt, isNull, sql } from "drizzle-orm";
-import { authUsers } from "drizzle-orm/supabase";
+import { authUsers } from "@/lib/db/schema/_platform";
 import { z } from "zod";
 import { appUrl, brandName } from "@/config/brand";
 import { writeAudit } from "@/lib/audit/log";
@@ -42,7 +42,7 @@ function assertOwner(ctx: MerchantContext) {
 }
 
 /**
- * Team list for the owner. Emails live in `auth.users`, which RLS never exposes, so this reads
+ * Team list for the owner. Emails live in `neon_auth."user"`, which RLS never exposes, so this reads
  * with the service connection, strictly scoped to the owner's own shop.
  */
 export async function loadStaff(ctx: MerchantContext, now = new Date()): Promise<StaffOverview> {

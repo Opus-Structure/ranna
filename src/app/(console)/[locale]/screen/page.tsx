@@ -16,11 +16,6 @@ export default async function ScreenPage({ params }: { params: Promise<{ locale:
   const ctx = await requireMerchant(locale);
   const board = await loadBoard(ctx);
   return (
-    <CalloutScreen
-      merchantId={ctx.merchant.id}
-      shopName={ctx.merchant.name}
-      timeZone={ctx.merchant.timezone}
-      initial={board}
-    />
+    <CalloutScreen shopName={ctx.merchant.name} timeZone={ctx.merchant.timezone} initial={board} />
   );
 }

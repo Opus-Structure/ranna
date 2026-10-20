@@ -56,10 +56,16 @@ test("a customer orders, the counter taps Ready, the phone rings, the customer c
   await expect(card).toBeVisible();
 
   // Move it to Ready (the demo café's autopilot may already have started it: take either path).
+  // The autopilot may even have finished it already (Collected is showing): then skip the taps.
   const start = card.getByRole("button", { name: "Start preparing" });
+  const ready = card.getByRole("button", { name: "Ready", exact: true });
+  const collected = card.getByRole("button", { name: "Collected" });
+  await expect(start.or(ready).or(collected)).toBeVisible();
   if (await start.isVisible()) await start.click();
-  await card.getByRole("button", { name: "Ready", exact: true }).click();
-  await expect(staff.getByText(`${number} is ready.`)).toBeVisible();
+  if (await ready.isVisible()) {
+    await ready.click();
+    await expect(staff.getByText(`${number} is ready.`)).toBeVisible();
+  }
 
   // The customer's page takes over live, without a reload.
   const alert = customer.getByRole("alertdialog", { name: "Your order is ready" });

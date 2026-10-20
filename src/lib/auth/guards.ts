@@ -10,7 +10,13 @@ import {
 import { createMerchantForOwner } from "@/lib/merchants/service";
 import { shopNameSchema } from "@/lib/validation/auth";
 import { currentAppPath } from "./current-path";
-import { getProfile, getSessionUser, type SessionUser } from "./session";
+import {
+  clearSignupIntent,
+  getProfile,
+  getSessionUser,
+  readSignupIntent,
+  type SessionUser,
+} from "./session";
 
 function asLocale(locale: string): AppLocale {
   return isAppLocale(locale) ? locale : "ar";
@@ -25,18 +31,20 @@ export async function requireUser(locale: string): Promise<SessionUser> {
 }
 
 /**
- * The user's shop. A user who signed up (password or email link) carries the shop name in
- * their metadata: the shop is created here on first visit, in state pending_payment.
- * Users with neither a shop nor a pending name go to /start.
+ * The user's shop. A user who signed up (password or email link) left the shop name with their
+ * sign-up (a signup_intent keyed by email): the shop is created here on first visit, in state
+ * pending_payment. Users with neither a shop nor a pending name go to /start.
  */
 export async function requireMerchant(locale: string): Promise<MerchantContext> {
   const user = await requireUser(locale);
   const ctx = await getMerchantContext();
   if (ctx) return ctx;
-  const name = shopNameSchema.safeParse(user.pendingShopName ?? "");
-  if (name.success) {
-    const preferred = isAppLocale(user.locale) ? user.locale : asLocale(locale);
+  const intent = user.email ? await readSignupIntent(user.email) : null;
+  const name = shopNameSchema.safeParse(intent?.shopName ?? "");
+  if (name.success && user.email) {
+    const preferred = isAppLocale(intent?.locale) ? intent.locale : asLocale(locale);
     await createMerchantForOwner({ userId: user.id, name: name.data, locale: preferred });
+    await clearSignupIntent(user.email);
     const created = await loadMerchantContext(user);
     if (created) return created;
   }

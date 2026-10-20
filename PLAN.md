@@ -1,7 +1,7 @@
 # Ranna (رنّة): build plan
 
 Multi-tenant QR ordering with an "order ready" ring. The working brand name lives in `src/config/brand.ts`.
-Stack: Next.js 15 App Router · TypeScript strict · Tailwind v4 + shadcn/ui · Supabase (Postgres, Auth, RLS, Realtime, Storage) · Drizzle · next-intl (ar default / fr / en) · Web Push · Vitest · Playwright.
+Stack: Next.js 15 App Router · TypeScript strict · Tailwind v4 + shadcn/ui · Neon (Postgres + RLS, Managed Better Auth, Realtime, Object Storage; Supabase until D80) · Drizzle · next-intl (ar default / fr / en) · Web Push · Vitest · Playwright.
 
 ## Architecture in one screen
 

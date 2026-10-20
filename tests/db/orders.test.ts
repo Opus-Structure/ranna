@@ -98,7 +98,7 @@ const order = (s: Shop, over: Record<string, unknown> = {}) => ({
 
 function staffCtx(s: Shop, userId = s.ownerId): MerchantContext {
   return {
-    user: { id: userId, email: null, pendingShopName: null, locale: null },
+    user: { id: userId, email: null, emailVerified: true },
     role: "staff",
     merchant: {
       id: s.merchantId,

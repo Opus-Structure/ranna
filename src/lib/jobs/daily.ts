@@ -141,7 +141,7 @@ export async function sendPeriodReminders(now: Date): Promise<number> {
       profileLocale: profiles.locale,
       email: sql<
         string | null
-      >`(select email from auth.users u where u.id = ${merchantMembers.userId})`,
+      >`(select email from neon_auth."user" u where u.id = ${merchantMembers.userId})`,
     })
     .from(merchants)
     .innerJoin(subscriptions, eq(subscriptions.merchantId, merchants.id))

@@ -1,6 +1,6 @@
 /**
  * Tenant isolation, enforced by Postgres RLS + column grants (not by application code).
- * Runs against the local Supabase database: `npm run db:start && npm run test:db`.
+ * Runs against the local Postgres: `npm run db:start && npm run db:migrate && npm run test:db`.
  */
 import { randomUUID } from "node:crypto";
 import { eq, sql } from "drizzle-orm";

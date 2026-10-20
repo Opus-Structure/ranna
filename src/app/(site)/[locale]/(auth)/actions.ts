@@ -9,7 +9,8 @@ import { localizedPath } from "@/lib/auth/paths";
 import { serverEnv } from "@/lib/env";
 import { clientIp, hashIdentifier, safeNextPath } from "@/lib/http/request";
 import { checkLimit } from "@/lib/rate-limit";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { neonAuth } from "@/lib/auth/server";
+import { saveSignupIntent } from "@/lib/auth/session";
 import {
   loginSchema,
   magicLinkSchema,
@@ -44,10 +45,15 @@ async function identity(extra?: string): Promise<string> {
   return extra ? `${ip}:${hashIdentifier(extra, secret)}` : ip;
 }
 
-function confirmUrl(locale: AppLocale): string {
-  const next = encodeURIComponent(localizedPath("/dashboard", locale));
-  return `${appUrl()}/auth/confirm?next=${next}`;
+/** Where an emailed link lands after Neon Auth has verified it (the session is exchanged in middleware). */
+function afterLinkUrl(locale: AppLocale): string {
+  return `${appUrl()}${localizedPath("/dashboard", locale)}`;
 }
+
+/** Better Auth reports failures as { code, message, status }. */
+type AuthFailure = { code?: string; message?: string; status?: number } | null | undefined;
+const failureCode = (error: AuthFailure) => (error?.code ?? "").toUpperCase();
+const isRateLimited = (error: AuthFailure) => error?.status === 429;
 
 function assertLocale(locale: string): AppLocale {
   return isAppLocale(locale) ? locale : "ar";
@@ -61,35 +67,31 @@ export async function signUpAction(rawLocale: string, input: SignupInput): Promi
   if (!limit.ok) return { ok: false, formError: "rateLimited", retryAfterSec: limit.retryAfterSec };
 
   const { email, password, shopName } = parsed.data;
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await neonAuth().signUp.email({
     email,
     password,
-    options: {
-      emailRedirectTo: confirmUrl(locale),
-      data: { locale, pending_shop_name: shopName },
-    },
+    // Better Auth requires a display name; the shop is what this account is about.
+    name: shopName,
   });
 
   if (error) {
-    if (error.code === "user_already_exists" || error.code === "email_exists") {
+    const code = failureCode(error);
+    if (code.includes("ALREADY_EXISTS") || code.includes("ALREADY_USE"))
       return { ok: false, formError: "emailTaken" };
-    }
-    if (error.code === "weak_password")
-      return { ok: false, fieldErrors: { password: "weakPassword" } };
-    if (error.code === "email_address_invalid")
+    if (code.includes("PASSWORD")) return { ok: false, fieldErrors: { password: "weakPassword" } };
+    if (code.includes("INVALID_EMAIL"))
       return { ok: false, fieldErrors: { email: "emailInvalid" } };
-    if (error.code === "over_email_send_rate_limit" || error.status === 429) {
-      return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
-    }
+    if (isRateLimited(error)) return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
     console.error("signup failed", { code: error.code, status: error.status });
     return { ok: false, formError: "generic" };
   }
 
-  // With email confirmation on, Supabase hides whether the address already exists.
-  if (!data.session) return { ok: true, status: "confirm-email", email };
+  // The shop is created from this note on the account's first visit (guards.requireMerchant).
+  await saveSignupIntent({ email, shopName, locale });
 
-  // The console creates the shop from `pending_shop_name` on first visit.
+  // With verification required, Neon Auth withholds the session until the address is confirmed.
+  if (!data?.token) return { ok: true, status: "confirm-email", email };
+
   redirect({ href: "/dashboard", locale });
   return { ok: true, status: "confirm-email", email };
 }
@@ -105,13 +107,12 @@ export async function logInAction(
   const limit = await checkLimit("login", await identity(parsed.data.email));
   if (!limit.ok) return { ok: false, formError: "rateLimited", retryAfterSec: limit.retryAfterSec };
 
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { error } = await neonAuth().signIn.email(parsed.data);
   if (error) {
-    if (error.code === "email_not_confirmed") {
+    if (failureCode(error).includes("NOT_VERIFIED")) {
       return { ok: true, status: "confirm-email", email: parsed.data.email };
     }
-    if (error.status === 429) return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
+    if (isRateLimited(error)) return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
     return { ok: false, formError: "invalidCredentials" };
   }
   // `next` is an unprefixed app path (e.g. /dashboard/menu); next-intl adds the locale.
@@ -131,21 +132,19 @@ export async function magicLinkAction(
   if (!limit.ok) return { ok: false, formError: "rateLimited", retryAfterSec: limit.retryAfterSec };
 
   const { email, shopName } = parsed.data;
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithOtp({
+  // The account is created when the link is clicked, so the shop name waits in signup_intents.
+  if (shopName) await saveSignupIntent({ email, shopName, locale });
+  const { error } = await neonAuth().signIn.magicLink({
     email,
-    options: {
-      // Only the sign-up page may create accounts; the login page never reveals whether one exists.
-      shouldCreateUser: Boolean(shopName),
-      emailRedirectTo: confirmUrl(locale),
-      data: shopName ? { locale, pending_shop_name: shopName } : undefined,
-    },
+    callbackURL: afterLinkUrl(locale),
   });
-  if (error && (error.status === 429 || error.code === "over_email_send_rate_limit")) {
+  if (error && isRateLimited(error)) {
     return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
   }
-  if (error && error.code !== "otp_disabled" && error.code !== "signup_disabled") {
+  if (error) {
+    // Most often the Magic Link plugin is not enabled on the Neon Auth branch (see README).
     console.error("magic link failed", { code: error.code, status: error.status });
+    return { ok: false, formError: "generic" };
   }
   return { ok: true, status: "check-email", email };
 }

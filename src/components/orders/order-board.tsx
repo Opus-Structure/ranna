@@ -34,18 +34,10 @@ type LaneKey = (typeof lanes)[number]["key"];
  * The live order board: New → Preparing → Ready. Moves show at once (optimistic) and are then
  * confirmed by a fresh read. A new order chimes and puts a count in the tab title.
  */
-export function OrderBoard({
-  merchantId,
-  timeZone,
-  initial,
-}: {
-  merchantId: string;
-  timeZone: string;
-  initial: Board;
-}) {
+export function OrderBoard({ timeZone, initial }: { timeZone: string; initial: Board }) {
   const t = useTranslations("orders");
   const format = useFormatter();
-  const { board, setBoard, live, refresh } = useBoardLive(merchantId, initial);
+  const { board, setBoard, live, refresh } = useBoardLive(initial);
   const now = useNow(30_000, initial.generatedAt);
   const [lane, setLane] = useState<LaneKey>("new");
   const [pending, setPending] = useState<Set<string>>(() => new Set());

@@ -17,13 +17,11 @@ const steps = ["received", "preparing", "ready"] as const;
  */
 export function OrderTicket({
   token,
-  topic,
   initial,
   fastPoll = false,
   children,
 }: {
   token: string;
-  topic: string;
   initial: CustomerOrderStatus;
   /** Check every second (the demo café, whose orders advance when the page asks). */
   fastPoll?: boolean;
@@ -33,7 +31,6 @@ export function OrderTicket({
   const t = useTranslations("order.status");
   const { status, setStatus, live, ringAt } = useOrderLive(
     token,
-    topic,
     initial,
     fastPoll ? 1000 : undefined,
   );

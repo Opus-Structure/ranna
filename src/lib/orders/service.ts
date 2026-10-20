@@ -5,7 +5,7 @@ import { merchants, orderCounters, orderItems, orders, plans, qrCodes } from "@/
 import type { I18nText, MerchantBranding } from "@/lib/db/schema/types";
 import { serverEnv } from "@/lib/env";
 import type { MerchantContext } from "@/lib/merchants/context";
-import { supabaseBroadcast, type RealtimePublisher } from "@/lib/realtime/publish";
+import { liveQueryPublisher, type RealtimePublisher } from "@/lib/realtime/publish";
 import { loadPublicShopUncached } from "@/lib/shop/public";
 import { storefrontStatus } from "@/lib/shop/status";
 import { businessDate } from "@/lib/time";
@@ -178,7 +178,6 @@ export type CustomerOrderView = {
   readyAt: string | null;
   acknowledgedAt: string | null;
   cancelReason: string | null;
-  topic: string;
   /** The demo café: its page polls fast so the order reaches Ready in seconds. */
   isDemo: boolean;
   items: {
@@ -245,7 +244,6 @@ export async function loadCustomerOrder(token: string): Promise<CustomerOrderVie
     readyAt: row.readyAt?.toISOString() ?? null,
     acknowledgedAt: row.acknowledgedAt?.toISOString() ?? null,
     cancelReason: row.cancelReason,
-    topic: orderTopic(tokenHash),
     items: lines.map((l) => ({
       name: l.name,
       nameI18n: l.nameI18n,
@@ -317,7 +315,7 @@ export async function setOrderStatus(
   orderId: string,
   to: OrderStatus,
   opts: { cancelReason?: string } = {},
-  publisher: RealtimePublisher = supabaseBroadcast,
+  publisher: RealtimePublisher = liveQueryPublisher,
   ringer: (orderId: string) => Promise<unknown> = (id) => ringOrder(id, "ready"),
 ): Promise<StatusChangeResult> {
   if (!/^[0-9a-f-]{36}$/i.test(orderId)) return { ok: false, error: "not_found" };

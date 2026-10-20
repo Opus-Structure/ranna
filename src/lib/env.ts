@@ -7,9 +7,19 @@ import { z } from "zod";
 const serverSchema = z.object({
   DATABASE_URL: z.string().url(),
   NEXT_PUBLIC_APP_URL: z.string().url(),
-  NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(20),
-  SUPABASE_SERVICE_ROLE_KEY: z.string().min(20),
+  /** Managed Better Auth (Neon). The app proxies it under /api/auth. */
+  NEON_AUTH_BASE_URL: z.string().url(),
+  NEON_AUTH_COOKIE_SECRET: z
+    .string()
+    .min(32, "NEON_AUTH_COOKIE_SECRET must be at least 32 characters"),
+  /** Neon Realtime. Empty = no live push; pages fall back to polling. */
+  NEON_REALTIME_URL: z.string().optional().default(""),
+  NEON_REALTIME_SECRET: z.string().optional().default(""),
+  /** Neon Object Storage (S3 API). Needed for uploads; public reads go through the bucket URL. */
+  S3_ENDPOINT: z.string().optional().default(""),
+  S3_REGION: z.string().optional().default("us-east-1"),
+  S3_ACCESS_KEY_ID: z.string().optional().default(""),
+  S3_SECRET_ACCESS_KEY: z.string().optional().default(""),
   APP_SECRET: z.string().min(32, "APP_SECRET must be at least 32 characters"),
   NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string().optional().default(""),
   VAPID_PRIVATE_KEY: z.string().optional().default(""),

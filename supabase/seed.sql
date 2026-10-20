@@ -1,2 +1,0 @@
--- Intentionally empty. Seed data (plans, admin, demo shop, sample orders) comes from `npm run seed`,
--- which uses the same services as the app so seeded rows obey the same rules.

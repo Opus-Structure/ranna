@@ -18,19 +18,17 @@ const FRESH_MS = 60_000;
  * is ringed for a minute and chimes once.
  */
 export function CalloutScreen({
-  merchantId,
   shopName,
   timeZone,
   initial,
 }: {
-  merchantId: string;
   shopName: string;
   timeZone: string;
   initial: Board;
 }) {
   const t = useTranslations("orders.screen");
   const format = useFormatter();
-  const { board, live } = useBoardLive(merchantId, initial);
+  const { board, live } = useBoardLive(initial);
   const now = useNow(15_000, initial.generatedAt);
   const [started, setStarted] = useState(false);
   // When each number first appeared as ready on this screen (0 = was already there at start).

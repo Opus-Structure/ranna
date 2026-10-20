@@ -25,7 +25,7 @@ async function owner(label: string): Promise<MerchantContext> {
   merchantIds.push(m!.id);
   await serviceDb.insert(merchantMembers).values({ merchantId: m!.id, userId, role: "owner" });
   return {
-    user: { id: userId, email: null, pendingShopName: null, locale: null },
+    user: { id: userId, email: null, emailVerified: true },
     role: "owner",
     merchant: {
       id: m!.id,

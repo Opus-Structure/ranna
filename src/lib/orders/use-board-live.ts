@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { boardAction } from "@/app/(console)/[locale]/dashboard/orders/actions";
-import { getSupabaseBrowserClient } from "@/lib/supabase/browser";
+import type { SealedLiveQuery } from "@neon/realtime/client";
+import type { BoardPulse } from "@/lib/realtime/live";
+import { watchLiveQuery } from "@/lib/realtime/subscribe";
 import type { Board } from "./board";
 import type { LiveState } from "./use-order-live";
 
@@ -10,12 +12,12 @@ const POLL_MS = 20_000;
 const DEBOUNCE_MS = 250;
 
 /**
- * Keeps the order board current. Postgres changes on `orders` (filtered to the shop and
- * authorized by RLS with the signed-in user's session) only signal "something changed"; the
- * board is then re-read through the server, so it never trusts row data from the socket.
- * Polling every 20 s and on focus covers dropped sockets (D47).
+ * Keeps the order board current. A Neon Realtime live query over the shop's latest orders (sealed
+ * by the server for the signed-in member only) signals "something changed"; the board is then
+ * re-read through the server, so it never trusts row data from the socket. Polling every 20 s
+ * and on focus covers dropped sockets (D47).
  */
-export function useBoardLive(merchantId: string, initial: Board) {
+export function useBoardLive(initial: Board) {
   const [board, setBoard] = useState(initial);
   const [live, setLive] = useState<LiveState>("connecting");
   const inFlight = useRef(false);
@@ -47,43 +49,40 @@ export function useBoardLive(merchantId: string, initial: Board) {
   }, [refresh]);
 
   useEffect(() => {
-    const supabase = getSupabaseBrowserClient();
-    let channel: ReturnType<typeof supabase.channel> | undefined;
+    let stop: (() => void) | null = null;
     let stopped = false;
-    (async () => {
-      // Join as the signed-in member, not as anon: RLS decides which changes reach us, and
-      // anon sees none. The session loads from cookies asynchronously, so wait for it first.
-      const { data } = await supabase.auth.getSession();
-      if (stopped) return;
-      await supabase.realtime.setAuth(data.session?.access_token ?? null);
-      if (stopped) return;
-      // A topic per mount: two channels sharing a topic on one socket would let the leave of
-      // the old one (remount, hot reload, a second board tab) cancel the live one's changes.
-      channel = supabase
-        .channel(`board:${merchantId}:${crypto.randomUUID().slice(0, 8)}`)
-        .on(
-          "postgres_changes",
-          { event: "*", schema: "public", table: "orders", filter: `merchant_id=eq.${merchantId}` },
-          soon,
-        )
-        .subscribe((state) => {
-          setLive(
-            state === "SUBSCRIBED"
-              ? "live"
-              : state === "CLOSED" || state === "CHANNEL_ERROR"
-                ? "offline"
-                : "connecting",
-          );
-          // Catch up on anything missed while the socket was down.
-          if (state === "SUBSCRIBED") soon();
-        });
-    })().catch(() => setLive("offline"));
+    // The first snapshot is the current state, not news: only later changes trigger a re-read.
+    let seen = false;
+    watchLiveQuery<BoardPulse>(
+      async () => {
+        const res = await fetch("/api/orders/live", { method: "POST", cache: "no-store" });
+        return res.ok ? ((await res.json()) as SealedLiveQuery<BoardPulse>) : null;
+      },
+      (snapshot) => {
+        setLive(
+          snapshot.status === "live" || snapshot.status === "stale"
+            ? "live"
+            : snapshot.status === "connecting"
+              ? "connecting"
+              : "offline",
+        );
+        if (!snapshot.data) return;
+        if (seen) soon();
+        seen = true;
+      },
+    )
+      .then((cleanup) => {
+        if (stopped) cleanup?.();
+        else stop = cleanup;
+        if (!cleanup) setLive("offline");
+      })
+      .catch(() => setLive("offline"));
     return () => {
       stopped = true;
       window.clearTimeout(timer.current);
-      if (channel) void supabase.removeChannel(channel);
+      stop?.();
     };
-  }, [merchantId, soon]);
+  }, [soon]);
 
   useEffect(() => {
     const poll = () => document.visibilityState === "visible" && void refresh();

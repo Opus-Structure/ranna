@@ -58,7 +58,7 @@ export const createdAt = () =>
   timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
 
 /* ---------- RLS predicates ----------
- * The helper functions live in supabase/migrations/20261013000000_rls_helpers.sql.
+ * The helper functions live in db/migrations/20261013000000_rls_helpers.sql.
  * `(select fn())` lets Postgres evaluate them once per statement instead of once per row.
  */
 

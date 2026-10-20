@@ -1,10 +1,12 @@
 /**
- * `npm run setup:env`: writes `.env.local` for local development in one step. It reads the local
- * Supabase URL and keys from `supabase status`, and generates the app secret, cron secret, VAPID
- * key pair and seed passwords. It never overwrites an existing `.env.local` (pass --force to).
- * Secrets are written to the file only, never printed.
+ * `npm run setup:env`: writes `.env.local` for development in one step. It generates the app
+ * secret, cron secret, VAPID key pair and seed passwords. Neon Auth, Realtime and Object Storage have
+ * no local stand-in, so their values (and that branch's DATABASE_URL, since auth users live in the
+ * app's database) come from a Neon dev branch: pass `--from <file>` (KEY=value lines, e.g. the output
+ * of `neon env pull`) to merge them in, or fill them into `.env.local` by hand.
+ * It never overwrites an existing `.env.local` (pass --force to). Secrets are written to the file
+ * only, never printed.
  */
-import { execSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import webpush from "web-push";
@@ -15,44 +17,56 @@ if (existsSync(target) && !process.argv.includes("--force")) {
   process.exit(1);
 }
 
-let status: string;
-try {
-  status = execSync("npx supabase status -o env", {
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "ignore"],
-  });
-} catch {
-  console.error("Could not read `supabase status`. Start local Supabase first: npm run db:start");
+function readPairs(file: string): Record<string, string> {
+  return Object.fromEntries(
+    readFileSync(file, "utf8")
+      .split(/\r?\n/)
+      .map((line) => line.match(/^([A-Z0-9_]+)=(.*)$/))
+      .filter((m): m is RegExpMatchArray => m !== null)
+      .map((m) => [m[1]!, m[2]!.replace(/^"(.*)"$/, "$1")]),
+  );
+}
+
+const fromIndex = process.argv.indexOf("--from");
+const fromFile = fromIndex > -1 ? process.argv[fromIndex + 1] : undefined;
+if (fromIndex > -1 && (!fromFile || !existsSync(fromFile))) {
+  console.error("--from needs the path of an existing KEY=value file.");
   process.exit(1);
 }
-const local = Object.fromEntries(
-  status
-    .split(/\r?\n/)
-    .map((line) => line.match(/^([A-Z_]+)="?(.*?)"?$/))
-    .filter((m): m is RegExpMatchArray => m !== null)
-    .map((m) => [m[1], m[2]]),
-);
-for (const key of ["API_URL", "ANON_KEY", "SERVICE_ROLE_KEY", "DB_URL"]) {
-  if (!local[key]) {
-    console.error(`supabase status did not report ${key}; is local Supabase running?`);
-    process.exit(1);
-  }
-}
+const neon = fromFile ? readPairs(fromFile) : {};
 
 const secret = (bytes = 32) => randomBytes(bytes).toString("base64url");
 const vapid = webpush.generateVAPIDKeys();
+const s3Endpoint = neon.S3_ENDPOINT ?? "";
 const values: Record<string, string> = {
   NEXT_PUBLIC_APP_URL: "http://localhost:3000",
-  NEXT_PUBLIC_SUPABASE_URL: local.API_URL!,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: local.ANON_KEY!,
   NEXT_PUBLIC_VAPID_PUBLIC_KEY: vapid.publicKey,
-  SUPABASE_SERVICE_ROLE_KEY: local.SERVICE_ROLE_KEY!,
-  DATABASE_URL: local.DB_URL!,
+  // Auth users live in the app's database, so a dev server that uses a Neon branch's Auth uses
+  // that branch's database too. DB tests always run on the local Postgres (see tests/db/setup-env.ts).
+  DATABASE_URL: neon.DATABASE_URL ?? "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
   APP_SECRET: secret(),
+  NEON_AUTH_COOKIE_SECRET: secret(),
   VAPID_PRIVATE_KEY: vapid.privateKey,
   CRON_SECRET: secret(),
   SEED_ADMIN_PASSWORD: secret(12),
   SEED_DEMO_PASSWORD: secret(12),
+  ...(s3Endpoint
+    ? { NEXT_PUBLIC_ASSETS_URL: `${s3Endpoint.replace(/\/$/, "")}/merchant-assets` }
+    : {}),
+  ...(neon.NEON_REALTIME_URL ? { NEXT_PUBLIC_REALTIME_URL: neon.NEON_REALTIME_URL } : {}),
+  ...Object.fromEntries(
+    [
+      "NEON_AUTH_BASE_URL",
+      "NEON_REALTIME_URL",
+      "NEON_REALTIME_SECRET",
+      "S3_ENDPOINT",
+      "S3_REGION",
+      "S3_ACCESS_KEY_ID",
+      "S3_SECRET_ACCESS_KEY",
+    ]
+      .filter((k) => neon[k])
+      .map((k) => [k, neon[k]!]),
+  ),
 };
 
 // Start from the template so comments and defaults stay in one place.
@@ -60,10 +74,17 @@ const template = readFileSync(".env.example", "utf8");
 const filled = template
   .split(/\r?\n/)
   .map((line) => {
-    const m = line.match(/^([A-Z_]+)=(.*)$/);
+    const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
     return m && values[m[1]!] !== undefined ? `${m[1]}=${values[m[1]!]}` : line;
   })
   .join("\n");
 writeFileSync(target, filled, { mode: 0o600 });
-console.info(`${target} written. Next: npm run db:reset && npm run seed && npm run dev`);
+console.info(
+  `${target} written. Next: npm run db:start && npm run db:migrate && npm run seed && npm run dev`,
+);
+if (!fromFile) {
+  console.info(
+    "Auth, Realtime and Storage values are empty: fill NEON_* and S3_* from your Neon branch.",
+  );
+}
 console.info("Seeded sign-ins: SEED_ADMIN_* and SEED_DEMO_* in .env.local.");

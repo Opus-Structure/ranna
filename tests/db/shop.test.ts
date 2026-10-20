@@ -39,7 +39,7 @@ async function owner(
   merchantIds.push(m!.id);
   await serviceDb.insert(merchantMembers).values({ merchantId: m!.id, userId, role: "owner" });
   const ctx: MerchantContext = {
-    user: { id: userId, email: null, pendingShopName: null, locale: null },
+    user: { id: userId, email: null, emailVerified: true },
     role: opts.role ?? "owner",
     merchant: {
       id: m!.id,

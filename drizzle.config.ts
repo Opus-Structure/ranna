@@ -6,9 +6,8 @@ config({ path: ".env.local", quiet: true });
 export default defineConfig({
   dialect: "postgresql",
   schema: "./src/lib/db/schema/index.ts",
-  out: "./supabase/migrations",
-  migrations: { prefix: "supabase" },
-  entities: { roles: { provider: "supabase" } },
+  out: "./db/migrations",
+  entities: { roles: { provider: "neon" } },
   schemaFilter: ["public"],
   dbCredentials: {
     url: process.env.DATABASE_URL ?? "postgresql://postgres:postgres@127.0.0.1:54322/postgres",

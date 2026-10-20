@@ -10,12 +10,11 @@ import { config } from "dotenv";
 
 config({ path: ".env.local", quiet: true });
 
-import { randomBytes } from "node:crypto";
-import { eq, notInArray, sql } from "drizzle-orm";
+import { randomBytes, randomUUID } from "node:crypto";
+import { notInArray, sql } from "drizzle-orm";
 import { planSeeds } from "@/config/plans";
 import { closeDb, serviceDb } from "@/lib/db/client";
 import { plans, profiles } from "@/lib/db/schema";
-import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { seedDemoShop } from "./seed-demo";
 import { seedDemoOrders } from "./seed-orders";
 
@@ -52,25 +51,51 @@ async function seedPlans() {
   console.info(`plans: ${planSeeds.map((p) => p.code).join(", ")}`);
 }
 
-/** Creates (or finds) an auth user with a confirmed email; returns its id. */
-export async function ensureAuthUser(
-  email: string,
-  password: string,
-  meta: Record<string, string> = {},
-) {
-  const rows = await serviceDb.execute<{ id: string }>(
-    sql`select id from auth.users where lower(email) = lower(${email}) limit 1`,
-  );
-  const existing = rows[0]?.id;
+/**
+ * Creates (or finds) an auth user; returns its id. Against Neon Auth the account is created
+ * through its sign-up endpoint (so the password is hashed by the auth service); with no auth
+ * service configured (plain local Postgres) a password-less row is inserted for tests and demos.
+ */
+export async function ensureAuthUser(email: string, password: string, name: string) {
+  const find = async () =>
+    (
+      await serviceDb.execute<{ id: string }>(
+        sql`select id from neon_auth."user" where lower(email) = lower(${email}) limit 1`,
+      )
+    )[0]?.id;
+  const existing = await find();
   if (existing) return existing;
-  const { data, error } = await getSupabaseAdmin().auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
-    user_metadata: meta,
+  const base = process.env.NEON_AUTH_BASE_URL;
+  if (!base) {
+    const id = randomUUID();
+    await serviceDb.execute(
+      sql`insert into neon_auth."user" (id, name, email, "emailVerified") values (${id}, ${name}, ${email}, true)`,
+    );
+    return id;
+  }
+  const res = await fetch(`${base.replace(/\/$/, "")}/sign-up/email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Better Auth checks the origin against the project's trusted origins (localhost is allowed).
+      Origin: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+    },
+    body: JSON.stringify({ email, password, name }),
   });
-  if (error || !data.user) throw new Error(`could not create ${email}: ${error?.message}`);
-  return data.user.id;
+  if (!res.ok) throw new Error(`could not create ${email}: ${res.status} ${await res.text()}`);
+  const id = await find();
+  if (!id) throw new Error(`created ${email} but could not read it back`);
+  return id;
+}
+
+async function ensureProfile(id: string, locale: string, fullName: string, admin = false) {
+  await serviceDb
+    .insert(profiles)
+    .values({ id, locale, fullName, isPlatformAdmin: admin })
+    .onConflictDoUpdate({
+      target: profiles.id,
+      set: admin ? { isPlatformAdmin: true } : { fullName },
+    });
 }
 
 async function seedAdmin() {
@@ -80,8 +105,8 @@ async function seedAdmin() {
     console.warn("admin: skipped (set SEED_ADMIN_EMAIL and SEED_ADMIN_PASSWORD in .env.local)");
     return;
   }
-  const id = await ensureAuthUser(email, password, { locale: "ar", full_name: "Platform admin" });
-  await serviceDb.update(profiles).set({ isPlatformAdmin: true }).where(eq(profiles.id, id));
+  const id = await ensureAuthUser(email, password, "Platform admin");
+  await ensureProfile(id, "ar", "Platform admin", true);
   console.info(`admin: ${email}`);
 }
 
@@ -89,7 +114,8 @@ async function seedAdmin() {
 async function seedDemo() {
   const email = process.env.SEED_DEMO_EMAIL || "demo@ranna.local";
   const password = process.env.SEED_DEMO_PASSWORD || randomBytes(18).toString("base64url");
-  const ownerId = await ensureAuthUser(email, password, { locale: "ar", full_name: "Demo owner" });
+  const ownerId = await ensureAuthUser(email, password, "Demo owner");
+  await ensureProfile(ownerId, "ar", "Demo owner");
   const merchantId = await seedDemoShop(ownerId);
   console.info(`demo shop: /s/demo (owner ${email})`);
   console.info(`demo orders: ${await seedDemoOrders(merchantId, ownerId)}`);

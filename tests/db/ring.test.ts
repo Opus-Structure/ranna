@@ -42,7 +42,7 @@ function recorder() {
 
 const ctxFor = (t: Tenant): MerchantContext =>
   ({
-    user: { id: t.ownerId, email: null, pendingShopName: null, locale: null },
+    user: { id: t.ownerId, email: null, emailVerified: true },
     role: "owner",
     merchant: { id: t.merchantId },
   }) as MerchantContext;

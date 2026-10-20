@@ -1,6 +1,6 @@
 {
-  "id": "5709f485-1416-458b-b80a-68996f259fb9",
-  "prevId": "0eec255b-75d4-4282-a70b-667fd86b73bc",
+  "id": "0eec255b-75d4-4282-a70b-667fd86b73bc",
+  "prevId": "1c9b4784-9f7d-4959-8e3a-5b212e4aab33",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -60,9 +60,9 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "merchant_members_user_idx": {
           "name": "merchant_members_user_idx",
@@ -75,38 +75,30 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "merchant_members_merchant_id_merchants_id_fk": {
           "name": "merchant_members_merchant_id_merchants_id_fk",
           "tableFrom": "merchant_members",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "merchant_members_user_id_users_id_fk": {
           "name": "merchant_members_user_id_users_id_fk",
           "tableFrom": "merchant_members",
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -116,9 +108,7 @@
           "name": "merchant_members_select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "user_id = (select auth.uid()) or (merchant_id in (select public.owner_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -282,9 +272,9 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "merchants_status_idx": {
           "name": "merchants_status_idx",
@@ -297,24 +287,20 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "merchants_plan_id_plans_id_fk": {
           "name": "merchants_plan_id_plans_id_fk",
           "tableFrom": "merchants",
+          "columnsFrom": ["plan_id"],
           "tableTo": "plans",
-          "columnsFrom": [
-            "plan_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -324,18 +310,14 @@
           "name": "merchants_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "id in (select public.member_merchant_ids()) or (select public.is_platform_admin())"
         },
         "merchants_update_owner": {
           "name": "merchants_update_owner",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "id in (select public.owner_merchant_ids())",
           "withCheck": "id in (select public.owner_merchant_ids())"
         }
@@ -448,10 +430,8 @@
       "uniqueConstraints": {
         "plans_code_unique": {
           "name": "plans_code_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "code"
-          ]
+          "columns": ["code"],
+          "nullsNotDistinct": false
         }
       },
       "policies": {
@@ -459,9 +439,7 @@
           "name": "plans_select",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "is_active or (select public.is_platform_admin())"
         }
       },
@@ -518,16 +496,12 @@
         "profiles_id_users_id_fk": {
           "name": "profiles_id_users_id_fk",
           "tableFrom": "profiles",
+          "columnsFrom": ["id"],
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -537,18 +511,14 @@
           "name": "profiles_select_self",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "id = (select auth.uid()) or (select public.is_platform_admin())"
         },
         "profiles_update_self": {
           "name": "profiles_update_self",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "id = (select auth.uid())",
           "withCheck": "id = (select auth.uid())"
         }
@@ -592,24 +562,20 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "slug_redirects_merchant_id_merchants_id_fk": {
           "name": "slug_redirects_merchant_id_merchants_id_fk",
           "tableFrom": "slug_redirects",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -619,9 +585,7 @@
           "name": "slug_redirects_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -703,48 +667,38 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "staff_invitations_merchant_id_merchants_id_fk": {
           "name": "staff_invitations_merchant_id_merchants_id_fk",
           "tableFrom": "staff_invitations",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "staff_invitations_invited_by_users_id_fk": {
           "name": "staff_invitations_invited_by_users_id_fk",
           "tableFrom": "staff_invitations",
+          "columnsFrom": ["invited_by"],
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "invited_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "staff_invitations_token_hash_unique": {
           "name": "staff_invitations_token_hash_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "token_hash"
-          ]
+          "columns": ["token_hash"],
+          "nullsNotDistinct": false
         }
       },
       "policies": {
@@ -752,18 +706,14 @@
           "name": "staff_invitations_select_owner",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.owner_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "staff_invitations_delete_owner": {
           "name": "staff_invitations_delete_owner",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())"
         }
       },
@@ -849,38 +799,30 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "audit_logs_merchant_id_merchants_id_fk": {
           "name": "audit_logs_merchant_id_merchants_id_fk",
           "tableFrom": "audit_logs",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "audit_logs_actor_user_id_users_id_fk": {
           "name": "audit_logs_actor_user_id_users_id_fk",
           "tableFrom": "audit_logs",
+          "columnsFrom": ["actor_user_id"],
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "actor_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
@@ -890,9 +832,7 @@
           "name": "audit_logs_select_owner",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids()) or (select public.is_platform_admin())"
         }
       },
@@ -1018,47 +958,37 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "invoices_merchant_id_merchants_id_fk": {
           "name": "invoices_merchant_id_merchants_id_fk",
           "tableFrom": "invoices",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "invoices_plan_id_plans_id_fk": {
           "name": "invoices_plan_id_plans_id_fk",
           "tableFrom": "invoices",
+          "columnsFrom": ["plan_id"],
           "tableTo": "plans",
-          "columnsFrom": [
-            "plan_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "invoices_number_unique": {
           "name": "invoices_number_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "number"
-          ]
+          "columns": ["number"],
+          "nullsNotDistinct": false
         }
       },
       "policies": {
@@ -1066,9 +996,7 @@
           "name": "invoices_select_owner",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.owner_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -1194,9 +1122,9 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "payments_status_idx": {
           "name": "payments_status_idx",
@@ -1209,9 +1137,9 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "payments_provider_ref_key": {
           "name": "payments_provider_ref_key",
@@ -1230,52 +1158,40 @@
             }
           ],
           "isUnique": true,
-          "where": "provider_ref is not null",
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "where": "provider_ref is not null",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "payments_merchant_id_merchants_id_fk": {
           "name": "payments_merchant_id_merchants_id_fk",
           "tableFrom": "payments",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "payments_invoice_id_invoices_id_fk": {
           "name": "payments_invoice_id_invoices_id_fk",
           "tableFrom": "payments",
+          "columnsFrom": ["invoice_id"],
           "tableTo": "invoices",
-          "columnsFrom": [
-            "invoice_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "payments_reviewed_by_users_id_fk": {
           "name": "payments_reviewed_by_users_id_fk",
           "tableFrom": "payments",
+          "columnsFrom": ["reviewed_by"],
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "reviewed_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
@@ -1285,9 +1201,7 @@
           "name": "payments_select_owner",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.owner_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -1325,13 +1239,6 @@
         },
         "is_trial": {
           "name": "is_trial",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "trial_used": {
-          "name": "trial_used",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -1389,50 +1296,38 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "subscriptions_merchant_id_merchants_id_fk": {
           "name": "subscriptions_merchant_id_merchants_id_fk",
           "tableFrom": "subscriptions",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "subscriptions_plan_id_plans_id_fk": {
           "name": "subscriptions_plan_id_plans_id_fk",
           "tableFrom": "subscriptions",
+          "columnsFrom": ["plan_id"],
           "tableTo": "plans",
-          "columnsFrom": [
-            "plan_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "subscriptions_pending_plan_id_plans_id_fk": {
           "name": "subscriptions_pending_plan_id_plans_id_fk",
           "tableFrom": "subscriptions",
+          "columnsFrom": ["pending_plan_id"],
           "tableTo": "plans",
-          "columnsFrom": [
-            "pending_plan_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1442,9 +1337,7 @@
           "name": "subscriptions_select_owner",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.owner_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -1519,9 +1412,9 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -1608,24 +1501,20 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "categories_merchant_id_merchants_id_fk": {
           "name": "categories_merchant_id_merchants_id_fk",
           "tableFrom": "categories",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -1635,27 +1524,21 @@
           "name": "categories_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "categories_insert_owner": {
           "name": "categories_insert_owner",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
         "categories_update_owner": {
           "name": "categories_update_owner",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())",
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
@@ -1663,9 +1546,7 @@
           "name": "categories_delete_owner",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())"
         }
       },
@@ -1774,9 +1655,9 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "items_category_idx": {
           "name": "items_category_idx",
@@ -1795,37 +1676,29 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "items_merchant_id_merchants_id_fk": {
           "name": "items_merchant_id_merchants_id_fk",
           "tableFrom": "items",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "items_category_id_categories_id_fk": {
           "name": "items_category_id_categories_id_fk",
           "tableFrom": "items",
+          "columnsFrom": ["category_id"],
           "tableTo": "categories",
-          "columnsFrom": [
-            "category_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -1835,27 +1708,21 @@
           "name": "items_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "items_insert_owner": {
           "name": "items_insert_owner",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
         "items_update_owner": {
           "name": "items_update_owner",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())",
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
@@ -1863,9 +1730,7 @@
           "name": "items_delete_owner",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())"
         }
       },
@@ -1955,37 +1820,29 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "option_groups_merchant_id_merchants_id_fk": {
           "name": "option_groups_merchant_id_merchants_id_fk",
           "tableFrom": "option_groups",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "option_groups_item_id_items_id_fk": {
           "name": "option_groups_item_id_items_id_fk",
           "tableFrom": "option_groups",
+          "columnsFrom": ["item_id"],
           "tableTo": "items",
-          "columnsFrom": [
-            "item_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -1995,27 +1852,21 @@
           "name": "option_groups_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "option_groups_insert_owner": {
           "name": "option_groups_insert_owner",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
         "option_groups_update_owner": {
           "name": "option_groups_update_owner",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())",
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
@@ -2023,9 +1874,7 @@
           "name": "option_groups_delete_owner",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())"
         }
       },
@@ -2115,37 +1964,29 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "options_merchant_id_merchants_id_fk": {
           "name": "options_merchant_id_merchants_id_fk",
           "tableFrom": "options",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "options_group_id_option_groups_id_fk": {
           "name": "options_group_id_option_groups_id_fk",
           "tableFrom": "options",
+          "columnsFrom": ["group_id"],
           "tableTo": "option_groups",
-          "columnsFrom": [
-            "group_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -2155,27 +1996,21 @@
           "name": "options_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "options_insert_owner": {
           "name": "options_insert_owner",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
         "options_update_owner": {
           "name": "options_update_owner",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())",
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
@@ -2183,9 +2018,7 @@
           "name": "options_delete_owner",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())"
         }
       },
@@ -2247,24 +2080,20 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "qr_codes_merchant_id_merchants_id_fk": {
           "name": "qr_codes_merchant_id_merchants_id_fk",
           "tableFrom": "qr_codes",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -2274,27 +2103,21 @@
           "name": "qr_codes_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "qr_codes_insert_owner": {
           "name": "qr_codes_insert_owner",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
         "qr_codes_update_owner": {
           "name": "qr_codes_update_owner",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())",
           "withCheck": "merchant_id in (select public.owner_merchant_ids())"
         },
@@ -2302,9 +2125,7 @@
           "name": "qr_codes_delete_owner",
           "as": "PERMISSIVE",
           "for": "DELETE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.owner_merchant_ids())"
         }
       },
@@ -2392,37 +2213,29 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "notification_events_order_id_orders_id_fk": {
           "name": "notification_events_order_id_orders_id_fk",
           "tableFrom": "notification_events",
+          "columnsFrom": ["order_id"],
           "tableTo": "orders",
-          "columnsFrom": [
-            "order_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "notification_events_merchant_id_merchants_id_fk": {
           "name": "notification_events_merchant_id_merchants_id_fk",
           "tableFrom": "notification_events",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -2432,9 +2245,7 @@
           "name": "notification_events_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -2469,24 +2280,17 @@
         "order_counters_merchant_id_merchants_id_fk": {
           "name": "order_counters_merchant_id_merchants_id_fk",
           "tableFrom": "order_counters",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
         "order_counters_merchant_id_business_date_pk": {
           "name": "order_counters_merchant_id_business_date_pk",
-          "columns": [
-            "merchant_id",
-            "business_date"
-          ]
+          "columns": ["merchant_id", "business_date"]
         }
       },
       "uniqueConstraints": {},
@@ -2573,50 +2377,38 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "order_items_order_id_orders_id_fk": {
           "name": "order_items_order_id_orders_id_fk",
           "tableFrom": "order_items",
+          "columnsFrom": ["order_id"],
           "tableTo": "orders",
-          "columnsFrom": [
-            "order_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "order_items_merchant_id_merchants_id_fk": {
           "name": "order_items_merchant_id_merchants_id_fk",
           "tableFrom": "order_items",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "order_items_item_id_items_id_fk": {
           "name": "order_items_item_id_items_id_fk",
           "tableFrom": "order_items",
+          "columnsFrom": ["item_id"],
           "tableTo": "items",
-          "columnsFrom": [
-            "item_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
@@ -2626,9 +2418,7 @@
           "name": "order_items_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -2847,9 +2637,9 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "orders_merchant_client_request_key": {
           "name": "orders_merchant_client_request_key",
@@ -2868,9 +2658,9 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "orders_merchant_status_idx": {
           "name": "orders_merchant_status_idx",
@@ -2895,9 +2685,9 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "orders_merchant_placed_idx": {
           "name": "orders_merchant_placed_idx",
@@ -2916,9 +2706,9 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "orders_phone_purge_idx": {
           "name": "orders_phone_purge_idx",
@@ -2931,35 +2721,29 @@
             }
           ],
           "isUnique": false,
-          "where": "customer_phone is not null",
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "where": "customer_phone is not null",
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "orders_merchant_id_merchants_id_fk": {
           "name": "orders_merchant_id_merchants_id_fk",
           "tableFrom": "orders",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "orders_token_hash_unique": {
           "name": "orders_token_hash_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "token_hash"
-          ]
+          "columns": ["token_hash"],
+          "nullsNotDistinct": false
         }
       },
       "policies": {
@@ -2967,18 +2751,14 @@
           "name": "orders_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         },
         "orders_update_member": {
           "name": "orders_update_member",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "merchant_id in (select public.member_merchant_ids())",
           "withCheck": "merchant_id in (select public.member_merchant_ids())"
         }
@@ -3087,9 +2867,9 @@
             }
           ],
           "isUnique": true,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         },
         "push_subscriptions_merchant_idx": {
           "name": "push_subscriptions_merchant_idx",
@@ -3102,37 +2882,29 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {
         "push_subscriptions_order_id_orders_id_fk": {
           "name": "push_subscriptions_order_id_orders_id_fk",
           "tableFrom": "push_subscriptions",
+          "columnsFrom": ["order_id"],
           "tableTo": "orders",
-          "columnsFrom": [
-            "order_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "push_subscriptions_merchant_id_merchants_id_fk": {
           "name": "push_subscriptions_merchant_id_merchants_id_fk",
           "tableFrom": "push_subscriptions",
+          "columnsFrom": ["merchant_id"],
           "tableTo": "merchants",
-          "columnsFrom": [
-            "merchant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -3142,9 +2914,7 @@
           "name": "push_subscriptions_select_member",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(merchant_id in (select public.member_merchant_ids()) or (select public.is_platform_admin()))"
         }
       },
@@ -3187,19 +2957,16 @@
             }
           ],
           "isUnique": false,
-          "concurrently": false,
+          "with": {},
           "method": "btree",
-          "with": {}
+          "concurrently": false
         }
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {
         "rate_limit_buckets_key_window_start_pk": {
           "name": "rate_limit_buckets_key_window_start_pk",
-          "columns": [
-            "key",
-            "window_start"
-          ]
+          "columns": ["key", "window_start"]
         }
       },
       "uniqueConstraints": {},
@@ -3212,109 +2979,54 @@
     "public.invoice_status": {
       "name": "invoice_status",
       "schema": "public",
-      "values": [
-        "open",
-        "paid",
-        "void",
-        "failed"
-      ]
+      "values": ["open", "paid", "void", "failed"]
     },
     "public.member_role": {
       "name": "member_role",
       "schema": "public",
-      "values": [
-        "owner",
-        "staff"
-      ]
+      "values": ["owner", "staff"]
     },
     "public.merchant_status": {
       "name": "merchant_status",
       "schema": "public",
-      "values": [
-        "pending_payment",
-        "active",
-        "past_due",
-        "suspended",
-        "canceled"
-      ]
+      "values": ["pending_payment", "active", "past_due", "suspended", "canceled"]
     },
     "public.notification_channel": {
       "name": "notification_channel",
       "schema": "public",
-      "values": [
-        "push",
-        "sms",
-        "whatsapp",
-        "inpage"
-      ]
+      "values": ["push", "sms", "whatsapp", "inpage"]
     },
     "public.notification_status": {
       "name": "notification_status",
       "schema": "public",
-      "values": [
-        "sent",
-        "failed",
-        "skipped"
-      ]
+      "values": ["sent", "failed", "skipped"]
     },
     "public.order_status": {
       "name": "order_status",
       "schema": "public",
-      "values": [
-        "new",
-        "accepted",
-        "preparing",
-        "ready",
-        "completed",
-        "canceled"
-      ]
+      "values": ["new", "accepted", "preparing", "ready", "completed", "canceled"]
     },
     "public.payment_provider": {
       "name": "payment_provider",
       "schema": "public",
-      "values": [
-        "mock",
-        "manual",
-        "chargily"
-      ]
+      "values": ["mock", "manual", "chargily"]
     },
     "public.payment_status": {
       "name": "payment_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "pending_review",
-        "succeeded",
-        "failed",
-        "rejected"
-      ]
+      "values": ["pending", "pending_review", "succeeded", "failed", "rejected"]
     },
     "public.push_status": {
       "name": "push_status",
       "schema": "public",
-      "values": [
-        "active",
-        "expired",
-        "failed"
-      ]
+      "values": ["active", "expired", "failed"]
     }
   },
   "schemas": {},
-  "sequences": {
-    "public.invoice_number_seq": {
-      "name": "invoice_number_seq",
-      "schema": "public",
-      "increment": "1",
-      "startWith": "1",
-      "minValue": "1",
-      "maxValue": "9223372036854775807",
-      "cache": "1",
-      "cycle": false
-    }
-  },
+  "views": {},
+  "sequences": {},
   "roles": {},
   "policies": {},
-  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},

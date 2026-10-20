@@ -16,7 +16,7 @@ async function findOwner(merchantId: string): Promise<Owner | null> {
       shopName: merchants.name,
       merchantLocale: merchants.defaultLocale,
       profileLocale: profiles.locale,
-      email: sql<string>`(select email from auth.users u where u.id = ${merchantMembers.userId})`,
+      email: sql<string>`(select email from neon_auth."user" u where u.id = ${merchantMembers.userId})`,
     })
     .from(merchantMembers)
     .innerJoin(merchants, eq(merchants.id, merchantMembers.merchantId))

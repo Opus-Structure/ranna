@@ -12,7 +12,7 @@ import { messagingProvider, type MessagingProvider } from "@/lib/notify/messagin
 import { isAllowedPushEndpoint } from "@/lib/push/endpoints";
 import { vapidSender, type PushSender } from "@/lib/push/sender";
 import { checkLimit } from "@/lib/rate-limit";
-import { supabaseBroadcast, type RealtimePublisher } from "@/lib/realtime/publish";
+import { liveQueryPublisher, type RealtimePublisher } from "@/lib/realtime/publish";
 import { statusPayload } from "./service";
 import { hashToken, orderTokenFor, orderTopic, TOKEN_PATTERN } from "./token";
 import { isOpenOrder } from "./transitions";
@@ -212,7 +212,7 @@ export type ReRingResult =
 export async function reRing(
   ctx: MerchantContext,
   orderId: string,
-  publisher: RealtimePublisher = supabaseBroadcast,
+  publisher: RealtimePublisher = liveQueryPublisher,
   deps: RingDeps = {},
 ): Promise<ReRingResult> {
   if (!z.uuid().safeParse(orderId).success) return { ok: false, error: "not_found" };
@@ -265,7 +265,7 @@ export type AckResult = { ok: true } | { ok: false; error: "not_found" | "not_re
  */
 export async function acknowledgeOrder(
   token: string,
-  publisher: RealtimePublisher = supabaseBroadcast,
+  publisher: RealtimePublisher = liveQueryPublisher,
 ): Promise<AckResult> {
   if (!TOKEN_PATTERN.test(token)) return { ok: false, error: "not_found" };
   const tokenHash = hashToken(token);

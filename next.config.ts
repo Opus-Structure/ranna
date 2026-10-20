@@ -3,7 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
-const supabaseUrl = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "http://127.0.0.1:54321");
+const assetsUrl = new URL(
+  process.env.NEXT_PUBLIC_ASSETS_URL ?? "http://127.0.0.1:9000/merchant-assets",
+);
 
 /** Static security headers. The CSP is per-request (nonce) and set in middleware. */
 const securityHeaders = [
@@ -31,10 +33,10 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: supabaseUrl.protocol.replace(":", "") as "http" | "https",
-        hostname: supabaseUrl.hostname,
-        port: supabaseUrl.port,
-        pathname: "/storage/v1/object/public/**",
+        protocol: assetsUrl.protocol.replace(":", "") as "http" | "https",
+        hostname: assetsUrl.hostname,
+        port: assetsUrl.port,
+        pathname: `${assetsUrl.pathname.replace(/\/$/, "")}/**`,
       },
     ],
   },

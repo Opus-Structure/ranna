@@ -1,4 +1,6 @@
--- Security layer: privileges, column limits, triggers, storage, realtime, data constraints.
+-- Security layer: privileges, column limits, triggers, data constraints.
+-- Profiles are created by the app on a user's first request (src/lib/auth/session.ts); buckets
+-- and Realtime are provisioned on the Neon branch itself, not in SQL.
 -- RLS policies themselves live in the Drizzle schema (src/lib/db/schema).
 
 ------------------------------------------------------------------------------
@@ -8,9 +10,9 @@
 
 revoke all on all tables in schema public from anon, authenticated;
 revoke all on all sequences in schema public from anon, authenticated;
-alter default privileges for role postgres in schema public revoke all on tables from anon, authenticated;
-alter default privileges for role postgres in schema public revoke all on sequences from anon, authenticated;
-alter default privileges for role postgres in schema public revoke all on functions from anon;
+alter default privileges in schema public revoke all on tables from anon, authenticated;
+alter default privileges in schema public revoke all on sequences from anon, authenticated;
+alter default privileges in schema public revoke all on functions from anon;
 
 -- profiles: read self; edit only display fields (never is_platform_admin)
 grant select on public.profiles to authenticated;
@@ -81,36 +83,6 @@ end;
 $$;
 
 ------------------------------------------------------------------------------
--- 3. Profile row for every auth user
-------------------------------------------------------------------------------
-
-create or replace function public.handle_new_user()
-returns trigger
-language plpgsql
-security definer
-set search_path = ''
-as $$
-declare
-  meta_locale text := new.raw_user_meta_data ->> 'locale';
-begin
-  insert into public.profiles (id, full_name, locale)
-  values (
-    new.id,
-    nullif(left(trim(new.raw_user_meta_data ->> 'full_name'), 80), ''),
-    case when meta_locale in ('ar', 'fr', 'en') then meta_locale else 'ar' end
-  )
-  on conflict (id) do nothing;
-  return new;
-end;
-$$;
-
-revoke all on function public.handle_new_user() from public, anon, authenticated;
-
-create trigger on_auth_user_created
-  after insert on auth.users
-  for each row execute function public.handle_new_user();
-
-------------------------------------------------------------------------------
 -- 4. Data constraints (defense in depth behind Zod validation)
 ------------------------------------------------------------------------------
 
@@ -163,29 +135,3 @@ alter table public.orders
 alter table public.order_items
   add constraint order_items_quantity_range check (quantity between 1 and 50),
   add constraint order_items_totals_nonneg check (unit_price_minor >= 0 and line_total_minor >= 0);
-
-------------------------------------------------------------------------------
--- 5. Storage buckets. No storage.objects policies: only the service role writes.
---    merchant-assets is public-read (logos, covers, item photos); receipts is private.
-------------------------------------------------------------------------------
-
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values
-  ('merchant-assets', 'merchant-assets', true, 3145728,
-    array['image/webp', 'image/jpeg', 'image/png']),
-  ('receipts', 'receipts', false, 5242880,
-    array['image/webp', 'image/jpeg', 'image/png', 'application/pdf'])
-on conflict (id) do nothing;
-
-------------------------------------------------------------------------------
--- 6. Realtime: merchants subscribe to their orders (authorized by RLS).
---    Customers use Broadcast topics instead, so no anon table access is needed.
-------------------------------------------------------------------------------
-
-do $$
-begin
-  if exists (select 1 from pg_publication where pubname = 'supabase_realtime') then
-    alter publication supabase_realtime add table public.orders;
-  end if;
-end;
-$$;

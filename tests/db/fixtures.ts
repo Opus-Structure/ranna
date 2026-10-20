@@ -13,20 +13,20 @@ import {
   pushSubscriptions,
 } from "@/lib/db/schema";
 
-/** Creates an auth user directly (the on_auth_user_created trigger adds the profile). */
+/** Creates an auth user (the stand-in neon_auth.user table) and its profile row directly. */
 export async function createAuthUser(label: string): Promise<string> {
   const id = randomUUID();
   const email = `${label}-${id.slice(0, 8)}@test.ranna.local`;
   await serviceDb.execute(sql`
-    insert into auth.users (id, instance_id, aud, role, email, raw_user_meta_data, created_at, updated_at)
-    values (${id}, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated',
-            ${email}, '{"locale":"fr"}'::jsonb, now(), now())`);
+    insert into neon_auth."user" (id, name, email, "emailVerified")
+    values (${id}, ${label}, ${email}, true)`);
+  await serviceDb.insert(profiles).values({ id, locale: "fr" });
   return id;
 }
 
 export async function deleteAuthUsers(ids: string[]): Promise<void> {
   if (ids.length === 0) return;
-  await serviceDb.execute(sql`delete from auth.users where id in ${ids}`);
+  await serviceDb.execute(sql`delete from neon_auth."user" where id in ${ids}`);
 }
 
 export async function ensureTestPlan(): Promise<string> {
