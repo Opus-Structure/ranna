@@ -1,48 +1,91 @@
+import type { CSSProperties } from "react";
+import { brand } from "@/config/brand";
 import { cn } from "@/lib/utils";
+import { LOCKUP, MARK, WORDMARK } from "./logo-data";
 
-/**
- * Ranna mark: a lozenge ringing outward on the 45° lattice, two outlines around a solid core,
- * like a chime's ripple painted in the Kabyle line style.
+/*
+ * Ranna logo: a service cloche with ring arcs (the order is ready, the phone rings).
+ * Geometry and spacing rules live in /brand (see brand/index.html); logo-data.ts is generated
+ * from them. Colour comes from the surrounding text colour, so the mark works on every ground.
  */
-export function BrandMark({ className, title }: { className?: string; title?: string }) {
+
+/** L: full mark (≥ 54 px wide). M: one arc per side (40–53 px). S: dome, handle, rim (< 40 px). */
+export type MarkOptic = keyof typeof MARK;
+
+export function BrandMark({
+  className,
+  title,
+  optic = "L",
+  duo = false,
+}: {
+  className?: string;
+  title?: string;
+  optic?: MarkOptic;
+  /** Dome in the action colour (ochre), rim and plate line in fired clay by day. */
+  duo?: boolean;
+}) {
+  const m = MARK[optic];
+  const style = duo ? ({ "--brand-rim": "var(--brand-rim-duo)", "--brand-dome": "var(--primary)" } as CSSProperties) : undefined;
   return (
     <svg
-      viewBox="0 0 32 32"
-      className={cn("size-8 shrink-0", className)}
+      viewBox={m.viewBox}
+      className={cn("h-8 w-auto shrink-0", className)}
+      style={style}
       role={title ? "img" : undefined}
       aria-hidden={title ? undefined : true}
       aria-label={title}
       fill="none"
-    >
-      <path d="M16 2 30 16 16 30 2 16Z" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M16 8 24 16 16 24 8 16Z" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M16 12.5 19.5 16 16 19.5 12.5 16Z" fill="currentColor" />
-    </svg>
+      dangerouslySetInnerHTML={{ __html: m.inner }}
+    />
   );
 }
 
-/** Wordmark: the Arabic name leads, the Latin name follows, in both directions. */
+/** Outlined wordmark (Alexandria Bold): "ranna | رنة" by default. Size it with a height class. */
 export function Wordmark({
   className,
-  ar,
-  latin,
+  variant = "pair",
 }: {
   className?: string;
-  ar: string;
-  latin: string;
+  variant?: keyof typeof WORDMARK;
 }) {
+  const w = WORDMARK[variant];
   return (
-    <span className={cn("inline-flex items-baseline gap-2", className)}>
-      <span className="font-display text-xl leading-none font-bold" lang="ar" dir="rtl">
-        {ar}
-      </span>
-      <span
-        className="font-display text-xs leading-none font-medium tracking-wide opacity-75"
-        lang="en"
-        dir="ltr"
-      >
-        {latin}
-      </span>
-    </span>
+    <svg
+      viewBox={`0 0 ${w.w} ${w.h}`}
+      className={cn("h-6 w-auto shrink-0", className)}
+      role="img"
+      aria-label={`${brand.name} ${brand.nameAr}`}
+      fill="currentColor"
+      dangerouslySetInnerHTML={{ __html: w.inner }}
+    />
+  );
+}
+
+/**
+ * The horizontal lockup: mark + wordmark on the shared baseline, spaced per the brand rules.
+ * Use h-10 or larger so the full mark stays legible. Everything takes the text colour; with `duo` the dome is
+ * ochre and the rim and plate line fired clay, on light grounds.
+ */
+export function Logo({
+  className,
+  variant = "bilingual",
+  duo = false,
+}: {
+  className?: string;
+  variant?: keyof typeof LOCKUP;
+  duo?: boolean;
+}) {
+  const l = LOCKUP[variant];
+  const style = duo ? ({ "--brand-rim": "var(--brand-rim-duo)", "--brand-dome": "var(--primary)" } as CSSProperties) : undefined;
+  return (
+    <svg
+      viewBox={`0 0 ${l.w} ${l.h}`}
+      className={cn("h-10 w-auto shrink-0", className)}
+      style={style}
+      role="img"
+      aria-label={`${brand.name} ${brand.nameAr}`}
+      fill="none"
+      dangerouslySetInnerHTML={{ __html: l.inner }}
+    />
   );
 }

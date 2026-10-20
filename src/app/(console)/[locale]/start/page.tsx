@@ -21,7 +21,7 @@ export default async function StartPage({ params }: { params: Promise<{ locale: 
   return (
     <main id="main" className="grid min-h-dvh place-items-center px-6 py-12">
       <div className="flex w-full max-w-md flex-col gap-8">
-        <BrandMark className="size-10 text-primary" />
+        <BrandMark duo className="h-14" />
         <header className="flex flex-col gap-2">
           <h1 className="font-display text-3xl font-bold">{t("title")}</h1>
           <p className="leading-relaxed text-muted-foreground">{t("body")}</p>

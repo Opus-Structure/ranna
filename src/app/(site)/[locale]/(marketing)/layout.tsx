@@ -1,11 +1,11 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
-import { BrandMark, Wordmark } from "@/components/brand/brand-mark";
+import { Logo } from "@/components/brand/brand-mark";
 import { LocaleSwitcher } from "@/components/shell/locale-switcher";
 import { pickMessages } from "@/components/shell/root-document";
 import { Button } from "@/components/ui/button";
-import { brand, brandName } from "@/config/brand";
+import { brandName } from "@/config/brand";
 import { Link } from "@/i18n/navigation";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
@@ -21,8 +21,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
       </a>
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5 rounded-md text-foreground">
-          <BrandMark className="size-7 text-primary" />
-          <Wordmark ar={brand.nameAr} latin={brand.name} />
+          <Logo duo className="h-10" />
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2" aria-label={t("nav.label")}>
           {(["how", "pricing", "faq"] as const).map((k) => (

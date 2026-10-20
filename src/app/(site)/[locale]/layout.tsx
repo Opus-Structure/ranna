@@ -19,13 +19,20 @@ export async function generateMetadata({
     metadataBase: new URL(appUrl()),
     title: { default: t("common.brand"), template: `%s · ${t("common.brand")}` },
     description: t("site.hero.body"),
+    icons: {
+      icon: [
+        { url: "/icons/icon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "48x48" },
+      ],
+      apple: "/icons/apple-touch-icon.png",
+    },
   };
 }
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f7f4ef",
+  themeColor: "#FEFCFA",
 };
 
 /** Root document for public pages: marketing, auth, customer shop and order status. Always light. */

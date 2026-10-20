@@ -12,6 +12,7 @@ const config = [
       "next-env.d.ts",
       "public/sw.js",
       "supabase/**",
+      "brand/**",
       "playwright-report/**",
       "test-results/**",
       ".impeccable/**",

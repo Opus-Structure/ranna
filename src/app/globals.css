@@ -74,8 +74,14 @@
   --sidebar-ring: var(--clay-muted);
 }
 
+/* Logo: rim and plate line of the duo mark. Fired clay by day, ink-light at night. */
+:root {
+  --brand-rim-duo: var(--clay);
+}
+
 /* Fired clay at night: the console's dark theme. */
 .dark {
+  --brand-rim-duo: var(--foreground);
   --background: oklch(0.175 0.012 40);
   --foreground: oklch(0.94 0.01 75);
   --card: oklch(0.215 0.014 40);

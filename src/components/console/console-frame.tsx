@@ -1,7 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
-import { BrandMark, Wordmark } from "@/components/brand/brand-mark";
-import { brand } from "@/config/brand";
+import { Logo } from "@/components/brand/brand-mark";
 import { Link } from "@/i18n/navigation";
 import { ConsoleNav, type NavItem } from "./console-nav";
 import { MobileRail } from "./mobile-rail";
@@ -37,8 +36,7 @@ export async function ConsoleFrame({
   const locale = await getLocale();
   const wordmark = (
     <Link href={homeHref} className="flex items-center gap-2.5 rounded-md text-clay-foreground">
-      <BrandMark className="size-7" />
-      <Wordmark ar={brand.nameAr} latin={brand.name} />
+      <Logo className="h-10" />
     </Link>
   );
 

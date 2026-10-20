@@ -8,7 +8,7 @@ export function NotFoundView({ homeHref = "/" }: { homeHref?: string }) {
   return (
     <main id="main" className="grid min-h-dvh place-items-center px-6 py-16">
       <div className="flex max-w-md flex-col items-center gap-5 text-center">
-        <BrandMark className="size-10 text-primary" />
+        <BrandMark duo className="h-14" />
         <p className="order-number text-7xl text-muted-foreground" aria-hidden>
           404
         </p>

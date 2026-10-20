@@ -8,3 +8,7 @@ package-lock.json
 .impeccable
 supabase/templates
 .scratch
+
+# generated brand kit and its data module
+brand/
+src/components/brand/logo-data.ts

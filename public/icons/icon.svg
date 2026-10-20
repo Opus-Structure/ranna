@@ -1,8 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112.64" fill="#76291d"/>
-  <g transform="translate(92.16 92.16) scale(10.24)" fill="none" stroke="#f6efe6" stroke-width="1.5">
-    <path d="M16 2 30 16 16 30 2 16Z"/>
-    <path d="M16 8 24 16 16 24 8 16Z"/>
-    <path d="M16 12.5 19.5 16 16 19.5 12.5 16Z" fill="#f6efe6" stroke="none"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" role="img"><rect width="200" height="200" rx="44" fill="#B14420"/><g transform="translate(0 -4)"><path d="M36 136C36 136 44 128 48 112C52 84 72 66 100 66C128 66 148 84 152 112C156 128 164 136 164 136Z" fill="#F9F2EB"/><circle cx="100" cy="48" r="13" fill="#F9F2EB"/><rect x="24" y="136" width="152" height="18" rx="9" fill="#F9F2EB"/></g></svg>

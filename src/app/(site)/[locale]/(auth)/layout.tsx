@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
-import { BrandMark, Wordmark } from "@/components/brand/brand-mark";
+import { Logo } from "@/components/brand/brand-mark";
 import { WaitBand } from "@/components/brand/wait-band";
 import { LocaleSwitcher } from "@/components/shell/locale-switcher";
 import { pickMessages } from "@/components/shell/root-document";
@@ -23,8 +23,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
         <aside className="relative flex flex-col justify-between gap-10 bg-clay px-6 py-6 text-clay-foreground lg:px-12 lg:py-12">
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="flex items-center gap-2.5 rounded-md">
-              <BrandMark className="size-8" />
-              <Wordmark ar={brand.nameAr} latin={brand.name} />
+              <Logo className="h-11" />
             </Link>
             <LocaleSwitcher className="text-clay-foreground hover:bg-clay-hover hover:text-clay-foreground lg:hidden" />
           </div>
