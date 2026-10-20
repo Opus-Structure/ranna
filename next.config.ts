@@ -21,6 +21,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Self-hosted (cPanel/Passenger) builds set BUILD_STANDALONE=1; Vercel builds are unaffected.
+  output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
   poweredByHeader: false,
   reactStrictMode: true,
   // Always put <title>/<meta> in the <head> (not streamed into the body): every crawler and

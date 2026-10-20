@@ -1,0 +1,67 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cpanel
+  cancel-in-progress: false
+
+env:
+  CPANEL_HOST: onyx.octenium.net
+  CPANEL_USER: mzdrmgcf
+  APP_DIR: /home/mzdrmgcf/ranna-app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (standalone)
+        env:
+          BUILD_STANDALONE: "1"
+          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${{ vars.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+          NEXT_PUBLIC_ASSETS_URL: ${{ vars.NEXT_PUBLIC_ASSETS_URL }}
+          NEXT_PUBLIC_REALTIME_URL: ${{ vars.NEXT_PUBLIC_REALTIME_URL }}
+        run: npm run build
+
+      - name: Package release
+        run: |
+          cp -r .next/static .next/standalone/.next/static
+          cp -r public .next/standalone/public
+          mkdir -p .next/standalone/tmp
+          tar czf release.tar.gz -C .next/standalone .
+          ls -lh release.tar.gz
+
+      - name: Upload and extract on the server
+        env:
+          CPANEL_TOKEN: ${{ secrets.CPANEL_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          BASE="https://${CPANEL_HOST}:2083"
+          AUTH="Authorization: cpanel ${CPANEL_USER}:${CPANEL_TOKEN}"
+          api2() { curl -fsS -H "$AUTH" "$BASE/json-api/cpanel?cpanel_jsonapi_apiversion=2&cpanel_jsonapi_module=Fileman&cpanel_jsonapi_func=fileop&$1"; }
+
+          curl -fsS --max-time 600 -H "$AUTH" \
+            -F "dir=/home/${CPANEL_USER}/tmp" -F "file-1=@release.tar.gz" \
+            "$BASE/execute/Fileman/upload_files" | tee up.json
+          jq -e '.status == 1 and .data.failed == 0' up.json
+
+          api2 "op=extract&sourcefiles=/home/${CPANEL_USER}/tmp/release.tar.gz&destfiles=${APP_DIR}" | tee ex.json
+          jq -e '.cpanelresult.data[0].result == 1' ex.json
+          api2 "op=unlink&sourcefiles=/home/${CPANEL_USER}/tmp/release.tar.gz" >/dev/null
+
+          # Passenger restarts the app when this file's mtime changes.
+          curl -fsS -H "$AUTH" --data-urlencode "dir=${APP_DIR}/tmp" --data-urlencode "file=restart.txt" \
+            --data-urlencode "content=$(date -u +%FT%TZ)" "$BASE/execute/Fileman/save_file_content" | jq -e '.status == 1'
