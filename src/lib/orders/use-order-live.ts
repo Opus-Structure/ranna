@@ -82,7 +82,7 @@ export function useOrderLive(
       window.removeEventListener("online", poll);
       window.removeEventListener("focus", poll);
     };
-  }, [token]);
+  }, [token, pollMs]);
 
   return { status, setStatus, live, ringAt };
 }
