@@ -1,0 +1,35 @@
+# Ranna (رنّة)
+
+> Ranna is a QR-code ordering service for restaurants, cafés and shops, built for Algeria. Customers scan a QR code, order from the shop's menu in their phone's browser and wait anywhere. When staff tap "Ready", the customer's phone rings. There is no app to install and no pager hardware. The service works in Arabic (right to left), French and English, and prices are in Algerian dinars (DZD).
+
+## What it does
+
+- Customers scan a QR code on the table, counter or window, which opens the shop's menu in the browser.
+- They choose dishes and options, give a first name and receive a short order number. They pay at the counter as usual: Ranna does not take payment for food and charges no commission on orders.
+- Staff see a live order board and an optional call-out screen. Tapping "Ready" sends a notification and ringing alert to the customer's phone.
+- On iPhone, notifications reach pages added to the Home Screen (iOS 16.4 and later). Otherwise the page rings with a full-screen alert while it is open.
+- Shop owners pay a subscription for a plan, with a free trial period. They can cancel at any time from the billing page.
+- Customer data is minimal: a first name or nickname, plus an optional phone number used only for a fallback alert and erased automatically (30 days by default). Data is never sold and there are no ads.
+
+## Who it is for
+
+Owners of restaurants, cafés, bakeries, fast-food counters and other shops in Algeria that call out orders at a counter.
+
+## Pages
+
+- [Home, Arabic](https://ranna-service.com/): overview, how it works, pricing, FAQ
+- [Home, French](https://ranna-service.com/fr)
+- [Home, English](https://ranna-service.com/en)
+- [Demo café, English](https://ranna-service.com/en/s/demo): a working example of a customer's ordering page
+- [Create a shop](https://ranna-service.com/en/signup)
+
+## Legal
+
+- [Terms](https://ranna-service.com/en/legal/terms)
+- [Privacy](https://ranna-service.com/en/legal/privacy)
+- [Cookies](https://ranna-service.com/en/legal/cookies)
+- [Refunds](https://ranna-service.com/en/legal/refunds)
+
+## Optional
+
+- [Sitemap](https://ranna-service.com/sitemap.xml)

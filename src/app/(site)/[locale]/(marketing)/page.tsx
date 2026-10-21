@@ -78,6 +78,15 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         description: t("meta.description"),
         url: pageUrl,
         inLanguage: ["ar", "fr", "en"],
+        audience: { "@type": "BusinessAudience", audienceType: "Restaurants, cafés and shops" },
+        areaServed: { "@type": "Country", name: "Algeria" },
+        featureList: [
+          "QR code menu and ordering in the browser, no app to install",
+          "Customer's phone rings when the order is ready",
+          "Live order board and call-out screen",
+          "Arabic (right to left), French and English",
+          "Prices in Algerian dinars, no commission on orders",
+        ],
       },
       {
         "@type": "FAQPage",

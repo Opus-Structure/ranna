@@ -14,7 +14,23 @@ export default function robots(): MetadataRoute.Robots {
     "/*/screen",
   ];
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow }],
+    rules: [
+      { userAgent: "*", allow: "/", disallow },
+      // AI search and answer crawlers are welcome on the public pages (same private areas blocked).
+      {
+        userAgent: [
+          "GPTBot",
+          "OAI-SearchBot",
+          "ChatGPT-User",
+          "ClaudeBot",
+          "Claude-SearchBot",
+          "PerplexityBot",
+          "Google-Extended",
+        ],
+        allow: "/",
+        disallow,
+      },
+    ],
     sitemap: `${appUrl()}/sitemap.xml`,
     host: appUrl(),
   };
