@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/console/page-header";
 import { redirect } from "@/i18n/navigation";
 import { initLocale } from "@/i18n/server";
 import { requireMerchant } from "@/lib/auth/guards";
+import { getProfile } from "@/lib/auth/session";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("console.verify");
@@ -17,6 +18,7 @@ export default async function VerifyPage({ params }: { params: Promise<{ locale:
   const ctx = await requireMerchant(locale);
   if (ctx.role !== "owner" || ctx.merchant.registerSubmittedAt || ctx.merchant.isDemo)
     redirect({ href: "/dashboard", locale });
+  if ((await getProfile(ctx.user.id))?.isPlatformAdmin) redirect({ href: "/dashboard", locale });
   const t = await getTranslations("console.verify");
   return (
     <>
