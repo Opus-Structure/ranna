@@ -9,17 +9,22 @@ import type { Board } from "./board";
 import type { LiveState } from "./use-order-live";
 
 const POLL_MS = 20_000;
+/** While the socket is down the board polls quickly instead, so new orders still show within seconds. */
+const FAST_POLL_MS = 4_000;
 const DEBOUNCE_MS = 250;
 
 /**
  * Keeps the order board current. A Neon Realtime live query over the shop's latest orders (sealed
  * by the server for the signed-in member only) signals "something changed"; the board is then
  * re-read through the server, so it never trusts row data from the socket. Polling every 20 s
- * and on focus covers dropped sockets (D47).
+ * and on focus covers dropped sockets (D47); with the socket down it polls every 4 s, and the
+ * board counts as live while those re-reads succeed.
  */
 export function useBoardLive(initial: Board) {
   const [board, setBoard] = useState(initial);
-  const [live, setLive] = useState<LiveState>("connecting");
+  const [socket, setSocket] = useState<LiveState>("connecting");
+  /** Whether the latest re-read through the server worked, i.e. the board is current. */
+  const [polled, setPolled] = useState(false);
   const inFlight = useRef(false);
   const again = useRef(false);
   const timer = useRef<number | undefined>(undefined);
@@ -35,9 +40,10 @@ export function useBoardLive(initial: Board) {
         again.current = false;
         const next = await boardAction();
         if (next) setBoard(next);
+        setPolled(Boolean(next));
       } while (again.current);
     } catch {
-      setLive("offline");
+      setPolled(false);
     } finally {
       inFlight.current = false;
     }
@@ -59,7 +65,7 @@ export function useBoardLive(initial: Board) {
         return res.ok ? ((await res.json()) as SealedLiveQuery<BoardPulse>) : null;
       },
       (snapshot) => {
-        setLive(
+        setSocket(
           snapshot.status === "live" || snapshot.status === "stale"
             ? "live"
             : snapshot.status === "connecting"
@@ -74,9 +80,9 @@ export function useBoardLive(initial: Board) {
       .then((cleanup) => {
         if (stopped) cleanup?.();
         else stop = cleanup;
-        if (!cleanup) setLive("offline");
+        if (!cleanup) setSocket("offline");
       })
-      .catch(() => setLive("offline"));
+      .catch(() => setSocket("offline"));
     return () => {
       stopped = true;
       window.clearTimeout(timer.current);
@@ -84,9 +90,10 @@ export function useBoardLive(initial: Board) {
     };
   }, [soon]);
 
+  const socketLive = socket === "live";
   useEffect(() => {
     const poll = () => document.visibilityState === "visible" && void refresh();
-    const interval = window.setInterval(poll, POLL_MS);
+    const interval = window.setInterval(poll, socketLive ? POLL_MS : FAST_POLL_MS);
     document.addEventListener("visibilitychange", poll);
     window.addEventListener("focus", poll);
     window.addEventListener("online", poll);
@@ -96,8 +103,10 @@ export function useBoardLive(initial: Board) {
       window.removeEventListener("focus", poll);
       window.removeEventListener("online", poll);
     };
-  }, [refresh]);
+  }, [refresh, socketLive]);
 
+  const live: LiveState =
+    socketLive || polled ? "live" : socket === "connecting" ? "connecting" : "offline";
   return { board, setBoard, live, refresh };
 }
 
