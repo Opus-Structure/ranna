@@ -29,9 +29,7 @@ export default async function DashboardLayout({
   const ownerNav: NavItem[] = [
     { href: "/dashboard", label: t("nav.overview"), icon: "overview", exact: true },
     { href: "/dashboard/orders", label: t("nav.orders"), icon: "orders", badge: newOrders },
-    ...(routesToScreen(kitchen.routing)
-      ? [{ href: "/dashboard/kitchen", label: t("nav.kitchen"), icon: "kitchen" } as const]
-      : []),
+    { href: "/dashboard/kitchen", label: t("nav.kitchen"), icon: "kitchen" },
     { href: "/dashboard/menu", label: t("nav.menu"), icon: "menu" },
     { href: "/dashboard/shop", label: t("nav.shop"), icon: "shop" },
     { href: "/dashboard/qr", label: t("nav.qr"), icon: "qr" },
@@ -42,7 +40,9 @@ export default async function DashboardLayout({
   const nav =
     role === "owner"
       ? ownerNav
-      : ownerNav.filter((i) => i.icon === "orders" || i.icon === "kitchen");
+      : ownerNav.filter(
+          (i) => i.icon === "orders" || (i.icon === "kitchen" && routesToScreen(kitchen.routing)),
+        );
   const secondaryNav: NavItem[] = profile?.isPlatformAdmin
     ? [{ href: "/admin", label: t("nav.admin"), icon: "admin" }]
     : [];

@@ -56,8 +56,12 @@ export async function requireOwner(locale: string): Promise<MerchantContext> {
   const ctx = await requireMerchant(locale);
   if (ctx.role !== "owner") redirect({ href: "/dashboard/orders", locale: asLocale(locale) });
   // New owners hand in their commercial register first; that also starts the free trial.
-  if (!ctx.merchant.registerSubmittedAt && !ctx.merchant.isDemo)
-    redirect({ href: "/dashboard/verify", locale: asLocale(locale) });
+  // Platform admins run the platform, so they are never asked to verify their own shops.
+  if (!ctx.merchant.registerSubmittedAt && !ctx.merchant.isDemo) {
+    const profile = await getProfile(ctx.user.id);
+    if (!profile?.isPlatformAdmin)
+      redirect({ href: "/dashboard/verify", locale: asLocale(locale) });
+  }
   return ctx;
 }
 
