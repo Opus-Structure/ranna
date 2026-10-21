@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Link } from "@/i18n/navigation";
 import type { AppLocale } from "@/i18n/routing";
 import { initLocale } from "@/i18n/server";
-import { requireMerchant } from "@/lib/auth/guards";
+import { requireScreen } from "@/lib/auth/guards";
 import { formatMoney } from "@/lib/money";
 import { HISTORY_LIMIT, loadHistory } from "@/lib/orders/board";
 import { ORDER_STATUSES } from "@/lib/orders/transitions";
@@ -37,7 +37,7 @@ export default async function HistoryPage({
   searchParams: Search;
 }) {
   const locale = (await initLocale(params)) as AppLocale;
-  const ctx = await requireMerchant(locale);
+  const ctx = await requireScreen(locale, "orders");
   const t = await getTranslations("orders");
   const format = await getFormatter();
   const query = await searchParams;

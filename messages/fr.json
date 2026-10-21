@@ -1331,9 +1331,20 @@
   },
   "staff": {
     "title": "Équipe",
-    "description": "Les personnes qui gèrent le tableau des commandes avec vous. L’équipe ne voit que les commandes : ni menu, ni facturation, ni réglages.",
+    "description": "Les personnes qui travaillent avec vous. Chacune a soit le tableau des commandes, soit l’écran cuisine : ni menu, ni facturation, ni réglages.",
     "seats": "{used} place(s) d’équipe utilisée(s) sur {max}",
     "seatsUnlimited": "{used, plural, =0 {Aucun membre pour l’instant} one {# membre} other {# membres}}",
+    "access": {
+      "title": "À quoi ont-ils accès ?",
+      "orders": {
+        "label": "Commandes uniquement",
+        "hint": "Le tableau des commandes : accepter, changer le statut et consulter l’historique."
+      },
+      "kitchen": {
+        "label": "Cuisine uniquement",
+        "hint": "L’écran cuisine : voir quoi préparer et marquer les plats prêts."
+      }
+    },
     "invite": {
       "title": "Inviter quelqu’un",
       "body": "La personne reçoit un e-mail avec un lien pour rejoindre. Le lien sert une fois et expire après 7 jours.",

@@ -13,7 +13,7 @@ import { translatorFor } from "@/lib/i18n/translator";
 import { sendSafely } from "@/lib/mail/mailer";
 import { checkLimit } from "@/lib/rate-limit";
 import { emailSchema } from "@/lib/validation/auth";
-import type { MerchantContext } from "./context";
+import type { MerchantContext, StaffAccess } from "./context";
 
 /** Invitation links are bearer secrets: 256 bits, stored only as a hash, valid for 7 days. */
 export const INVITE_TTL_DAYS = 7;
@@ -26,9 +26,16 @@ export type StaffMember = {
   userId: string;
   email: string;
   role: "owner" | "staff";
+  access: StaffAccess;
   since: string;
 };
-export type PendingInvite = { id: string; email: string; expiresAt: string; expired: boolean };
+export type PendingInvite = {
+  id: string;
+  email: string;
+  access: StaffAccess;
+  expiresAt: string;
+  expired: boolean;
+};
 export type StaffOverview = {
   members: StaffMember[];
   invitations: PendingInvite[];
@@ -53,6 +60,7 @@ export async function loadStaff(ctx: MerchantContext, now = new Date()): Promise
       userId: merchantMembers.userId,
       email: authUsers.email,
       role: merchantMembers.role,
+      access: merchantMembers.access,
       since: merchantMembers.createdAt,
     })
     .from(merchantMembers)
@@ -66,6 +74,7 @@ export async function loadStaff(ctx: MerchantContext, now = new Date()): Promise
     .select({
       id: staffInvitations.id,
       email: staffInvitations.email,
+      access: staffInvitations.access,
       expiresAt: staffInvitations.expiresAt,
     })
     .from(staffInvitations)
@@ -77,6 +86,7 @@ export async function loadStaff(ctx: MerchantContext, now = new Date()): Promise
   const invitations = invites.map((i) => ({
     id: i.id,
     email: i.email,
+    access: i.access,
     expiresAt: i.expiresAt.toISOString(),
     expired: i.expiresAt <= now,
   }));
@@ -103,7 +113,10 @@ export type InviteError = "invalid" | "seats" | "already" | "self" | "rateLimite
 export type InviteResult =
   { ok: true; email: string; link: string } | { ok: false; error: InviteError };
 
-const inviteSchema = z.object({ email: emailSchema });
+const inviteSchema = z.object({
+  email: emailSchema,
+  access: z.enum(["orders", "kitchen"]).default("orders"),
+});
 
 /**
  * Invites one person as staff. Re-inviting the same address replaces the earlier link. The
@@ -119,7 +132,7 @@ export async function inviteStaff(
   if (ctx.role !== "owner") return { ok: false, error: "forbidden" };
   const parsed = inviteSchema.safeParse(raw);
   if (!parsed.success) return { ok: false, error: "invalid" };
-  const email = parsed.data.email;
+  const { email, access } = parsed.data;
   if (email === ctx.user.email?.toLowerCase()) return { ok: false, error: "self" };
   const limit = await checkLimit("staffInvite", `merchant:${ctx.merchant.id}`);
   if (!limit.ok) return { ok: false, error: "rateLimited" };
@@ -175,6 +188,7 @@ export async function inviteStaff(
       merchantId: ctx.merchant.id,
       email,
       role: "staff",
+      access,
       tokenHash: hashInvite(token),
       invitedBy: ctx.user.id,
       expiresAt: new Date(now.getTime() + INVITE_TTL_DAYS * 86_400_000),
@@ -184,7 +198,7 @@ export async function inviteStaff(
       actorUserId: ctx.user.id,
       actorType: "user",
       action: "staff.invited",
-      details: { email },
+      details: { email, access },
     });
     return { ok: true } as const;
   });
@@ -288,7 +302,7 @@ export async function acceptInvitation(
     }
     await tx
       .insert(merchantMembers)
-      .values({ merchantId: inv.merchantId, userId: user.id, role: inv.role })
+      .values({ merchantId: inv.merchantId, userId: user.id, role: inv.role, access: inv.access })
       .onConflictDoNothing();
     await tx
       .update(staffInvitations)

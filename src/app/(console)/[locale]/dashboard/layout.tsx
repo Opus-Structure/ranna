@@ -5,10 +5,9 @@ import { AccountBanner } from "@/components/console/account-banner";
 import { ConsoleFrame } from "@/components/console/console-frame";
 import type { NavItem } from "@/components/console/console-nav";
 import { Link } from "@/i18n/navigation";
-import { requireMerchant } from "@/lib/auth/guards";
+import { homePath, requireMerchant } from "@/lib/auth/guards";
 import { getProfile } from "@/lib/auth/session";
-import { countNewOrders, loadKitchenConfig } from "@/lib/orders/board";
-import { routesToScreen } from "@/lib/orders/kitchen";
+import { countNewOrders } from "@/lib/orders/board";
 import { cn } from "@/lib/utils";
 import { initLocale } from "@/i18n/server";
 
@@ -24,7 +23,7 @@ export default async function DashboardLayout({
   const profile = await getProfile(ctx.user.id);
   const t = await getTranslations("console");
   const { merchant, role } = ctx;
-  const [newOrders, kitchen] = await Promise.all([countNewOrders(ctx), loadKitchenConfig(ctx)]);
+  const newOrders = await countNewOrders(ctx);
 
   const ownerNav: NavItem[] = [
     { href: "/dashboard", label: t("nav.overview"), icon: "overview", exact: true },
@@ -37,12 +36,7 @@ export default async function DashboardLayout({
     { href: "/dashboard/billing", label: t("nav.billing"), icon: "billing" },
     { href: "/dashboard/settings", label: t("nav.settings"), icon: "settings" },
   ];
-  const nav =
-    role === "owner"
-      ? ownerNav
-      : ownerNav.filter(
-          (i) => i.icon === "orders" || (i.icon === "kitchen" && routesToScreen(kitchen.routing)),
-        );
+  const nav = role === "owner" ? ownerNav : ownerNav.filter((i) => i.icon === ctx.access);
   const secondaryNav: NavItem[] = profile?.isPlatformAdmin
     ? [{ href: "/admin", label: t("nav.admin"), icon: "admin" }]
     : [];
@@ -87,7 +81,7 @@ export default async function DashboardLayout({
 
   return (
     <ConsoleFrame
-      homeHref={role === "owner" ? "/dashboard" : "/dashboard/orders"}
+      homeHref={homePath(ctx)}
       identity={identity}
       navLabel={t("nav.label")}
       nav={nav}

@@ -20,6 +20,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import type { StaffAccess } from "@/lib/merchants/context";
 import type { StaffMember, StaffOverview } from "@/lib/merchants/staff";
 import { cn } from "@/lib/utils";
 
@@ -39,6 +41,7 @@ export function StaffManager({
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState<{ email: string; link: string } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [access, setAccess] = useState<StaffAccess>("orders");
   const [removing, setRemoving] = useState<StaffMember | null>(null);
   const full = data.maxStaff !== null && data.usedSeats >= data.maxStaff;
   const date = (iso: string) =>
@@ -52,7 +55,7 @@ export function StaffManager({
     setSent(null);
     setCopied(false);
     startTransition(async () => {
-      const result = await inviteStaffAction({ email });
+      const result = await inviteStaffAction({ email, access });
       if (!result.ok) {
         setError(t(`errors.${result.error}`));
         return;
@@ -87,7 +90,7 @@ export function StaffManager({
                     {m.email}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {t(`members.${m.role}`)}
+                    {m.role === "staff" ? t(`access.${m.access}.label`) : t("members.owner")}
                     {m.userId === selfId ? ` · ${t("members.you")}` : ""} ·{" "}
                     {t("members.since", { date: date(m.since) })}
                   </p>
@@ -128,6 +131,7 @@ export function StaffManager({
                         i.expired ? "text-destructive" : "text-muted-foreground",
                       )}
                     >
+                      {t(`access.${i.access}.label`)} ·{" "}
                       {i.expired
                         ? t("pending.expired")
                         : t("pending.expires", { date: date(i.expiresAt) })}
@@ -189,6 +193,29 @@ export function StaffManager({
               className="h-11 font-normal"
             />
           </label>
+          <fieldset className="flex flex-col gap-2" disabled={readOnly || full}>
+            <legend className="mb-2 text-sm font-semibold">{t("access.title")}</legend>
+            <RadioGroup
+              value={access}
+              onValueChange={(v) => setAccess(v as StaffAccess)}
+              aria-label={t("access.title")}
+            >
+              {(["orders", "kitchen"] as const).map((a) => (
+                <label
+                  key={a}
+                  className="flex cursor-pointer items-start gap-3 rounded-lg border p-3 has-[[data-state=checked]]:border-primary"
+                >
+                  <RadioGroupItem value={a} className="mt-0.5" />
+                  <span className="flex flex-col gap-0.5">
+                    <span className="text-sm font-semibold">{t(`access.${a}.label`)}</span>
+                    <span className="text-sm font-normal text-muted-foreground">
+                      {t(`access.${a}.hint`)}
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </RadioGroup>
+          </fieldset>
           {error ? (
             <p id="invite-error" role="alert" className="text-sm font-semibold text-destructive">
               {error}

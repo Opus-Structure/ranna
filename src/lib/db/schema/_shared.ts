@@ -13,6 +13,9 @@ export const merchantStatus = pgEnum("merchant_status", [
 
 export const memberRole = pgEnum("member_role", ["owner", "staff"]);
 
+/** What a staff member may open: the order board or the kitchen screen (owners see everything). */
+export const staffAccess = pgEnum("staff_access", ["orders", "kitchen"]);
+
 export const orderStatus = pgEnum("order_status", [
   "new",
   "accepted",

@@ -6,7 +6,7 @@ import { KitchenScreen } from "@/components/orders/kitchen-screen";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { initLocale } from "@/i18n/server";
-import { requireMerchant } from "@/lib/auth/guards";
+import { requireScreen } from "@/lib/auth/guards";
 import { loadBoard } from "@/lib/orders/board";
 import { routesToScreen } from "@/lib/orders/kitchen";
 
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /** Kitchen display for a second tablet. Orders-only, so staff may open it. */
 export default async function KitchenPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await initLocale(params);
-  const ctx = await requireMerchant(locale);
+  const ctx = await requireScreen(locale, "kitchen");
   const t = await getTranslations("orders.kitchen");
   const board = await loadBoard(ctx);
   const on = routesToScreen(board.kitchen.routing);

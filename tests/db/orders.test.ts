@@ -100,6 +100,7 @@ function staffCtx(s: Shop, userId = s.ownerId): MerchantContext {
   return {
     user: { id: userId, email: null, emailVerified: true },
     role: "staff",
+    access: "orders",
     merchant: {
       id: s.merchantId,
       name: "x",

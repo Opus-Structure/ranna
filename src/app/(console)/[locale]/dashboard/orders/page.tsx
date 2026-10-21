@@ -7,7 +7,7 @@ import { ShopToggles } from "@/components/shop-editor/shop-toggles";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { initLocale } from "@/i18n/server";
-import { requireMerchant } from "@/lib/auth/guards";
+import { requireScreen } from "@/lib/auth/guards";
 import { merchantAccess } from "@/lib/billing/access";
 import { loadBoard } from "@/lib/orders/board";
 
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function OrdersPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = await initLocale(params);
-  const ctx = await requireMerchant(locale);
+  const ctx = await requireScreen(locale, "orders");
   const t = await getTranslations("orders");
   const board = await loadBoard(ctx);
 

@@ -41,6 +41,7 @@ async function owner(
   const ctx: MerchantContext = {
     user: { id: userId, email: null, emailVerified: true },
     role: opts.role ?? "owner",
+    access: "orders",
     merchant: {
       id: m!.id,
       name: m!.name,

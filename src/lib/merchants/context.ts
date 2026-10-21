@@ -6,6 +6,7 @@ import { withRls } from "@/lib/db/client";
 import { merchantMembers, merchants } from "@/lib/db/schema";
 
 export type MemberRole = "owner" | "staff";
+export type StaffAccess = "orders" | "kitchen";
 
 export type ConsoleMerchant = {
   id: string;
@@ -27,7 +28,13 @@ export type ConsoleMerchant = {
   billingExempt: boolean;
 };
 
-export type MerchantContext = { user: SessionUser; merchant: ConsoleMerchant; role: MemberRole };
+export type MerchantContext = {
+  user: SessionUser;
+  merchant: ConsoleMerchant;
+  role: MemberRole;
+  /** Which screen a staff member may open; owners always have both. */
+  access: StaffAccess;
+};
 
 /**
  * The signed-in user's shop, read through RLS. A user with several memberships gets their
@@ -45,6 +52,7 @@ export async function loadMerchantContext(user: SessionUser): Promise<MerchantCo
     tx
       .select({
         role: merchantMembers.role,
+        access: merchantMembers.access,
         merchant: {
           id: merchants.id,
           name: merchants.name,
@@ -73,5 +81,5 @@ export async function loadMerchantContext(user: SessionUser): Promise<MerchantCo
   );
   if (!row) return null;
   const billingExempt = Boolean((await getProfile(user.id))?.isPlatformAdmin);
-  return { user, merchant: { ...row.merchant, billingExempt }, role: row.role };
+  return { user, merchant: { ...row.merchant, billingExempt }, role: row.role, access: row.access };
 }

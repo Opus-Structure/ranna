@@ -18,6 +18,7 @@ import {
   isAdmin,
   memberOrAdmin,
   memberRole,
+  staffAccess,
   merchantStatus,
   ownerOf,
   ownerOrAdmin,
@@ -157,6 +158,7 @@ export const merchantMembers = pgTable(
       .notNull()
       .references(() => authUsers.id, { onDelete: "cascade" }),
     role: memberRole("role").notNull(),
+    access: staffAccess("access").notNull().default("orders"),
     createdAt: createdAt(),
   },
   (t) => [
@@ -179,6 +181,7 @@ export const staffInvitations = pgTable(
       .references(() => merchants.id, { onDelete: "cascade" }),
     email: text("email").notNull(),
     role: memberRole("role").notNull().default("staff"),
+    access: staffAccess("access").notNull().default("orders"),
     tokenHash: text("token_hash").notNull().unique(),
     invitedBy: uuid("invited_by").references(() => authUsers.id, { onDelete: "set null" }),
     expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),

@@ -51,10 +51,29 @@ export async function requireMerchant(locale: string): Promise<MerchantContext> 
   return redirect({ href: "/start", locale: asLocale(locale) });
 }
 
+/** Where a signed-in member lands: owners on the overview, staff on the screen they were given. */
+export function homePath(ctx: MerchantContext) {
+  if (ctx.role === "owner") return "/dashboard" as const;
+  return ctx.access === "kitchen"
+    ? ("/dashboard/kitchen" as const)
+    : ("/dashboard/orders" as const);
+}
+
+/** The order board or the kitchen screen: staff only get the one they were invited to. */
+export async function requireScreen(
+  locale: string,
+  screen: "orders" | "kitchen",
+): Promise<MerchantContext> {
+  const ctx = await requireMerchant(locale);
+  if (ctx.role !== "owner" && ctx.access !== screen)
+    redirect({ href: homePath(ctx), locale: asLocale(locale) });
+  return ctx;
+}
+
 /** Owner-only pages: staff land on the order board instead (brief: staff see only orders). */
 export async function requireOwner(locale: string): Promise<MerchantContext> {
   const ctx = await requireMerchant(locale);
-  if (ctx.role !== "owner") redirect({ href: "/dashboard/orders", locale: asLocale(locale) });
+  if (ctx.role !== "owner") redirect({ href: homePath(ctx), locale: asLocale(locale) });
   // New owners hand in their commercial register first; that also starts the free trial.
   // Platform admins run the platform, so they are never asked to verify their own shops.
   if (!ctx.merchant.registerSubmittedAt && !ctx.merchant.isDemo && !ctx.merchant.billingExempt)

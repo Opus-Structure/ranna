@@ -1331,9 +1331,20 @@
   },
   "staff": {
     "title": "Staff",
-    "description": "People who run the order board with you. Staff see orders only: no menu, billing or settings.",
+    "description": "People who work with you. Each one gets either the order board or the kitchen screen: no menu, billing or settings.",
     "seats": "{used} of {max} staff seats used",
     "seatsUnlimited": "{used, plural, =0 {No staff yet} one {# staff member} other {# staff members}}",
+    "access": {
+      "title": "What can they open?",
+      "orders": {
+        "label": "Orders only",
+        "hint": "The order board: accept orders, update their status and see the history."
+      },
+      "kitchen": {
+        "label": "Kitchen only",
+        "hint": "The kitchen screen: see what to prepare and mark dishes ready."
+      }
+    },
     "invite": {
       "title": "Invite someone",
       "body": "They get an email with a link to join. The link works once and expires in 7 days.",

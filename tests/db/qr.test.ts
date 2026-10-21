@@ -27,6 +27,7 @@ async function owner(label: string): Promise<MerchantContext> {
   return {
     user: { id: userId, email: null, emailVerified: true },
     role: "owner",
+    access: "orders",
     merchant: {
       id: m!.id,
       name: m!.name,

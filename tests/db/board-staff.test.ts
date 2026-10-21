@@ -48,6 +48,7 @@ async function ctxFor(
   return {
     user: { id: userId, email: await emailOf(userId), emailVerified: true },
     role,
+    access: "orders",
     merchant: {
       id: t.merchantId,
       name: "Test café",
@@ -119,6 +120,25 @@ describe("order board", () => {
 });
 
 describe("staff invitations", () => {
+  it("carries the chosen screen (orders or kitchen) from the invitation to the member", async () => {
+    const owner = await ctxFor(a);
+    const cook = await user("cook");
+    const r = await inviteStaff(owner, { email: cook.email, access: "kitchen" }, "en");
+    if (!r.ok) throw new Error(r.error);
+    expect(await acceptInvitation(cook, tokenOf(r.link))).toEqual({ ok: true });
+    const [m] = await serviceDb
+      .select({ access: merchantMembers.access })
+      .from(merchantMembers)
+      .where(
+        and(eq(merchantMembers.merchantId, a.merchantId), eq(merchantMembers.userId, cook.id)),
+      );
+    expect(m?.access).toBe("kitchen");
+    await serviceDb.delete(merchantMembers).where(eq(merchantMembers.userId, cook.id)); // frees the seat
+    expect(
+      (await inviteStaff(owner, { email: "x@test.ranna.local", access: "all" }, "en")).ok,
+    ).toBe(false);
+  });
+
   it("invites, refuses the wrong account, and lets the invited address join once", async () => {
     const owner = await ctxFor(a);
     const invitee = await user("invitee");
