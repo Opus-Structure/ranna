@@ -9,6 +9,11 @@ package-lock.json
 supabase/templates
 .scratch
 
+# local AI tooling and drizzle-generated metadata
+.claude
+CLAUDE.md
+db/migrations/meta
+
 # generated brand kit and its data module
 brand/
 src/components/brand/logo-data.ts

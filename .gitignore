@@ -30,3 +30,15 @@ Thumbs.db
 .impeccable/review
 
 .vercel
+
+graphify-out/
+
+# local AI tooling (machine-specific paths and hooks)
+.claude/settings.json
+.claude/settings.local.json
+.claude/skills/
+skills-lock.json
+CLAUDE.md
+
+# one-off SQL applied by hand in the Neon console
+neon-missing-migrations.sql

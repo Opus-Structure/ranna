@@ -1,5 +1,6 @@
 import "server-only";
 import { and, asc, count, eq, max, notInArray } from "drizzle-orm";
+import { UNLIMITED_ITEMS } from "@/config/plans";
 import { AccountLockedError, assertCanEdit } from "@/lib/billing/access";
 import { serviceDb, withRls, type Tx } from "@/lib/db/client";
 import { categories, items, merchants, optionGroups, options, plans } from "@/lib/db/schema";
@@ -187,12 +188,14 @@ export async function reorderItems(
   });
 }
 
-async function itemLimit(merchantId: string): Promise<number> {
+/** Platform admins run the platform: their shops are not capped, even without a plan. */
+async function itemLimit(ctx: MerchantContext): Promise<number> {
+  if (ctx.merchant.billingExempt) return UNLIMITED_ITEMS;
   const [row] = await serviceDb
     .select({ limits: plans.limits })
     .from(merchants)
     .innerJoin(plans, eq(plans.id, merchants.planId))
-    .where(eq(merchants.id, merchantId));
+    .where(eq(merchants.id, ctx.merchant.id));
   return row?.limits.maxItems ?? 0;
 }
 
@@ -208,7 +211,7 @@ export async function saveItem(
   if (!parsed.success) return issue(parsed.error);
   const v = parsed.data;
   const currency = ctx.merchant.currency;
-  const limit = v.id ? Infinity : await itemLimit(ctx.merchant.id);
+  const limit = v.id ? Infinity : await itemLimit(ctx);
 
   return asOwner<{ id: string }>(ctx, async (tx) => {
     const [cat] = await tx
@@ -381,5 +384,5 @@ export async function itemUsage(ctx: MerchantContext): Promise<{ used: number; l
     .select({ n: count() })
     .from(items)
     .where(eq(items.merchantId, ctx.merchant.id));
-  return { used: Number(row?.n ?? 0), limit: await itemLimit(ctx.merchant.id) };
+  return { used: Number(row?.n ?? 0), limit: await itemLimit(ctx) };
 }

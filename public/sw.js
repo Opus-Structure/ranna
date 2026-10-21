@@ -12,7 +12,8 @@ self.addEventListener("push", (event) => {
     data = { title: event.data ? event.data.text() : "" };
   }
   const title = data.title || "Ranna";
-  const url = typeof data.url === "string" && data.url.startsWith(self.location.origin) ? data.url : "/";
+  const url =
+    typeof data.url === "string" && data.url.startsWith(self.location.origin) ? data.url : "/";
   event.waitUntil(
     self.registration.showNotification(title, {
       body: data.body || "",
