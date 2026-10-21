@@ -288,7 +288,8 @@
       "body": "Use your email and password, or get a one-time link.",
       "submit": "Log in",
       "noAccount": "New here?",
-      "createAccount": "Create a shop"
+      "createAccount": "Create a shop",
+      "forgot": "Forgot your password?"
     },
     "signup": {
       "title": "Create your shop",
@@ -329,9 +330,26 @@
       "emailRequired": "Enter your email.",
       "emailInvalid": "Enter a valid email address.",
       "shopNameRequired": "Enter your shop's name.",
-      "shopNameTooLong": "Keep the name under 80 characters."
+      "shopNameTooLong": "Keep the name under 80 characters.",
+      "resetInvalid": "This reset link has expired or was already used. Request a new one."
     },
-    "signOut": "Log out"
+    "signOut": "Log out",
+    "forgot": {
+      "title": "Reset your password",
+      "body": "Enter your email and we'll send you a link to choose a new password.",
+      "submit": "Send reset link",
+      "sentTitle": "Check your inbox",
+      "sentBody": "If an account exists for {email}, a reset link is on its way. It works once and expires in one hour.",
+      "back": "Back to log in"
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "body": "Pick a password you'll remember. You'll use it to log in.",
+      "submit": "Save password",
+      "done": "Password changed",
+      "doneBody": "You can now log in with your new password.",
+      "toLogin": "Go to log in"
+    }
   },
   "console": {
     "nav": {

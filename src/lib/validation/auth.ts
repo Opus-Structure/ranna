@@ -37,3 +37,13 @@ export const magicLinkSchema = z.object({
 export type LoginInput = z.input<typeof loginSchema>;
 export type SignupInput = z.input<typeof signupSchema>;
 export type MagicLinkInput = z.input<typeof magicLinkSchema>;
+
+export const forgotSchema = z.object({ email: emailSchema });
+
+export const resetSchema = z.object({
+  token: z.string().min(1).max(512),
+  password: passwordSchema,
+});
+
+export type ForgotInput = z.input<typeof forgotSchema>;
+export type ResetInput = z.input<typeof resetSchema>;

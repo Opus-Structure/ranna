@@ -12,11 +12,15 @@ import { checkLimit } from "@/lib/rate-limit";
 import { neonAuth } from "@/lib/auth/server";
 import { saveSignupIntent } from "@/lib/auth/session";
 import {
+  forgotSchema,
   loginSchema,
   magicLinkSchema,
+  resetSchema,
   signupSchema,
+  type ForgotInput,
   type LoginInput,
   type MagicLinkInput,
+  type ResetInput,
   type SignupInput,
 } from "@/lib/validation/auth";
 
@@ -158,4 +162,46 @@ export async function magicLinkAction(
     return { ok: false, formError: "generic" };
   }
   return { ok: true, status: "check-email", email };
+}
+
+/** Always answers "sent": whether the email has an account is never revealed. */
+export async function requestPasswordResetAction(
+  rawLocale: string,
+  input: ForgotInput,
+): Promise<AuthResult> {
+  const locale = assertLocale(rawLocale);
+  const parsed = forgotSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, fieldErrors: fieldErrors(parsed.error) };
+  const limit = await checkLimit("magicLink", await identity(parsed.data.email));
+  if (!limit.ok) return { ok: false, formError: "rateLimited", retryAfterSec: limit.retryAfterSec };
+
+  const { error } = await neonAuth().requestPasswordReset({
+    email: parsed.data.email,
+    redirectTo: `${appUrl()}${localizedPath("/reset-password", locale)}`,
+  });
+  if (error && isRateLimited(error)) {
+    return { ok: false, formError: "rateLimited", retryAfterSec: 60 };
+  }
+  if (error) {
+    console.error("password reset request failed", { code: error.code, status: error.status });
+    return { ok: false, formError: "generic" };
+  }
+  return { ok: true, status: "check-email", email: parsed.data.email };
+}
+
+export async function resetPasswordAction(
+  _rawLocale: string,
+  input: ResetInput,
+): Promise<{ ok: true } | { ok: false; formError: "resetInvalid" | "weakPassword" | "generic" }> {
+  const parsed = resetSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, formError: "weakPassword" };
+  const { error } = await neonAuth().resetPassword({
+    newPassword: parsed.data.password,
+    token: parsed.data.token,
+  });
+  if (error) {
+    console.error("password reset failed", { code: error.code, status: error.status });
+    return { ok: false, formError: error.status === 400 ? "resetInvalid" : "generic" };
+  }
+  return { ok: true };
 }

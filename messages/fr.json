@@ -288,7 +288,8 @@
       "body": "Avec votre e-mail et mot de passe, ou un lien à usage unique.",
       "submit": "Se connecter",
       "noAccount": "Nouveau ?",
-      "createAccount": "Créer une boutique"
+      "createAccount": "Créer une boutique",
+      "forgot": "Mot de passe oublié ?"
     },
     "signup": {
       "title": "Créez votre boutique",
@@ -329,9 +330,26 @@
       "emailRequired": "Saisissez votre e-mail.",
       "emailInvalid": "Saisissez une adresse e-mail valide.",
       "shopNameRequired": "Saisissez le nom de votre boutique.",
-      "shopNameTooLong": "Le nom doit faire moins de 80 caractères."
+      "shopNameTooLong": "Le nom doit faire moins de 80 caractères.",
+      "resetInvalid": "Ce lien a expiré ou a déjà servi. Demandez-en un nouveau."
     },
-    "signOut": "Se déconnecter"
+    "signOut": "Se déconnecter",
+    "forgot": {
+      "title": "Réinitialiser votre mot de passe",
+      "body": "Saisissez votre e-mail et nous vous enverrons un lien pour choisir un nouveau mot de passe.",
+      "submit": "Envoyer le lien",
+      "sentTitle": "Consultez votre boîte mail",
+      "sentBody": "Si un compte existe pour {email}, un lien de réinitialisation est en route. Il fonctionne une seule fois et expire dans une heure.",
+      "back": "Retour à la connexion"
+    },
+    "reset": {
+      "title": "Choisir un nouveau mot de passe",
+      "body": "Choisissez un mot de passe dont vous vous souviendrez. Vous l'utiliserez pour vous connecter.",
+      "submit": "Enregistrer le mot de passe",
+      "done": "Mot de passe modifié",
+      "doneBody": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+      "toLogin": "Aller à la connexion"
+    }
   },
   "console": {
     "nav": {

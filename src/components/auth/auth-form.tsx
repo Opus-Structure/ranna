@@ -16,6 +16,7 @@ import { describedBy, Field } from "@/components/forms/field";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/navigation";
 import { isRedirectError } from "@/lib/http/redirect-error";
 import { cn } from "@/lib/utils";
 import { emailSchema, passwordSchema, shopNameSchema } from "@/lib/validation/auth";
@@ -250,6 +251,15 @@ export function AuthForm({
             {...register("password")}
           />
         </Field>
+      ) : null}
+
+      {mode === "login" && method === "password" ? (
+        <Link
+          href="/forgot-password"
+          className="-mt-2 self-start text-sm font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          {t("login.forgot")}
+        </Link>
       ) : null}
 
       <Button type="submit" size="lg" className="h-12 text-base" disabled={pending}>
