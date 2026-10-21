@@ -862,6 +862,9 @@
     "title": "Menu",
     "description": "Drag sections and dishes to reorder them. Changes go live immediately.",
     "usage": "{used} of {limit} dishes on your plan",
+    "presets": {
+      "title": "Quick add: tap a section to add it"
+    },
     "empty": {
       "title": "Your menu is empty",
       "body": "Start with a section, like Drinks or Sandwiches, then add dishes to it."

@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { MENU_PRESETS } from "@/config/menu-presets";
 import type { AppLocale } from "@/i18n/routing";
 import { pickText } from "@/lib/i18n/pick";
 import type { MenuCategory, MenuItem } from "@/lib/menu/service";
@@ -109,6 +110,18 @@ export function MenuEditor({
       return r;
     });
   }
+
+  /** The section is stored in the shop's default language, the others as translations. */
+  function addPreset(preset: (typeof MENU_PRESETS)[number]) {
+    const nameI18n = Object.fromEntries(
+      locales.filter((l) => l !== defaultLocale).map((l) => [l, preset.names[l]]),
+    );
+    act(() => createCategoryAction({ name: preset.names[defaultLocale], nameI18n }));
+  }
+
+  const missingPresets = MENU_PRESETS.filter(
+    (p) => !cats.some((c) => Object.values(p.names).includes(c.name)),
+  );
 
   function reorderCategories(next: MenuCategory[]) {
     const before = cats;
@@ -194,6 +207,28 @@ export function MenuEditor({
           </Button>
         </form>
       </div>
+
+      {missingPresets.length > 0 && !readOnly && (
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">{t("presets.title")}</p>
+          <ul className="flex flex-wrap gap-2">
+            {missingPresets.map((p) => (
+              <li key={p.id}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={pending}
+                  onClick={() => addPreset(p)}
+                >
+                  <Plus aria-hidden />
+                  {p.names[locale]}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {cats.length === 0 ? (
         <div className="flex max-w-xl flex-col gap-2 rounded-xl border border-dashed p-8">

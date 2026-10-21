@@ -862,6 +862,9 @@
     "title": "Menu",
     "description": "Glissez rubriques et plats pour les réordonner. Les changements sont en ligne immédiatement.",
     "usage": "{used} plats sur {limit} inclus dans votre formule",
+    "presets": {
+      "title": "Ajout rapide : touchez une section pour l’ajouter"
+    },
     "empty": {
       "title": "Votre menu est vide",
       "body": "Commencez par une rubrique, comme Boissons ou Sandwichs, puis ajoutez-y des plats."
