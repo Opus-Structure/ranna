@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { appUrl } from "@/config/brand";
 
 /** Public marketing pages are crawlable; the console, auth, API and per-order pages are not. */
+// Rendered per request: the host keeps prerendered output across deploys, which served a stale copy.
+export const dynamic = "force-dynamic";
+
 export default function robots(): MetadataRoute.Robots {
   const disallow = [
     "/api/",
