@@ -3,12 +3,12 @@ import { getTranslations } from "next-intl/server";
 import { AlertMatrix } from "@/components/marketing/alert-matrix";
 import { CounterBoard } from "@/components/marketing/counter-board";
 import { CounterSweep } from "@/components/marketing/counter-sweep";
-import { Faq } from "@/components/marketing/faq";
+import { Faq, FAQ_KEYS } from "@/components/marketing/faq";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { Pricing } from "@/components/marketing/pricing";
 import { StartForm } from "@/components/marketing/start-form";
 import { TryDemo } from "@/components/marketing/try-demo";
-import { brand } from "@/config/brand";
+import { appUrl, brand } from "@/config/brand";
 import { Link } from "@/i18n/navigation";
 import type { AppLocale } from "@/i18n/routing";
 import { initLocale } from "@/i18n/server";
@@ -23,14 +23,20 @@ export async function generateMetadata({
   return {
     title: { absolute: t("title") },
     description: t("description"),
-    alternates: { languages: { ar: "/", fr: "/fr", en: "/en", "x-default": "/" } },
+    alternates: {
+      canonical: locale === "ar" ? "/" : `/${locale}`,
+      languages: { ar: "/", fr: "/fr", en: "/en", "x-default": "/" },
+    },
     openGraph: {
       title: t("title"),
       description: t("description"),
+      url: locale === "ar" ? "/" : `/${locale}`,
       locale,
       siteName: brand.name,
       type: "website",
+      images: [{ url: "/icons/icon-512.png", width: 512, height: 512, alt: brand.name }],
     },
+    twitter: { card: "summary", title: t("title"), description: t("description") },
   };
 }
 
@@ -42,8 +48,53 @@ export async function generateMetadata({
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = (await initLocale(params)) as AppLocale;
   const t = await getTranslations("site");
+  const tf = await getTranslations("site.faq");
+  const base = appUrl();
+  const pageUrl = locale === "ar" ? base : `${base}/${locale}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${base}/#org`,
+        name: brand.name,
+        alternateName: brand.nameAr,
+        url: base,
+        logo: `${base}/icons/icon-512.png`,
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${base}/#site`,
+        url: base,
+        name: brand.name,
+        inLanguage: locale,
+        publisher: { "@id": `${base}/#org` },
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: brand.name,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        description: t("meta.description"),
+        url: pageUrl,
+        inLanguage: ["ar", "fr", "en"],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: FAQ_KEYS.map((k) => ({
+          "@type": "Question",
+          name: tf(`items.${k}.q`),
+          acceptedAnswer: { "@type": "Answer", text: tf(`items.${k}.a`) },
+        })),
+      },
+    ],
+  };
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <section
         aria-labelledby="hero-title"
         className="mx-auto w-full max-w-6xl px-4 pt-3 pb-5 sm:px-6 sm:pt-6 sm:pb-8"
