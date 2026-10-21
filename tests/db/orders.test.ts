@@ -115,6 +115,7 @@ function staffCtx(s: Shop, userId = s.ownerId): MerchantContext {
       setupCompletedAt: null,
       registerSubmittedAt: new Date(),
       isDemo: false,
+      billingExempt: false,
     },
   };
 }

@@ -6,6 +6,7 @@ export function merchantAccess(
   merchant: MerchantContext["merchant"],
   at = new Date(),
 ): AccountAccess {
+  if (merchant.billingExempt) return { shopLive: true, canEdit: true, graceDaysLeft: null };
   return accountAccess(merchant, at);
 }
 

@@ -16,7 +16,7 @@ export async function AccountBanner({
   merchant: ConsoleMerchant;
   role: MemberRole;
 }) {
-  if (merchant.status === "active") return null;
+  if (merchant.status === "active" || merchant.billingExempt) return null;
   const t = await getTranslations("console.account");
   const format = await getFormatter();
   const status = merchant.status;

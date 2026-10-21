@@ -56,6 +56,7 @@ async function owner(
       setupCompletedAt: null,
       registerSubmittedAt: new Date(),
       isDemo: false,
+      billingExempt: false,
     },
   };
   return ctx;

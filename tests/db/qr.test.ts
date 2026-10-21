@@ -42,6 +42,7 @@ async function owner(label: string): Promise<MerchantContext> {
       setupCompletedAt: null,
       registerSubmittedAt: new Date(),
       isDemo: false,
+      billingExempt: false,
     },
   };
 }

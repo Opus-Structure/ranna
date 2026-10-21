@@ -63,6 +63,7 @@ async function ctxFor(
       setupCompletedAt: null,
       registerSubmittedAt: new Date(),
       isDemo: false,
+      billingExempt: false,
     },
   };
 }

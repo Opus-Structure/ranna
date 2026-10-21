@@ -1,7 +1,7 @@
 import "server-only";
 import { asc, eq, sql } from "drizzle-orm";
 import { cache } from "react";
-import { getSessionUser, type SessionUser } from "@/lib/auth/session";
+import { getProfile, getSessionUser, type SessionUser } from "@/lib/auth/session";
 import { withRls } from "@/lib/db/client";
 import { merchantMembers, merchants } from "@/lib/db/schema";
 
@@ -23,6 +23,8 @@ export type ConsoleMerchant = {
   /** Null until the owner submits the commercial register (required before the free trial). */
   registerSubmittedAt: Date | null;
   isDemo: boolean;
+  /** Platform admins run the platform: no business verification, no billing lock. */
+  billingExempt: boolean;
 };
 
 export type MerchantContext = { user: SessionUser; merchant: ConsoleMerchant; role: MemberRole };
@@ -70,5 +72,6 @@ export async function loadMerchantContext(user: SessionUser): Promise<MerchantCo
       .limit(1),
   );
   if (!row) return null;
-  return { user, merchant: row.merchant, role: row.role };
+  const billingExempt = Boolean((await getProfile(user.id))?.isPlatformAdmin);
+  return { user, merchant: { ...row.merchant, billingExempt }, role: row.role };
 }
