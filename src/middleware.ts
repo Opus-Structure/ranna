@@ -1,5 +1,5 @@
 import createIntlMiddleware from "next-intl/middleware";
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "@/i18n/routing";
 import { buildCsp } from "@/lib/security/csp";
 import { neonAuth } from "@/lib/auth/server";
@@ -13,7 +13,30 @@ export async function middleware(request: NextRequest) {
   // Back from an emailed magic link: Neon Auth appends a one-time verifier that is exchanged for
   // the session cookie here, then the URL is cleaned and the page loads signed in.
   if (request.nextUrl.searchParams.has("neon_auth_session_verifier")) {
-    const exchanged = await neonAuth().middleware({ loginUrl: "/login" })(request);
+    const clean = request.nextUrl.clone();
+    clean.searchParams.delete("neon_auth_session_verifier");
+    const first = clean.pathname.split("/")[1] ?? "";
+    const prefix = routing.locales.some((l) => l === first && l !== routing.defaultLocale)
+      ? `/${first}`
+      : "";
+    const loginPath = `${prefix}/login`;
+
+    // Neon's middleware skips the exchange on the login URL itself, and an unmatched /login
+    // would then 404 past next-intl. So a stray verifier on the login page is just dropped.
+    let exchanged: NextResponse;
+    if (clean.pathname === loginPath) {
+      exchanged = NextResponse.redirect(clean, 307);
+    } else {
+      exchanged = await neonAuth().middleware({ loginUrl: "/login" })(request);
+      // Exchange failed (e.g. the link was opened in another browser than the one that asked
+      // for it): Neon redirects to /login with the verifier still attached. Send them to the
+      // localized login page without it.
+      const location = exchanged.headers.get("location");
+      if (location && new URL(location, request.url).pathname === "/login") {
+        clean.pathname = loginPath;
+        exchanged = NextResponse.redirect(clean, 307);
+      }
+    }
     exchanged.headers.set("content-security-policy", csp);
     return exchanged;
   }
