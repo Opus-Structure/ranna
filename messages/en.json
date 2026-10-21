@@ -863,7 +863,14 @@
     "description": "Drag sections and dishes to reorder them. Changes go live immediately.",
     "usage": "{used} of {limit} dishes on your plan",
     "presets": {
-      "title": "Quick add: tap a section to add it"
+      "title": "Quick add: tap a section to add it",
+      "addDishes": "Template dishes",
+      "dialogTitle": "Template dishes · {name}",
+      "dialogBody": "Tick the dishes to add. Prices are indicative (in your currency) and you can edit everything afterwards.",
+      "selectAll": "Select all",
+      "addSelected": "Add {count, plural, one {# dish} other {# dishes}}",
+      "added": "{count, plural, one {# dish added} other {# dishes added}}",
+      "partial": "{count} added, then stopped: {reason}"
     },
     "empty": {
       "title": "Your menu is empty",

@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, EyeOff, MoreHorizontal, Pencil, Plus, Trash2 } from "lucide-react";
+import { Eye, EyeOff, MoreHorizontal, Pencil, Plus, Sparkles, Trash2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, type FormEvent } from "react";
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { DISH_PRESETS } from "@/config/menu-dish-presets";
 import { MENU_PRESETS } from "@/config/menu-presets";
 import type { AppLocale } from "@/i18n/routing";
 import { pickText } from "@/lib/i18n/pick";
@@ -42,6 +43,7 @@ import { assetUrl } from "@/lib/storage/public-url";
 import { cn } from "@/lib/utils";
 import { ItemSheet, type ItemSheetTarget } from "./item-sheet";
 import { SortableList } from "./sortable-list";
+import { TemplateDishesDialog, type TemplateDishesTarget } from "./template-dishes-dialog";
 
 type Confirm =
   { kind: "category"; category: MenuCategory } | { kind: "item"; item: MenuItem } | null;
@@ -76,6 +78,7 @@ export function MenuEditor({
   const [renaming, setRenaming] = useState<{ id: string; name: string } | null>(null);
   const [confirm, setConfirm] = useState<Confirm>(null);
   const [sheet, setSheet] = useState<ItemSheetTarget | null>(null);
+  const [templates, setTemplates] = useState<TemplateDishesTarget | null>(null);
   const [pending, startTransition] = useTransition();
 
   function act(
@@ -171,6 +174,11 @@ export function MenuEditor({
         ? deleteCategoryAction(target.category.id)
         : deleteItemAction(target.item.id),
     );
+  }
+
+  /** The preset whose dishes suit a section, matched by its name in any language. */
+  function presetFor(category: MenuCategory) {
+    return MENU_PRESETS.find((p) => Object.values(p.names).includes(category.name));
   }
 
   const atLimit = usage.used >= usage.limit;
@@ -409,7 +417,7 @@ export function MenuEditor({
                     </ul>
                   )}
 
-                  <div className="border-t px-3 py-2">
+                  <div className="flex flex-wrap items-center gap-1 border-t px-3 py-2">
                     <Button
                       variant="ghost"
                       disabled={readOnly || atLimit}
@@ -418,6 +426,26 @@ export function MenuEditor({
                       <Plus aria-hidden />
                       {t("addItem")}
                     </Button>
+                    {(() => {
+                      const preset = presetFor(category);
+                      if (!preset || !DISH_PRESETS[preset.id]?.length) return null;
+                      return (
+                        <Button
+                          variant="ghost"
+                          disabled={readOnly || atLimit}
+                          onClick={() =>
+                            setTemplates({
+                              categoryId: category.id,
+                              name,
+                              presetId: preset.id,
+                            })
+                          }
+                        >
+                          <Sparkles aria-hidden />
+                          {t("presets.addDishes")}
+                        </Button>
+                      );
+                    })()}
                   </div>
                 </section>
               );
@@ -425,6 +453,17 @@ export function MenuEditor({
           </SortableList>
         </div>
       )}
+
+      <TemplateDishesDialog
+        target={templates}
+        onClose={() => setTemplates(null)}
+        currency={currency}
+        locales={locales}
+        defaultLocale={defaultLocale}
+        existingNames={
+          cats.find((c) => c.id === templates?.categoryId)?.items.map((i) => i.name) ?? []
+        }
+      />
 
       <ItemSheet
         target={sheet}

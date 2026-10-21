@@ -863,7 +863,14 @@
     "description": "Glissez rubriques et plats pour les réordonner. Les changements sont en ligne immédiatement.",
     "usage": "{used} plats sur {limit} inclus dans votre formule",
     "presets": {
-      "title": "Ajout rapide : touchez une section pour l’ajouter"
+      "title": "Ajout rapide : touchez une section pour l’ajouter",
+      "addDishes": "Plats modèles",
+      "dialogTitle": "Plats modèles · {name}",
+      "dialogBody": "Cochez les plats à ajouter. Les prix sont indicatifs (dans votre devise) et tout reste modifiable ensuite.",
+      "selectAll": "Tout sélectionner",
+      "addSelected": "Ajouter {count, plural, one {# plat} other {# plats}}",
+      "added": "{count, plural, one {# plat ajouté} other {# plats ajoutés}}",
+      "partial": "{count} ajouté(s), puis arrêt : {reason}"
     },
     "empty": {
       "title": "Votre menu est vide",
