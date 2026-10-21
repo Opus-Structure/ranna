@@ -46,7 +46,7 @@ export function LocaleSwitcher({
       <DropdownMenuTrigger asChild>
         <Button variant={variant} size="sm" className={cn("gap-2", className)} disabled={pending}>
           <Languages aria-hidden />
-          <span>{t(locale as AppLocale)}</span>
+          <span className="max-sm:sr-only">{t(locale as AppLocale)}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">

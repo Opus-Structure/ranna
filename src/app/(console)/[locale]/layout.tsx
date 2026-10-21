@@ -20,6 +20,13 @@ export async function generateMetadata({
     metadataBase: new URL(appUrl()),
     title: { default: t("common.brand"), template: `%s · ${t("common.brand")}` },
     robots: { index: false, follow: false },
+    icons: {
+      icon: [
+        { url: "/icons/icon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "48x48" },
+      ],
+      apple: "/icons/apple-touch-icon.png",
+    },
   };
 }
 

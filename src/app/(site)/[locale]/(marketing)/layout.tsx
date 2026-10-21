@@ -21,7 +21,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
       </a>
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5 rounded-md text-foreground">
-          <Logo duo className="h-10" />
+          <Logo duo className="h-7 sm:h-10" />
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2" aria-label={t("nav.label")}>
           {(["how", "pricing", "faq"] as const).map((k) => (
